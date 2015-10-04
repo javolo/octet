@@ -19,7 +19,7 @@ namespace octet {
       app_scene =  new visual_scene();
       app_scene->create_default_camera_and_lights();
 
-      material *red = new material(vec4(1, 1, 0, 1));
+      material *red = new material(vec4(0, 1, 1, 1));
       mesh *box = new mesh_box(vec3(4));
       scene_node *node = new scene_node();
       app_scene->add_child(node);
@@ -40,8 +40,8 @@ namespace octet {
 
       // tumble the box  (there is only one mesh instance)
       scene_node *node = app_scene->get_mesh_instance(0)->get_node();
-      node->rotate(1, vec3(1, 0, 0));
-      node->rotate(1, vec3(0, 1, 0));
+      node->rotate(1, vec3(1, 1, 1));
+      node->rotate(1, vec3(1, 1, 1));
     }
   };
 }
