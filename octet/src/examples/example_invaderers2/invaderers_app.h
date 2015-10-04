@@ -424,13 +424,13 @@ namespace octet {
 
       font_texture = resource_dict::get_texture_handle(GL_RGBA, "assets/big_0.gif");
 
-      GLuint ship = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/ship.gif");
-      sprites[ship_sprite].init(ship, 0, -2.75f, 0.25f, 0.25f);
+     /* GLuint ship = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/ship.gif");
+      sprites[ship_sprite].init(ship, 0, -2.75f, 0.25f, 0.25f);*/
 
       GLuint GameOver = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/GameOver.gif");
       sprites[game_over_sprite].init(GameOver, 20, 0, 3, 1.5f);
 
-      GLuint invaderer = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/invaderer.gif");
+      /*GLuint invaderer = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/invaderer.gif");
       for (int j = 0; j != num_rows; ++j) {
         for (int i = 0; i != num_cols; ++i) {
           assert(first_invaderer_sprite + i + j*num_cols <= last_invaderer_sprite);
@@ -438,10 +438,10 @@ namespace octet {
             invaderer, ((float)i - num_cols * 0.5f) * 0.5f, 2.50f - ((float)j * 0.5f), 0.25f, 0.25f
           );
         }
-      }
+      }*/
 
       // set the border to white for clarity
-      GLuint white = resource_dict::get_texture_handle(GL_RGB, "#ffffff");
+      GLuint white = resource_dict::get_texture_handle(GL_RGB, "#ffa500");
       sprites[first_border_sprite+0].init(white, 0, -3, 6, 0.2f);
       sprites[first_border_sprite+1].init(white, 0,  3, 6, 0.2f);
       sprites[first_border_sprite+2].init(white, -3, 0, 0.2f, 6);
@@ -512,7 +512,7 @@ namespace octet {
       glViewport(x, y, w, h);
 
       // clear the background to black
-      glClearColor(1, 0.5, 0, 0.5);
+      glClearColor(1, 0.5, 0, 0);
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
       // don't allow Z buffer depth testing (closer objects are always drawn in front of far ones)
