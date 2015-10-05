@@ -169,9 +169,8 @@ namespace octet {
       first_border_sprite,
       last_border_sprite = first_border_sprite + num_borders - 1,
 
-	  player_sprite,
-
 	  background_sprite,
+	  player_sprite,
 
       num_sprites,
 
@@ -457,7 +456,7 @@ namespace octet {
 
 	  // We use the player texture
 	  GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/person.jpg");
-	  sprites[player_sprite].init(player, 100, 100, 6.0f, 6.0f);
+	  sprites[player_sprite].init(player, 0, 0, 1.0f, 1.0f);
 
       //// use the missile texture
       //GLuint missile = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/missile.gif");
@@ -473,7 +472,7 @@ namespace octet {
       //  // create bombs off-screen
       //  sprites[first_bomb_sprite+i].init(bomb, 20, 0, 0.0625f, 0.25f);
       //  sprites[first_bomb_sprite+i].is_enabled() = false;
-      }
+     // }
 
       // sounds
       whoosh = resource_dict::get_sound_handle(AL_FORMAT_MONO16, "assets/invaderers/whoosh.wav");
