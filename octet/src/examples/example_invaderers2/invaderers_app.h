@@ -169,6 +169,10 @@ namespace octet {
       first_border_sprite,
       last_border_sprite = first_border_sprite + num_borders - 1,
 
+	  player_sprite,
+
+	  background_sprite,
+
       num_sprites,
 
     };
@@ -441,26 +445,34 @@ namespace octet {
       }*/
 
       // set the border to white for clarity
-      GLuint white = resource_dict::get_texture_handle(GL_RGB, "#ffa500");
+     /* GLuint white = resource_dict::get_texture_handle(GL_RGB, "#ffa500");
       sprites[first_border_sprite+0].init(white, 0, -3, 6, 0.2f);
       sprites[first_border_sprite+1].init(white, 0,  3, 6, 0.2f);
       sprites[first_border_sprite+2].init(white, -3, 0, 0.2f, 6);
-      sprites[first_border_sprite+3].init(white, 3,  0, 0.2f, 6);
+      sprites[first_border_sprite+3].init(white, 3,  0, 0.2f, 6);*/
 
-      // use the missile texture
-      GLuint missile = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/missile.gif");
-      for (int i = 0; i != num_missiles; ++i) {
-        // create missiles off-screen
-        sprites[first_missile_sprite+i].init(missile, 20, 0, 0.0625f, 0.25f);
-        sprites[first_missile_sprite+i].is_enabled() = false;
-      }
+	  // We use the background texture
+	  GLuint background = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/Background.gif");
+	  sprites[background_sprite].init(background, 0, 0, 6.0f, 6.0f);
 
-      // use the bomb texture
-      GLuint bomb = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/bomb.gif");
-      for (int i = 0; i != num_bombs; ++i) {
-        // create bombs off-screen
-        sprites[first_bomb_sprite+i].init(bomb, 20, 0, 0.0625f, 0.25f);
-        sprites[first_bomb_sprite+i].is_enabled() = false;
+	  // We use the player texture
+	  GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/person.jpg");
+	  sprites[player_sprite].init(player, 100, 100, 6.0f, 6.0f);
+
+      //// use the missile texture
+      //GLuint missile = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/missile.gif");
+      //for (int i = 0; i != num_missiles; ++i) {
+      //  // create missiles off-screen
+      //  sprites[first_missile_sprite+i].init(missile, 20, 0, 0.0625f, 0.25f);
+      //  sprites[first_missile_sprite+i].is_enabled() = false;
+      //}
+
+      //// use the bomb texture
+      //GLuint bomb = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/bomb.gif");
+      //for (int i = 0; i != num_bombs; ++i) {
+      //  // create bombs off-screen
+      //  sprites[first_bomb_sprite+i].init(bomb, 20, 0, 0.0625f, 0.25f);
+      //  sprites[first_bomb_sprite+i].is_enabled() = false;
       }
 
       // sounds
@@ -497,6 +509,7 @@ namespace octet {
 
       move_invaders(invader_velocity, 0);
 
+	  // border collision modify to check when the person is bouncing with the walls
       sprite &border = sprites[first_border_sprite+(invader_velocity < 0 ? 2 : 3)];
       if (invaders_collide(border)) {
         invader_velocity = -invader_velocity;
@@ -512,8 +525,8 @@ namespace octet {
       glViewport(x, y, w, h);
 
       // clear the background to black
-      glClearColor(1, 0.5, 0, 0);
-      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+      /*glClearColor(1, 0.5, 0, 0);
+      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);*/
 
       // don't allow Z buffer depth testing (closer objects are always drawn in front of far ones)
       glDisable(GL_DEPTH_TEST);
