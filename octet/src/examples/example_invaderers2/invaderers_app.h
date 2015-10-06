@@ -244,14 +244,14 @@ namespace octet {
       const float ship_speed = 0.05f;
       // left and right arrows
       if (is_key_down(key_left)) {
-        sprites[ship_sprite].translate(-ship_speed, 0);
-        if (sprites[ship_sprite].collides_with(sprites[first_border_sprite+2])) {
-          sprites[ship_sprite].translate(+ship_speed, 0);
+		  sprites[player_sprite].translate(-ship_speed, 0);
+		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 2])) {
+			  sprites[player_sprite].translate(+ship_speed, 0);
         }
       } else if (is_key_down(key_right)) {
-        sprites[ship_sprite].translate(+ship_speed, 0);
-        if (sprites[ship_sprite].collides_with(sprites[first_border_sprite+3])) {
-          sprites[ship_sprite].translate(-ship_speed, 0);
+		  sprites[player_sprite].translate(+ship_speed, 0);
+		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 3])) {
+			  sprites[player_sprite].translate(-ship_speed, 0);
         }
       }
     }
@@ -435,8 +435,8 @@ namespace octet {
 	  sprites[background_sprite].init(background, 0, 0, 6.0f, 6.0f);
 
 	  // We use the player texture
-	  GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/person.jpg");
-	  sprites[player_sprite].init(player, 0, 0, 1.0f, 1.0f);
+	  GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/removed.gif");
+	  sprites[player_sprite].init(player, -2.75, -1.75, 0.505f, 0.70f);
 
       // sundry counters and game state.
       missiles_disabled = 0;
