@@ -427,28 +427,8 @@ namespace octet {
 
       font_texture = resource_dict::get_texture_handle(GL_RGBA, "assets/big_0.gif");
 
-     /* GLuint ship = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/ship.gif");
-      sprites[ship_sprite].init(ship, 0, -2.75f, 0.25f, 0.25f);*/
-
       GLuint GameOver = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/GameOver.gif");
       sprites[game_over_sprite].init(GameOver, 20, 0, 3, 1.5f);
-
-      /*GLuint invaderer = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/invaderer.gif");
-      for (int j = 0; j != num_rows; ++j) {
-        for (int i = 0; i != num_cols; ++i) {
-          assert(first_invaderer_sprite + i + j*num_cols <= last_invaderer_sprite);
-          sprites[first_invaderer_sprite + i + j*num_cols].init(
-            invaderer, ((float)i - num_cols * 0.5f) * 0.5f, 2.50f - ((float)j * 0.5f), 0.25f, 0.25f
-          );
-        }
-      }*/
-
-      // set the border to white for clarity
-     /* GLuint white = resource_dict::get_texture_handle(GL_RGB, "#ffa500");
-      sprites[first_border_sprite+0].init(white, 0, -3, 6, 0.2f);
-      sprites[first_border_sprite+1].init(white, 0,  3, 6, 0.2f);
-      sprites[first_border_sprite+2].init(white, -3, 0, 0.2f, 6);
-      sprites[first_border_sprite+3].init(white, 3,  0, 0.2f, 6);*/
 
 	  // We use the background texture
 	  GLuint background = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/Background.gif");
@@ -457,28 +437,6 @@ namespace octet {
 	  // We use the player texture
 	  GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/person.jpg");
 	  sprites[player_sprite].init(player, 0, 0, 1.0f, 1.0f);
-
-      //// use the missile texture
-      //GLuint missile = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/missile.gif");
-      //for (int i = 0; i != num_missiles; ++i) {
-      //  // create missiles off-screen
-      //  sprites[first_missile_sprite+i].init(missile, 20, 0, 0.0625f, 0.25f);
-      //  sprites[first_missile_sprite+i].is_enabled() = false;
-      //}
-
-      //// use the bomb texture
-      //GLuint bomb = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/bomb.gif");
-      //for (int i = 0; i != num_bombs; ++i) {
-      //  // create bombs off-screen
-      //  sprites[first_bomb_sprite+i].init(bomb, 20, 0, 0.0625f, 0.25f);
-      //  sprites[first_bomb_sprite+i].is_enabled() = false;
-     // }
-
-      // sounds
-      whoosh = resource_dict::get_sound_handle(AL_FORMAT_MONO16, "assets/invaderers/whoosh.wav");
-      bang = resource_dict::get_sound_handle(AL_FORMAT_MONO16, "assets/invaderers/bang.wav");
-      cur_source = 0;
-      alGenSources(num_sound_sources, sources);
 
       // sundry counters and game state.
       missiles_disabled = 0;
