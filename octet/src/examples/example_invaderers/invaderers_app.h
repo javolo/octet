@@ -442,10 +442,10 @@ namespace octet {
 
       // set the border to white for clarity
       GLuint white = resource_dict::get_texture_handle(GL_RGB, "#ffffff");
-      sprites[first_border_sprite+0].init(white, 0, -3, 6, 0.2f);
-      sprites[first_border_sprite+1].init(white, 0,  3, 6, 0.2f);
-      sprites[first_border_sprite+2].init(white, -3, 0, 0.2f, 6);
-      sprites[first_border_sprite+3].init(white, 3,  0, 0.2f, 6);
+      sprites[first_border_sprite+0].init(white, 0, -3, 6, 0);
+      sprites[first_border_sprite+1].init(white, 0,  3, 6, 0);
+      sprites[first_border_sprite+2].init(white, -3, 0, 0, 6);
+      sprites[first_border_sprite+3].init(white, 3,  0, 0, 6);
 
       // use the missile texture
       GLuint missile = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/missile.gif");

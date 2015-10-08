@@ -112,15 +112,15 @@ namespace octet {
     // return true if this sprite collides with another.
     // note the "const"s which say we do not modify either sprite
     bool collides_with(const sprite &rhs) const {
-      float dx = rhs.modelToWorld[3][0] - modelToWorld[3][0];
-      float dy = rhs.modelToWorld[3][1] - modelToWorld[3][1];
+	  float dx = rhs.modelToWorld[3][0] - modelToWorld[3][0];
+	  float dy = rhs.modelToWorld[3][1] - modelToWorld[3][1];
 
       // both distances have to be under the sum of the halfwidths
       // for a collision
-      return
-        (fabsf(dx) < halfWidth + rhs.halfWidth) &&
-        (fabsf(dy) < halfHeight + rhs.halfHeight)
-      ;
+	  return
+		(fabsf(dx) < halfWidth + rhs.halfWidth) &&
+		(fabsf(dy) < halfHeight + rhs.halfHeight)
+	  ;
     }
 
     bool is_above(const sprite &rhs, float margin) const {
@@ -188,8 +188,8 @@ namespace octet {
     bool game_over;
     int score;
 
-    // speed of enemy
-    float invader_velocity;
+    // Speed of the player
+    float player_velocity;
 
     // sounds
     ALuint whoosh;
@@ -220,7 +220,7 @@ namespace octet {
       live_invaderers--;
       score++;
       if (live_invaderers == 4) {
-        invader_velocity *= 4;
+		  player_velocity *= 4;
       } else if (live_invaderers == 0) {
         game_over = true;
         sprites[game_over_sprite].translate(-20, 0);
@@ -241,17 +241,17 @@ namespace octet {
 
     // use the keyboard to move the ship
     void move_ship() {
-      const float ship_speed = 0.05f;
+      const float player_speed = 0.05f;
       // left and right arrows
       if (is_key_down(key_left)) {
-		  sprites[player_sprite].translate(-ship_speed, 0);
-		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 2])) {
-			  sprites[player_sprite].translate(+ship_speed, 0);
+		  sprites[player_sprite].translate(-player_speed, 0);
+		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite+2])) {
+			  sprites[player_sprite].translate(+player_speed, 0);
         }
       } else if (is_key_down(key_right)) {
-		  sprites[player_sprite].translate(+ship_speed, 0);
-		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 3])) {
-			  sprites[player_sprite].translate(-ship_speed, 0);
+		  sprites[player_sprite].translate(+player_speed, 0);
+		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite+3])) {
+			  sprites[player_sprite].translate(-player_speed, 0);
         }
       }
     }
@@ -305,7 +305,7 @@ namespace octet {
     }
 
     // animate the missiles
-    void move_missiles() {
+    /*void move_missiles() {
       const float missile_speed = 0.3f;
       for (int i = 0; i != num_missiles; ++i) {
         sprite &missile = sprites[first_missile_sprite+i];
@@ -330,10 +330,10 @@ namespace octet {
         }
       next_missile:;
       }
-    }
+    }*/
 
     // animate the bombs
-    void move_bombs() {
+  /*  void move_bombs() {
       const float bomb_speed = 0.2f;
       for (int i = 0; i != num_bombs; ++i) {
         sprite &bomb = sprites[first_bomb_sprite+i];
@@ -353,7 +353,7 @@ namespace octet {
         }
       next_bomb:;
       }
-    }
+    }*/
 
     // move the array of enemies
     void move_invaders(float dx, float dy) {
@@ -365,13 +365,11 @@ namespace octet {
       }
     }
 
-    // check if any invaders hit the sides.
-    bool invaders_collide(sprite &border) {
-      for (int j = 0; j != num_invaderers; ++j) {
-        sprite &invaderer = sprites[first_invaderer_sprite+j];
-        if (invaderer.is_enabled() && invaderer.collides_with(border)) {
-          return true;
-        }
+    // Check if the player collides with the left or top border
+    bool player_collide(sprite &border) {
+      sprite &playerer = sprites[first_border_sprite + (player_velocity < 0 ? 2 : 3)];
+	  if (playerer.is_enabled() && playerer.collides_with(border)) {
+        return true;
       }
       return false;
     }
@@ -435,14 +433,17 @@ namespace octet {
 	  sprites[background_sprite].init(background, 0, 0, 6.0f, 6.0f);
 
 	  // We use the player texture
-	  GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/removed.gif");
+	  GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/Yoshii.gif");
 	  sprites[player_sprite].init(player, -2.75, -1.75, 0.505f, 0.70f);
 
+	  // We set the border as sprite to walls collision
+	  GLuint white = resource_dict::get_texture_handle(GL_RGB, "#ffffff");
+	  sprites[first_border_sprite + 0].init(white, 0, -3, 6, 0);
+	  sprites[first_border_sprite + 1].init(white, 0, 3, 6, 0);
+	  sprites[first_border_sprite + 2].init(white, -3, 0, 0, 6);
+	  sprites[first_border_sprite + 3].init(white, 3, 0, 0, 6);
+
       // sundry counters and game state.
-      missiles_disabled = 0;
-      bombs_disabled = 50;
-      invader_velocity = 0.01f;
-      live_invaderers = num_invaderers;
       num_lives = 3;
       game_over = false;
       score = 0;
@@ -456,21 +457,20 @@ namespace octet {
 
       move_ship();
 
-      fire_missiles();
+      //fire_missiles();
 
-      fire_bombs();
+      //fire_bombs();
 
-      move_missiles();
+      //move_missiles();
 
-      move_bombs();
+      //move_bombs();
 
-      move_invaders(invader_velocity, 0);
+      //move_invaders(invader_velocity, 0);
 
-	  // border collision modify to check when the person is bouncing with the walls
-      sprite &border = sprites[first_border_sprite+(invader_velocity < 0 ? 2 : 3)];
-      if (invaders_collide(border)) {
-        invader_velocity = -invader_velocity;
-        move_invaders(invader_velocity, -0.1f);
+	  // Border collision modify to check when the person is bouncing with the walls
+	  sprite &border = sprites[player_sprite];
+	  if (player_collide(border)) {
+		player_velocity = -player_velocity;
       }
     }
 
