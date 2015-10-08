@@ -450,7 +450,7 @@ namespace octet {
 
 	  // We set the border as sprite to walls collision
 	  GLuint white = resource_dict::get_texture_handle(GL_RGB, "#ffffff");
-	  sprites[first_border_sprite + 0].init(white, 0, -3, 6, 0);
+	  sprites[first_border_sprite + 0].init(white, 0, -3, 6, 1.8f);
 	  sprites[first_border_sprite + 1].init(white, 0, 3, 6, 0);
 	  sprites[first_border_sprite + 2].init(white, -3, 0, 0, 6);
 	  sprites[first_border_sprite + 3].init(white, 3, 0, 0, 6);
