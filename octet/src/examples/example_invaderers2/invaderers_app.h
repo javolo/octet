@@ -253,7 +253,14 @@ namespace octet {
 		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite+3])) {
 			  sprites[player_sprite].translate(-player_speed, 0);
         }
-      }
+	  }  else if (is_key_down(key_up)) {
+		  // We calculate the things for the jump
+		  
+		  sprites[player_sprite].translate(0, +player_speed);
+		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite+1])) {
+			  sprites[player_sprite].translate(0, -player_speed);
+		  }
+	  }
     }
 
     // fire button (space)
