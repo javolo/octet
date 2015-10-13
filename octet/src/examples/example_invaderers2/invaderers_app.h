@@ -152,7 +152,11 @@ namespace octet {
     // shader to draw a textured triangle
     texture_shader texture_shader_;
 
+	// Definition of gravity constant
+	const float gravity = 9.8f;
+
     enum {
+	  // Constants definition
       num_sound_sources = 8,
       num_rows = 5,
       num_cols = 10,
@@ -275,6 +279,11 @@ namespace octet {
 		  }
 	  }
     }
+
+	// We update the player position to make the jump effect
+	void update_player_position() {
+		
+	}
 
     // fire button (space)
     void fire_missiles() {
@@ -477,6 +486,7 @@ namespace octet {
 
       move_ship();
 
+	  update_player_position();
 
       //fire_missiles();
 
