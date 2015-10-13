@@ -33,6 +33,9 @@ namespace octet {
 
     // true if this sprite is enabled.
     bool enabled;
+
+
+
   public:
     sprite() {
       texture = 0;
@@ -47,6 +50,11 @@ namespace octet {
       texture = _texture;
       enabled = true;
     }
+
+	// Return the sprite position
+	vec2 get_position(){
+		return modelToWorld.row(3).xy();
+	}
 
     void render(texture_shader &shader, mat4t &cameraToWorld) {
       // invisible sprite... used for gameplay.
@@ -255,14 +263,14 @@ namespace octet {
         }
 	  } else if (is_key_down(key_up)) {
 		  // We calculate the things for the jump
-		  sprites[player_sprite].translate(0, +player_speed);
+		  sprites[player_sprite].translate(0, +player_speed*9.8f);
 		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite+1])) {
 			  sprites[player_sprite].translate(0, -player_speed);
 		  }
 	  } else if (is_key_down(key_down)) {
 		  // We calculate the things for the jump
 		  sprites[player_sprite].translate(0, -player_speed);
-		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 0])) {
+		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite+0])) {
 			  sprites[player_sprite].translate(0, +player_speed);
 		  }
 	  }
@@ -468,6 +476,7 @@ namespace octet {
       }
 
       move_ship();
+
 
       //fire_missiles();
 
