@@ -462,7 +462,7 @@ namespace octet {
 	  sprites[background_sprite].init(background, 0, 0, 6.0f, 6.0f);
 
 	  // We use the player texture
-	  GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/Yoshii.gif");
+	  GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/img.gif");
 	  sprites[player_sprite].init(player, -2.75, -1.75, 0.505f, 0.70f);
 
 	  // We set the border as sprite to walls collision
