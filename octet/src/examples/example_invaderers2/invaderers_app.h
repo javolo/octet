@@ -159,7 +159,6 @@ namespace octet {
 	// When we reach the max_height we want to touch the floor again before jump again
 	bool player_descending = false;
 
-
     enum {
 	  // Constants definition
       num_borders = 4,
@@ -178,12 +177,7 @@ namespace octet {
 
     };
 
-    // timers for missiles and bombs
-    int missiles_disabled;
-    int bombs_disabled;
-
-    // accounting for bad guys
-    int live_invaderers;
+    // Number of lives variable
     int num_lives;
 
     // game state
@@ -192,12 +186,6 @@ namespace octet {
 
     // Speed of the player
     float player_velocity;
-
-    // sounds
-    ALuint whoosh;
-    ALuint bang;
-    unsigned cur_source;
-    ALuint sources[num_sound_sources];
 
     // big array of sprites
     sprite sprites[num_sprites];
@@ -251,6 +239,7 @@ namespace octet {
 			  // If the player is descending we continue going with negative speed
 			  sprites[player_sprite].translate(0, -player_speed);
 			  if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 0])) {
+				  // When collides with the floor we can jump again
 				  player_descending = false;
 				  sprites[player_sprite].translate(0, +player_speed);
 			  }
