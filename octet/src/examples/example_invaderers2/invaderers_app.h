@@ -154,6 +154,11 @@ namespace octet {
 
 	// Definition of gravity constant
 	const float gravity = 9.8f;
+	// We set a maximum height constant
+	const float max_height = 0.0f;
+	// When we reach the max_height we want to touch the floor again before jump again
+	bool player_descending = false;
+
 
     enum {
 	  // Constants definition
@@ -260,22 +265,46 @@ namespace octet {
 		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite+2])) {
 			  sprites[player_sprite].translate(+player_speed, 0);
         }
-      } else if (is_key_down(key_right)) {
+      } 
+	  if (is_key_down(key_right)) {
 		  sprites[player_sprite].translate(+player_speed, 0);
 		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite+3])) {
 			  sprites[player_sprite].translate(-player_speed, 0);
         }
-	  } else if (is_key_down(key_up)) {
-		  // We calculate the things for the jump
-		  player_speed += 0.2f;
-		  sprites[player_sprite].translate(0, +player_speed);
-		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite+1])) {
-			  sprites[player_sprite].translate(0, -player_speed);
+	  } 
+	  if (is_key_down(key_up)) {
+
+		  if (!player_descending){
+			  // We calculate the things for the jump
+			  player_speed += 0.25f;
+			  sprites[player_sprite].translate(0, +player_speed);
+			  printf("Player position: %f \n", sprites[player_sprite].get_position().y());
+
+			  // We check if we have reached the maximum height to start pushing down the player
+			  if (sprites[player_sprite].get_position().y() > max_height){
+				  player_descending = true;
+				  sprites[player_sprite].translate(0, -player_speed);
+				  if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 0])) {
+					  player_descending = false;
+					  sprites[player_sprite].translate(0, +player_speed);
+				  }
+			  }
 		  }
-	  } else if (is_key_down(key_down)) {
+		  else {
+			  // We calculate the things for the jump
+			  sprites[player_sprite].translate(0, -player_speed);
+			  if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 0])) {
+				  player_descending = false;
+				  sprites[player_sprite].translate(0, +player_speed);
+			  }
+		  }
+		
+	  } 
+	  if (is_key_down(key_down)) {
 		  // We calculate the things for the jump
 		  sprites[player_sprite].translate(0, -player_speed);
 		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite+0])) {
+			  player_descending = false;
 			  sprites[player_sprite].translate(0, +player_speed);
 		  }
 	  }
@@ -284,7 +313,7 @@ namespace octet {
 	// We update the player position to make the jump effect
 	void update_player_position() {
 		// Checking the jump effect
-		const float player_speed = 0.05f;
+		const float player_speed = 0.1f;
 		sprites[player_sprite].translate(0, -player_speed );
 		if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 0])) {
 			sprites[player_sprite].translate(0, +player_speed);
