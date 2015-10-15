@@ -256,8 +256,8 @@ namespace octet {
       }
     }
 
-    // use the keyboard to move the ship
-    void move_ship() {
+    // Use the keyboard to move the player around the screen
+    void move_player() {
       float player_speed = 0.05f;
       // left and right arrows
       if (is_key_down(key_left)) {
@@ -457,19 +457,9 @@ namespace octet {
         return;
       }
 
-      move_ship();
+	  move_player();
 
 	  update_player_position();
-
-      //fire_missiles();
-
-      //fire_bombs();
-
-      //move_missiles();
-
-      //move_bombs();
-
-      //move_invaders(invader_velocity, 0);
 
 	  // Border collision modify to check when the person is bouncing with the walls
 	  sprite &border = sprites[player_sprite];
@@ -484,10 +474,6 @@ namespace octet {
 
       // set a viewport - includes whole window area
       glViewport(x, y, w, h);
-
-      // clear the background to black
-      /*glClearColor(1, 0.5, 0, 0);
-      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);*/
 
       // don't allow Z buffer depth testing (closer objects are always drawn in front of far ones)
       glDisable(GL_DEPTH_TEST);
