@@ -259,7 +259,6 @@ namespace octet {
     // use the keyboard to move the ship
     void move_ship() {
       float player_speed = 0.05f;
-	  printf("Init Pos: %f \n", sprites[player_sprite].get_position().y());
       // left and right arrows
       if (is_key_down(key_left)) {
 		  sprites[player_sprite].translate(-player_speed, 0);
@@ -304,12 +303,13 @@ namespace octet {
 	// We update the player position to make the jump effect
 	void update_player_position() {
 		// We check if the player is on the floor to avoid run innecessary code
-
-		// Checking the jump effect
-		const float player_speed = 0.1f;
-		sprites[player_sprite].translate(0, -player_speed );
-		if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 0])) {
-			sprites[player_sprite].translate(0, +player_speed);
+		if (sprites[player_sprite].get_position().y() > -1.8f){
+			// If the player position is not at height -1.8f the player has jumped so we push him down to the floor
+			const float player_speed = 0.1f;
+			sprites[player_sprite].translate(0, -player_speed);
+			if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 0])) {
+				sprites[player_sprite].translate(0, +player_speed);
+			}
 		}
 	}
 
