@@ -155,7 +155,7 @@ namespace octet {
 	// Definition of gravity constant
 	const float gravity = 9.8f;
 	// We set a maximum height constant
-	const float max_height = 0.25f;
+	const float max_height = 0.2f;
 	// When we reach the max_height we want to touch the floor again before jump again
 	bool player_descending = false;
 
@@ -361,57 +361,6 @@ namespace octet {
       }
     }
 
-    // animate the missiles
-    /*void move_missiles() {
-      const float missile_speed = 0.3f;
-      for (int i = 0; i != num_missiles; ++i) {
-        sprite &missile = sprites[first_missile_sprite+i];
-        if (missile.is_enabled()) {
-          missile.translate(0, missile_speed);
-          for (int j = 0; j != num_invaderers; ++j) {
-            sprite &invaderer = sprites[first_invaderer_sprite+j];
-            if (invaderer.is_enabled() && missile.collides_with(invaderer)) {
-              invaderer.is_enabled() = false;
-              invaderer.translate(20, 0);
-              missile.is_enabled() = false;
-              missile.translate(20, 0);
-              on_hit_invaderer();
-
-              goto next_missile;
-            }
-          }
-          if (missile.collides_with(sprites[first_border_sprite+1])) {
-            missile.is_enabled() = false;
-            missile.translate(20, 0);
-          }
-        }
-      next_missile:;
-      }
-    }*/
-
-    // animate the bombs
-  /*  void move_bombs() {
-      const float bomb_speed = 0.2f;
-      for (int i = 0; i != num_bombs; ++i) {
-        sprite &bomb = sprites[first_bomb_sprite+i];
-        if (bomb.is_enabled()) {
-          bomb.translate(0, -bomb_speed);
-          if (bomb.collides_with(sprites[ship_sprite])) {
-            bomb.is_enabled() = false;
-            bomb.translate(20, 0);
-            bombs_disabled = 50;
-            on_hit_ship();
-            goto next_bomb;
-          }
-          if (bomb.collides_with(sprites[first_border_sprite+0])) {
-            bomb.is_enabled() = false;
-            bomb.translate(20, 0);
-          }
-        }
-      next_bomb:;
-      }
-    }*/
-
     // move the array of enemies
     void move_invaders(float dx, float dy) {
       for (int j = 0; j != num_invaderers; ++j) {
@@ -438,13 +387,6 @@ namespace octet {
       modelToWorld.translate(x, y, 0);
       modelToWorld.scale(scale, scale, 1);
       mat4t modelToProjection = mat4t::build_projection_matrix(modelToWorld, cameraToWorld);
-
-      /*mat4t tmp;
-      glLoadIdentity();
-      glTranslatef(x, y, 0);
-      glGetFloatv(GL_MODELVIEW_MATRIX, (float*)&tmp);
-      glScalef(scale, scale, 1);
-      glGetFloatv(GL_MODELVIEW_MATRIX, (float*)&tmp);*/
 
       enum { max_quads = 32 };
       bitmap_font::vertex vertices[max_quads*4];
