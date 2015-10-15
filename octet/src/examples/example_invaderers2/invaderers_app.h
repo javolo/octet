@@ -303,6 +303,8 @@ namespace octet {
 
 	// We update the player position to make the jump effect
 	void update_player_position() {
+		// We check if the player is on the floor to avoid run innecessary code
+
 		// Checking the jump effect
 		const float player_speed = 0.1f;
 		sprites[player_sprite].translate(0, -player_speed );
@@ -489,7 +491,7 @@ namespace octet {
 
 	  // We use the player texture
 	  GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/img.gif");
-	  sprites[player_sprite].init(player, -2.75, -1.75, 0.505f, 0.70f);
+	  sprites[player_sprite].init(player, -2.75, -1.8, 0.505f, 0.70f);
 
 	  // We set the border as sprite to walls collision
 	  GLuint white = resource_dict::get_texture_handle(GL_RGB, "#ffffff");
