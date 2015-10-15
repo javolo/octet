@@ -273,24 +273,27 @@ namespace octet {
         }
 	  } 
 	  if (is_key_down(key_up)) {
-
+		  // We check if the player is descending to see if he can start the jump again 
+		  // or has to wait until the previous jump has finished
 		  if (!player_descending){
-			  // We calculate the things for the jump
+			  // We add some force to the jump to make the effect
 			  player_speed += 0.30f;
 			  sprites[player_sprite].translate(0, +player_speed);
 			  
-			  // We check if we have reached the maximum height to start pushing down the player
+			  // We check if we have reached the maximum height to start pushing the player down
 			  if (sprites[player_sprite].get_position().y() > max_height){
+				  // Update boolean variable in case we left pressed the up button
 				  player_descending = true;
 				  sprites[player_sprite].translate(0, -player_speed);
 				  if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 0])) {
+					  // When collides with the floor we can jump again
 					  player_descending = false;
 					  sprites[player_sprite].translate(0, +player_speed);
 				  }
 			  }
 		  }
 		  else {
-			  // We calculate the things for the jump
+			  // If the player is descending we continue going with negative speed
 			  sprites[player_sprite].translate(0, -player_speed);
 			  if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 0])) {
 				  player_descending = false;
