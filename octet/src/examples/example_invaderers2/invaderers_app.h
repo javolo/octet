@@ -253,7 +253,7 @@ namespace octet {
 
     // use the keyboard to move the ship
     void move_ship() {
-      const float player_speed = 0.05f;
+      float player_speed = 0.05f;
       // left and right arrows
       if (is_key_down(key_left)) {
 		  sprites[player_sprite].translate(-player_speed, 0);
@@ -267,7 +267,8 @@ namespace octet {
         }
 	  } else if (is_key_down(key_up)) {
 		  // We calculate the things for the jump
-		  sprites[player_sprite].translate(0, +player_speed*9.8f);
+		  player_speed += 0.2f;
+		  sprites[player_sprite].translate(0, +player_speed);
 		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite+1])) {
 			  sprites[player_sprite].translate(0, -player_speed);
 		  }
@@ -282,7 +283,12 @@ namespace octet {
 
 	// We update the player position to make the jump effect
 	void update_player_position() {
-		
+		// Checking the jump effect
+		const float player_speed = 0.05f;
+		sprites[player_sprite].translate(0, -player_speed );
+		if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 0])) {
+			sprites[player_sprite].translate(0, +player_speed);
+		}
 	}
 
     // fire button (space)
