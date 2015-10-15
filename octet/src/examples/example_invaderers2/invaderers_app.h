@@ -155,7 +155,7 @@ namespace octet {
 	// Definition of gravity constant
 	const float gravity = 9.8f;
 	// We set a maximum height constant
-	const float max_height = 0.0f;
+	const float max_height = 0.25f;
 	// When we reach the max_height we want to touch the floor again before jump again
 	bool player_descending = false;
 
@@ -259,6 +259,7 @@ namespace octet {
     // use the keyboard to move the ship
     void move_ship() {
       float player_speed = 0.05f;
+	  printf("Init Pos: %f \n", sprites[player_sprite].get_position().y());
       // left and right arrows
       if (is_key_down(key_left)) {
 		  sprites[player_sprite].translate(-player_speed, 0);
@@ -276,10 +277,9 @@ namespace octet {
 
 		  if (!player_descending){
 			  // We calculate the things for the jump
-			  player_speed += 0.25f;
+			  player_speed += 0.30f;
 			  sprites[player_sprite].translate(0, +player_speed);
-			  printf("Player position: %f \n", sprites[player_sprite].get_position().y());
-
+			  
 			  // We check if we have reached the maximum height to start pushing down the player
 			  if (sprites[player_sprite].get_position().y() > max_height){
 				  player_descending = true;
@@ -297,15 +297,6 @@ namespace octet {
 				  player_descending = false;
 				  sprites[player_sprite].translate(0, +player_speed);
 			  }
-		  }
-		
-	  } 
-	  if (is_key_down(key_down)) {
-		  // We calculate the things for the jump
-		  sprites[player_sprite].translate(0, -player_speed);
-		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite+0])) {
-			  player_descending = false;
-			  sprites[player_sprite].translate(0, +player_speed);
 		  }
 	  }
     }
