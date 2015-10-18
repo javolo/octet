@@ -220,10 +220,22 @@ namespace octet {
 		  sprites[player_sprite].translate(+player_speed, 0);
 		  // We move the camera with the player and the score
 		  cameraToWorld.translate(+player_speed, 0, 0);
-		  // We don´t need collision right any more
-		  /*if (sprites[player_sprite].collides_with(sprites[first_border_sprite+3])) {
-			  sprites[player_sprite].translate(-player_speed, 0);
-        }*/
+		  printf("CAM X: %f \n", cameraToWorld.colx().length());
+		  // We need to check if the camera fits with the second background to move the first one
+		  if (cameraToWorld.colx().length()>(num_movement*6.0f)){
+			  // We know that 6.0f is the width of the window.
+			  // We find out which background we have to move
+			  int num = cameraToWorld.colx().length() / 6.0f;
+			  if (num % 2 == 0){
+				  sprites[background_sprite + 1].translate(+12.0f, 0);
+			  } else {
+				  sprites[background_sprite + 0].translate(+12.0f, 0);
+			  }
+			 
+			  num_movement++;
+		  }
+		  // We will need to move the left border as well
+		  
 	  } 
 	  if (is_key_down(key_up)) {
 		  // We check if the player is descending to see if he can start the jump again 
