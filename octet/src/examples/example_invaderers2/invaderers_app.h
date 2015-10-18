@@ -161,6 +161,8 @@ namespace octet {
 	// We set a variable to move score and background images
 	float num_movement = 1.0;
 	float position_score;
+	// We set up the a constant width variable
+	const float window_width = 6.0f;
 
     enum {
 	  // Constants definition
@@ -222,16 +224,17 @@ namespace octet {
 		  cameraToWorld.translate(+player_speed, 0, 0);
 		  printf("CAM X: %f \n", cameraToWorld.colx().length());
 		  // We need to check if the camera fits with the second background to move the first one
-		  if (cameraToWorld.colx().length()>(num_movement*6.0f)){
+		  if (cameraToWorld.colx().length()>(num_movement*window_width)){
 			  // We know that 6.0f is the width of the window.
 			  // We find out which background we have to move
-			  int num = cameraToWorld.colx().length() / 6.0f;
+			  int num = cameraToWorld.colx().length() / window_width;
 			  if (num % 2 == 0){
-				  sprites[background_sprite + 1].translate(+12.0f, 0);
+				  sprites[background_sprite + 1].translate(+(2 * window_width), 0);
 			  } else {
-				  sprites[background_sprite + 0].translate(+12.0f, 0);
+				  sprites[background_sprite + 0].translate(+(2 * window_width), 0);
 			  }
-			 
+			  // We move the left border as well because if there isn´t background image any more if we move left
+			  sprites[first_border_sprite + 2].translate(+window_width, 0);
 			  num_movement++;
 		  }
 		  // We will need to move the left border as well
