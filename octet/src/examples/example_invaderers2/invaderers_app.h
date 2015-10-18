@@ -170,7 +170,8 @@ namespace octet {
       first_border_sprite,
       last_border_sprite = first_border_sprite + num_borders - 1,
 
-	  background_sprite,
+	  background_sprite1,
+	  background_sprite2,
 	  player_sprite,
 
       num_sprites,
@@ -316,17 +317,19 @@ namespace octet {
       GLuint GameOver = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/GameOver.gif");
       sprites[game_over_sprite].init(GameOver, 20, 0, 3, 1.5f);
 
-	  // We use the background texture
-	  GLuint background = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/Background.gif");
-	  sprites[background_sprite].init(background, 0, 0, 6.0f, 6.0f);
+	  // We use two background textures to make the sensation of never ending screen
+	  GLuint background1 = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/Background.gif");
+	  sprites[background_sprite1].init(background1, 0, 0, 6.0f, 6.0f);
+	  GLuint background2 = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/overworld_bg.gif");
+	  sprites[background_sprite2].init(background2, 900, 0, 6.0f, 6.0f);
 
 	  // We use the player texture
 	  GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/img.gif");
-	  sprites[player_sprite].init(player, -2.75, -1.8, 0.505f, 0.70f);
+	  sprites[player_sprite].init(player, -2.75, -1.75, 0.505f, 0.70f);
 
 	  // We set the border as sprite to walls collision
 	  GLuint white = resource_dict::get_texture_handle(GL_RGB, "#ffffff");
-	  sprites[first_border_sprite + 0].init(white, 0, -3, 6, 1.8f);
+	  sprites[first_border_sprite + 0].init(white, 0, -3, 6, 1.78f);
 	  sprites[first_border_sprite + 1].init(white, 0, 3, 6, 0);
 	  sprites[first_border_sprite + 2].init(white, -3, 0, 0, 6);
 	  sprites[first_border_sprite + 3].init(white, 3, 0, 0, 6);
