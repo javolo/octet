@@ -158,6 +158,9 @@ namespace octet {
 	const float max_height = 0.2f;
 	// When we reach the max_height we want to touch the floor again before jump again
 	bool player_descending = false;
+	// We set a variable to move score and background images
+	float num_movement = 1.0;
+	float position_score;
 
     enum {
 	  // Constants definition
@@ -384,7 +387,10 @@ namespace octet {
 
       char score_text[32];
       sprintf(score_text, "score: %d   lives: %d\n", score, num_lives);
-      draw_text(texture_shader_, -1.75f, 2, 1.0f/256, score_text);
+	  //printf("CAM X: %f \n", cameraToWorld.colx().length());
+	  // We calculate the new position of the score
+	  position_score = -1.75f + (num_movement*cameraToWorld.colx().length());
+	  draw_text(texture_shader_, position_score, 2, 1.0f / 256, score_text);
 
       // move the listener with the camera
       vec4 &cpos = cameraToWorld.w();
