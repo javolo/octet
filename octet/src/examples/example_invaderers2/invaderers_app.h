@@ -408,7 +408,8 @@ namespace octet {
       sprintf(score_text, "score: %d   lives: %d\n", score, num_lives);
 	  //printf("CAM X: %f \n", cameraToWorld.colx().length());
 	  // We calculate the new position of the score
-	  position_score = -1.5f + cameraToWorld.colx().length();
+	  position_score = -1.5f + cameraToWorld.row(3).x();
+	  //printf("POS SCORE : %f \n", position_score);
 	  draw_text(texture_shader_, position_score, 2, 1.0f / 256, score_text);
 
       // move the listener with the camera
