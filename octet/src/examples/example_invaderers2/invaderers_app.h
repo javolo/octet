@@ -213,6 +213,8 @@ namespace octet {
 		  sprites[player_sprite].translate(-player_speed, 0);
 		  // We move the camera with the player and the score
 		  cameraToWorld.translate(-player_speed, 0, 0);
+		  // We move the bottom border with the camera movement
+		  sprites[first_border_sprite + 0].translate(-player_speed, 0);
 		  if (sprites[player_sprite].collides_with(sprites[first_border_sprite+2])) {
 			  sprites[player_sprite].translate(+player_speed, 0);
 			  cameraToWorld.translate(+player_speed, 0, 0);
@@ -222,7 +224,9 @@ namespace octet {
 		  sprites[player_sprite].translate(+player_speed, 0);
 		  // We move the camera with the player and the score
 		  cameraToWorld.translate(+player_speed, 0, 0);
-		  printf("CAM X: %f \n", cameraToWorld.colx().length());
+		  // We move the bottom border with the camera movement
+		  sprites[first_border_sprite + 0].translate(+player_speed, 0);
+		  //printf("CAM X: %f \n", cameraToWorld.colx().length());
 		  // We need to check if the camera fits with the second background to move the first one
 		  if (cameraToWorld.colx().length()>(num_movement*window_width)){
 			  // We know that 6.0f is the width of the window.
