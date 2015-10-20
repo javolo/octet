@@ -56,6 +56,12 @@ namespace octet {
 		return modelToWorld.row(3).xy();
 	}
 
+	// Rotate sprite some specific angle
+	void rotate_sprite_y(float angle){
+		modelToWorld.rotateY(angle);
+	}
+
+
     void render(texture_shader &shader, mat4t &cameraToWorld) {
       // invisible sprite... used for gameplay.
       if (!texture) return;
@@ -163,6 +169,8 @@ namespace octet {
 	float position_score;
 	// We set up the a constant width variable
 	const float window_width = 6.0f;
+	// We set the counter for update coin position
+	int counter_coin = 1;
 
     enum {
 	  // Constants definition
@@ -290,6 +298,11 @@ namespace octet {
 		}
 	}
 
+	// We update the player position to make the jump effect
+	void update_coin_position() {
+		sprites[coin_sprite].rotate_sprite_y(5);
+	}
+
     // Check if the player collides with the left or top border
     bool player_collide(sprite &border) {
       sprite &playerer = sprites[first_border_sprite + (player_velocity < 0 ? 2 : 3)];
@@ -382,6 +395,9 @@ namespace octet {
 	  move_player();
 
 	  update_player_position();
+
+	  // Each ten frames we rotate the coin a small angle
+	  update_coin_position();
 
 	  // Border collision modify to check when the person is bouncing with the walls
 	  sprite &border = sprites[player_sprite];
