@@ -228,10 +228,10 @@ namespace octet {
 		  sprites[first_border_sprite + 0].translate(+player_speed, 0);
 		  //printf("CAM X: %f \n", cameraToWorld.colx().length());
 		  // We need to check if the camera fits with the second background to move the first one
-		  if (cameraToWorld.colx().length()>(num_movement*window_width)){
+		  if (cameraToWorld.row(3).x()>(num_movement*window_width)){
 			  // We know that 6.0f is the width of the window.
 			  // We find out which background we have to move
-			  int num = cameraToWorld.colx().length() / window_width;
+			  int num = cameraToWorld.row(3).x() / window_width;
 			  if (num % 2 == 0){
 				  sprites[background_sprite + 1].translate(+(2 * window_width), 0);
 			  } else {
