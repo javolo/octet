@@ -261,12 +261,14 @@ namespace octet {
 			  player_speed += 0.30f;
 			  sprites[player_sprite].translate(0, +player_speed);
 			  // We check if while jumping we found a coin
-			  if (sprites[player_sprite].collides_with(sprites[coin_sprite])) {
-				  // We increase the score
-				  score++;
-				  // Disable the coin to appear and to be remove from the system
-				  sprites[coin_sprite].is_enabled() = false;
-				  sprites[coin_sprite].translate(0, -20);
+			  for (int i = 0; i != num_coins; ++i) {
+				  if (sprites[player_sprite].collides_with(sprites[coin_sprite + i])) {
+					  // We increase the score
+					  score++;
+					  // Disable the coin to appear and to be remove from the system
+					  sprites[coin_sprite + i].is_enabled() = false;
+					  sprites[coin_sprite + i].translate(0, -20);
+				  }
 			  }
 
 			  // We check if we have reached the maximum height to start pushing the player down
