@@ -25,18 +25,20 @@ namespace octet {
     // half the width of the sprite
     float halfWidth;
 
-    // half the height of the sprite
-    float halfHeight;
+   
 
     // what texture is on our sprite
     int texture;
 
     // true if this sprite is enabled.
-    bool enabled;
-
+	bool enabled;
 
 
   public:
+
+	// half the height of the sprite
+	float halfHeight;
+
     sprite() {
       texture = 0;
       enabled = true;
@@ -250,8 +252,6 @@ namespace octet {
 			  sprites[first_border_sprite + 2].translate(+window_width, 0);
 			  num_movement++;
 		  }
-		  // We will need to move the left border as well
-		  
 	  } 
 	  if (is_key_down(key_up)) {
 		  // We check if the player is descending to see if he can start the jump again 
@@ -260,7 +260,6 @@ namespace octet {
 			  // We add some force to the jump to make the effect
 			  player_speed += 0.30f;
 			  sprites[player_sprite].translate(0, +player_speed);
-			  
 			  // We check if we have reached the maximum height to start pushing the player down
 			  if (sprites[player_sprite].get_position().y() > max_height){
 				  // Update boolean variable in case we left pressed the up button
@@ -276,6 +275,9 @@ namespace octet {
 		  else {
 			  // If the player is descending we continue going with negative speed
 			  sprites[player_sprite].translate(0, -player_speed);
+			  if (sprites[player_sprite].get_position().y() < -1.76f && sprites[player_sprite].get_position().y() >= -1.78f){
+				  sprites[player_sprite].translate(0, -0.05f);
+			  } 
 			  if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 0])) {
 				  // When collides with the floor we can jump again
 				  player_descending = false;
@@ -288,10 +290,13 @@ namespace octet {
 	// We update the player position to make the jump effect
 	void update_player_position() {
 		// We check if the player is on the floor to avoid run innecessary code
-		if (sprites[player_sprite].get_position().y() > -1.8f){
+		if (sprites[player_sprite].get_position().y() > -1.765f){
 			// If the player position is not at height -1.8f the player has jumped so we push him down to the floor
 			const float player_speed = 0.1f;
 			sprites[player_sprite].translate(0, -player_speed);
+			if (sprites[player_sprite].get_position().y() < -1.76f && sprites[player_sprite].get_position().y() >= -1.78f){
+				sprites[player_sprite].translate(0, -0.05f);
+			} 
 			if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 0])) {
 				sprites[player_sprite].translate(0, +player_speed);
 			}
