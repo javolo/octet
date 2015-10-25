@@ -1,21 +1,23 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-// (C) Andy Thomason 2012-2014
+// (C) Javier de la Osa Escalada 2015
 //
 // Modular Framework for OpenGLES2 rendering on multiple platforms.
 //
-// invaderer example: simple game with sprites and sounds
+// Assignment one: simple game with sprites
 //
 // Level: 1
 //
 // Demonstrates:
 //   Basic framework app
-//   Shaders
-//   Basic Matrices
 //   Simple game mechanics
 //   Texture loaded from GIF file
-//   Audio
+//	 Map loaded from CSV file
 //
+
+// Libraries to read the file
+#include <iostream>
+#include <fstream>
 
 namespace octet {
   class sprite {
@@ -175,7 +177,7 @@ namespace octet {
     enum {
 	  // Constants definition
       num_borders = 4,
-	  num_coins = 5,
+	  num_coins,
 
       // sprite definitions
       ship_sprite = 0,
@@ -378,6 +380,8 @@ namespace octet {
 	  sprites[background_sprite + 0].init(background1, 0, 0, 6.0f, 6.0f);
 	  GLuint background2 = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/Background.gif");
 	  sprites[background_sprite + 1].init(background2, 6, 0, 6.0f, 6.0f);
+
+	  // We read the CSV file with the map of the coins
 
 	  // We use the coint texture
 	  GLuint coin = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/coin2.gif");
