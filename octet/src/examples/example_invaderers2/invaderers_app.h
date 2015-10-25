@@ -300,6 +300,7 @@ namespace octet {
 
 	// We update the player position to make the jump effect
 	void update_coin_position() {
+		// Call to the method that rotate the sprite of the coin in the y axis the number of degrees as parameter
 		sprites[coin_sprite].rotate_sprite_y(5);
 	}
 
@@ -366,8 +367,8 @@ namespace octet {
 	  sprites[background_sprite + 1].init(background2, 6, 0, 6.0f, 6.0f);
 
 	  // We use the coint texture
-	  GLuint coin = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/coin.gif");
-	  sprites[coin_sprite].init(coin, 0, 0, 0.8f, 1.0f);
+	  GLuint coin = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/coin2.gif");
+	  sprites[coin_sprite].init(coin, 0, 0, 0.25f, 0.4f);
 
 	  // We use the player texture
 	  GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/img.gif");
@@ -394,9 +395,9 @@ namespace octet {
 
 	  move_player();
 
+	  // In case of the player jumping that brings him to the floor
 	  update_player_position();
-
-	  // Each ten frames we rotate the coin a small angle
+	  // Each frame we rotate the coin
 	  update_coin_position();
 
 	  // Border collision modify to check when the person is bouncing with the walls
