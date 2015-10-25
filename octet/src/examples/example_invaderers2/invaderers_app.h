@@ -171,8 +171,8 @@ namespace octet {
 	float position_score;
 	// We set up the a constant width variable
 	const float window_width = 6.0f;
-	// We set the counter for update coin position
-	int counter_coin = 1;
+	// We set the counter for name the coin sprites
+	int counter_coin = 0;
 	// We create a variable to set the position of the coin depending on the position in the CSV file
 	const float coin_spacing = 0.25f;
 
@@ -385,10 +385,13 @@ namespace octet {
 
 	  // We read the CSV file with the map of the coins
 	  std::ifstream level("assets/assignment/level.csv");
+	  std::string value;
 	  // We check if the format of the file is right
 	  if (level.good()){
-
-
+		  // We obtain the values separated by commas
+		  getline(level, value, ',');
+		  // We check if we are at end of line
+		  
 
 	  }
 
