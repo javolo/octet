@@ -265,11 +265,6 @@ namespace octet {
 				  // Update boolean variable in case we left pressed the up button
 				  player_descending = true;
 				  sprites[player_sprite].translate(0, -player_speed);
-				  if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 0])) {
-					  // When collides with the floor we can jump again
-					  player_descending = false;
-					  sprites[player_sprite].translate(0, +player_speed);
-				  }
 			  }
 		  }
 		  else {
