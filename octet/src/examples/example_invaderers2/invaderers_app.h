@@ -175,7 +175,7 @@ namespace octet {
     enum {
 	  // Constants definition
       num_borders = 4,
-	  num_coins = 1000,
+	  num_coins = 5,
 
       // sprite definitions
       ship_sprite = 0,
@@ -309,8 +309,10 @@ namespace octet {
 
 	// We update the player position to make the jump effect
 	void update_coin_position() {
-		// Call to the method that rotate the sprite of the coin in the y axis the number of degrees as parameter
-		sprites[coin_sprite].rotate_sprite_y(5);
+		for (int i = 0; i != num_coins; ++i) {
+			// Call to the method that rotate the sprite of the coin in the y axis the number of degrees as parameter
+			sprites[coin_sprite + i].rotate_sprite_y(5);
+		}
 	}
 
     // Check if the player collides with the left or top border
