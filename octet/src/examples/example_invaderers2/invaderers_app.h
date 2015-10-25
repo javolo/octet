@@ -173,6 +173,8 @@ namespace octet {
 	const float window_width = 6.0f;
 	// We set the counter for update coin position
 	int counter_coin = 1;
+	// We create a variable to set the position of the coin depending on the position in the CSV file
+	const float coin_spacing = 0.25f;
 
     enum {
 	  // Constants definition
@@ -382,6 +384,13 @@ namespace octet {
 	  sprites[background_sprite + 1].init(background2, 6, 0, 6.0f, 6.0f);
 
 	  // We read the CSV file with the map of the coins
+	  std::ifstream level("assets/assignment/level.csv");
+	  // We check if the format of the file is right
+	  if (level.good()){
+
+
+
+	  }
 
 	  // We use the coint texture
 	  GLuint coin = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/coin2.gif");
