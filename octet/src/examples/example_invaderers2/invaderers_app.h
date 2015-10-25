@@ -175,6 +175,7 @@ namespace octet {
     enum {
 	  // Constants definition
       num_borders = 4,
+	  num_coins = 1000,
 
       // sprite definitions
       ship_sprite = 0,
@@ -186,6 +187,7 @@ namespace octet {
 	  background_sprite,
 	  background_sprite1,
 	  coin_sprite,
+	  last_coin_sprite = coin_sprite + num_coins - 1,
 	  player_sprite,
 
       num_sprites,
