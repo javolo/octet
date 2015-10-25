@@ -25,7 +25,8 @@ namespace octet {
     // half the width of the sprite
     float halfWidth;
 
-   
+	// half the height of the sprite
+	float halfHeight;
 
     // what texture is on our sprite
     int texture;
@@ -35,9 +36,6 @@ namespace octet {
 
 
   public:
-
-	// half the height of the sprite
-	float halfHeight;
 
     sprite() {
       texture = 0;
@@ -260,6 +258,15 @@ namespace octet {
 			  // We add some force to the jump to make the effect
 			  player_speed += 0.30f;
 			  sprites[player_sprite].translate(0, +player_speed);
+			  // We check if while jumping we found a coin
+			  if (sprites[player_sprite].collides_with(sprites[coin_sprite])) {
+				  // We increase the score
+				  score++;
+				  // Disable the coin to appear and to be remove from the system
+				  sprites[coin_sprite].is_enabled() = false;
+				  sprites[coin_sprite].translate(0, -20);
+			  }
+
 			  // We check if we have reached the maximum height to start pushing the player down
 			  if (sprites[player_sprite].get_position().y() > max_height){
 				  // Update boolean variable in case we left pressed the up button
@@ -427,7 +434,7 @@ namespace octet {
       }
 
       char score_text[32];
-      sprintf(score_text, "score: %d   lives: %d\n", score, num_lives);
+      sprintf(score_text, "coins: %d   lives: %d\n", score, num_lives);
 	  //printf("CAM X: %f \n", cameraToWorld.colx().length());
 	  // We calculate the new position of the score
 	  position_score = -1.5f + cameraToWorld.row(3).x();
