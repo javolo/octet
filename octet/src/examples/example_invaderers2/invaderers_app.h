@@ -385,15 +385,34 @@ namespace octet {
 
 	  // We read the CSV file with the map of the coins
 	  std::ifstream level("assets/assignment/level.csv");
-	  std::string value;
-	  // We check if the format of the file is right
-	  if (level.good()){
-		  // We obtain the values separated by commas
-		  getline(level, value, ',');
-		  // We check if we are at end of line
-		  
+	  //std::string value;
 
+	  char buffer[128];
+	  if (level.bad()){
+		  printf("ERROR\n");
 	  }
+	  //else {
+
+		 // // We check if the format of the file is right
+		 // while (!level.eof()){
+			//  // We obtain the values separated by commas
+			//  level.getline(buffer, sizeof(buffer));
+			//  printf("BUFF %c\n", buffer);
+			//  char *b = buffer;
+
+			//  for (int col = 0;; ++col) {
+
+			//	  char *e = b;
+			//	  while (*e != 0 && *e != ',') ++e;
+			//	  printf("VALUE: %c \n", b);
+			//	  if (*e == ',') break;
+			//	  b = e + 1;
+			//  }
+			//  // We check if we are at end of line
+
+
+		 // }
+	  //}
 
 	  // We use the coint texture
 	  GLuint coin = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/coin2.gif");
