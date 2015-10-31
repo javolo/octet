@@ -413,12 +413,6 @@ namespace octet {
 			  counter_coin_spacing++;
 		  }
 	  }
-	 
-	  //sprites[coin_sprite + 0].init(coin, 0, 0, 0.25f, 0.4f);
-	  //sprites[coin_sprite + 1].init(coin, 0.4f, 0, 0.25f, 0.4f);
-	  //sprites[coin_sprite + 2].init(coin, 0.8f, 0, 0.25f, 0.4f);
-	  //sprites[coin_sprite + 3].init(coin, 1.2f, 0, 0.25f, 0.4f);
-	  //sprites[coin_sprite + 4].init(coin, 1.6f, 0, 0.25f, 0.4f);
 
 	  // We use the player texture
 	  GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/img.gif");
