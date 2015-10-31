@@ -175,13 +175,17 @@ namespace octet {
 	int counter_coin = 0;
 	// We set the counter for spacing the coins in the map
 	int counter_coin_spacing = 0;
+	// We set the heigh of the coins by lines
+	int coin_heigh_spacing = 1.0f;
+	// We set the counter of coin lines
+	int counter_coin_lines = 0;
 	// We create a variable to set the position of the coin depending on the position in the CSV file
 	const float coin_spacing = 0.4f;
 
     enum {
 	  // Constants definition
       num_borders = 4,
-	  num_coins = 100,
+	  num_coins = 1000,
 
       // sprite definitions
       ship_sprite = 0,
@@ -398,11 +402,24 @@ namespace octet {
 	  while (!level.eof()) {
 		  // We obtain the string up to the first comma (cplus plus forum)
 		  getline(level, value, ',');
-		  printf("VAL: %s\n", value.c_str());
+		 
+		  // Detection of new line
+		  if (value.length() == 3){
+			  if (value.find("\n") > 0){
+				  // That means new line
+				  // We increase the heigh counter 
+				  counter_coin_lines++;
+				  // We init again the counter coin for the line
+				  counter_coin_spacing = 0;
+				  // We set the value string with the remaining characters
+				  value = value.substr(2, 3);
+			  }
+		  }
+		  printf("V: %s\n", value.c_str());
 		  // We make the treatment of the values we´ve got
 		  if (value.compare("1") == 0){
 			  // We create the sprite of the coin in the right position
-			  sprites[coin_sprite + counter_coin].init(coin, counter_coin_spacing*coin_spacing, 0, 0.25f, 0.4f);
+			  sprites[coin_sprite + counter_coin].init(coin, counter_coin_spacing*coin_spacing, counter_coin_lines*coin_heigh_spacing, 0.25f, 0.4f);
 			  // We increase the coin spacing variable
 			  counter_coin_spacing++;
 			  // We increase the counter of coins
@@ -412,6 +429,7 @@ namespace octet {
 			  // We increase the coin spacing variable
 			  counter_coin_spacing++;
 		  }
+		  
 	  }
 
 	  // We use the player texture
