@@ -173,6 +173,8 @@ namespace octet {
 	const float window_width = 6.0f;
 	// We set the counter for name the coin sprites
 	int counter_coin = 0;
+	// We set the counter for spacing the coins in the map
+	int counter_coin_spacing;
 	// We create a variable to set the position of the coin depending on the position in the CSV file
 	const float coin_spacing = 0.25f;
 
@@ -393,7 +395,13 @@ namespace octet {
 	  while (level.good()) {
 		  // We obtain the string up to the first comma (cplus plus forum)
 		  getline(level, value, ',');
-		  std::cout << std::string(value, 1, value.length() - 2);
+
+		  // We make the treatment of the values we´ve got
+		  if (value.compare("1")){
+
+		  }
+		  else if (value.compare("0")){
+		  }
 		  
 	  }
 
