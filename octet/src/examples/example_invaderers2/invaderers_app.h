@@ -174,9 +174,9 @@ namespace octet {
 	// We set the counter for name the coin sprites
 	int counter_coin = 0;
 	// We set the counter for spacing the coins in the map
-	int counter_coin_spacing;
+	int counter_coin_spacing = 0;
 	// We create a variable to set the position of the coin depending on the position in the CSV file
-	const float coin_spacing = 0.25f;
+	const float coin_spacing = 0.4f;
 
     enum {
 	  // Constants definition
@@ -385,6 +385,9 @@ namespace octet {
 	  GLuint background2 = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/Background.gif");
 	  sprites[background_sprite + 1].init(background2, 6, 0, 6.0f, 6.0f);
 
+	  // We define the coin texture before reading csv file
+	  GLuint coin = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/coin2.gif");
+
 	  // We read the CSV file with the map of the coins
 	  std::ifstream level("C:\\Users\\Javo\\Documents\\GitHub\\octet\\octet\\assets\\assignment\\level.csv");
 	  std::string value;
@@ -398,21 +401,24 @@ namespace octet {
 
 		  // We make the treatment of the values we´ve got
 		  if (value.compare("1")){
-
+			  // We create the sprite of the coin in the right position
+			  sprites[coin_sprite + counter_coin].init(coin, counter_coin_spacing*coin_spacing, 0, 0.25f, 0.4f);
+			  // We increase the coin spacing variable
+			  counter_coin_spacing++;
+			  // We increase the counter of coins
+			  counter_coin++;
 		  }
 		  else if (value.compare("0")){
+			  // We increase the coin spacing variable
+			  counter_coin_spacing++;
 		  }
-		  
 	  }
-
-
-	  // We use the coint texture
-	  GLuint coin = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/coin2.gif");
-	  sprites[coin_sprite + 0].init(coin, 0, 0, 0.25f, 0.4f);
-	  sprites[coin_sprite + 1].init(coin, 0.4f, 0, 0.25f, 0.4f);
-	  sprites[coin_sprite + 2].init(coin, 0.8f, 0, 0.25f, 0.4f);
-	  sprites[coin_sprite + 3].init(coin, 1.2f, 0, 0.25f, 0.4f);
-	  sprites[coin_sprite + 4].init(coin, 1.6f, 0, 0.25f, 0.4f);
+	 
+	  //sprites[coin_sprite + 0].init(coin, 0, 0, 0.25f, 0.4f);
+	  //sprites[coin_sprite + 1].init(coin, 0.4f, 0, 0.25f, 0.4f);
+	  //sprites[coin_sprite + 2].init(coin, 0.8f, 0, 0.25f, 0.4f);
+	  //sprites[coin_sprite + 3].init(coin, 1.2f, 0, 0.25f, 0.4f);
+	  //sprites[coin_sprite + 4].init(coin, 1.6f, 0, 0.25f, 0.4f);
 
 	  // We use the player texture
 	  GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/img.gif");
