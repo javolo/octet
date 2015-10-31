@@ -176,7 +176,7 @@ namespace octet {
 	// We set the counter for spacing the coins in the map
 	int counter_coin_spacing = 0;
 	// We set the heigh of the coins by lines
-	int coin_heigh_spacing = 1.0f;
+	const float coin_heigh_spacing = 0.5f;
 	// We set the counter of coin lines
 	int counter_coin_lines = 0;
 	// We create a variable to set the position of the coin depending on the position in the CSV file
@@ -431,6 +431,9 @@ namespace octet {
 		  }
 		  
 	  }
+
+	 /* sprites[coin_sprite + 0].init(coin, 0, 0, 0.25f, 0.4f);
+	  sprites[coin_sprite + 1].init(coin, 0, 0.4f, 0.25f, 0.4f);*/
 
 	  // We use the player texture
 	  GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/img.gif");
