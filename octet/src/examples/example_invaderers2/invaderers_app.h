@@ -181,7 +181,7 @@ namespace octet {
     enum {
 	  // Constants definition
       num_borders = 4,
-	  num_coins,
+	  num_coins = 100,
 
       // sprite definitions
       ship_sprite = 0,
@@ -395,12 +395,12 @@ namespace octet {
 	  if (level.bad()) printf("ERROR\n");
 
 	  // loop over lines
-	  while (level.good()) {
+	  while (!level.eof()) {
 		  // We obtain the string up to the first comma (cplus plus forum)
 		  getline(level, value, ',');
-
+		  printf("VAL: %s\n", value.c_str());
 		  // We make the treatment of the values we´ve got
-		  if (value.compare("1")){
+		  if (value.compare("1") == 0){
 			  // We create the sprite of the coin in the right position
 			  sprites[coin_sprite + counter_coin].init(coin, counter_coin_spacing*coin_spacing, 0, 0.25f, 0.4f);
 			  // We increase the coin spacing variable
@@ -408,7 +408,7 @@ namespace octet {
 			  // We increase the counter of coins
 			  counter_coin++;
 		  }
-		  else if (value.compare("0")){
+		  else if (value.compare("0") == 0){
 			  // We increase the coin spacing variable
 			  counter_coin_spacing++;
 		  }
