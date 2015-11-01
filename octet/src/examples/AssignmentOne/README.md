@@ -7,10 +7,10 @@ reason this are the step followed in the development of this first task:
  2. Player 
  3. Jump Effect
  4. Never ending screen
- 5. Coins (including coin sprites, collision with player, score update)
+ 5. Coins 
  6. Read from CSV (using Andy´s code, searching on the net, problem with path)
  7. Different level of coins (interpreation of eol)
- 8. Sounds (jump effect, taking coins)
+ 8. Sounds 
  9. Problems found (position the score not following the camera)
  10. Possible improvements (move the camera when the player is around the middle of the screen,
 	include enemies, include boxes, include features to the map such as pipes or stairs, level random generator
@@ -47,8 +47,7 @@ When the movement of the player was right I included the movement of the camera 
 Setting the bottom border at a specific height and setting the init position of the player to this bottom border height
 was useless to have a functionality when the user play the key down. It was removed.
 
-// Put the image of background + player
-![Alt text](https://github.com/javolo/octet/blob/master/octet/src/examples/AssignmentOne/images/Background.gif "Background Image")
+![Alt text](https://github.com/javolo/octet/blob/master/octet/src/examples/AssignmentOne/images/Player and background.png "Background Image")
 
 # 3. JUMP EFFECT
 
@@ -88,6 +87,12 @@ To include new features to the game I made the coins move each frame its positio
 so each coin rotate a specific angle. I also made an auxiliar function in the sprite class (**"rotate_sprite_y"**) that
 rotates in the y axis the image of the coin. The coins only rotate when they are active, once they have been taken I don´t
 do it.
+
+![Alt text](https://github.com/javolo/octet/blob/master/octet/src/examples/AssignmentOne/images/sreen coins.png "Background Image")
+
+# 6. READ FROM CSV
+
+
 
 # 8. SOUNDS
 
