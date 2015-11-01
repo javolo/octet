@@ -449,6 +449,9 @@ namespace octet {
 	  sprites[first_border_sprite + 2].init(white, -3, 0, 0, 6);
 	  sprites[first_border_sprite + 3].init(white, 3, 0, 0, 6);
 
+	  // sounds
+	  coin_sound = resource_dict::get_sound_handle(AL_FORMAT_MONO16, "assets/assignment/yoshi_coin.wav");
+
       // sundry counters and game state.
       num_lives = 3;
       game_over = false;
