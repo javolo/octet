@@ -30,7 +30,7 @@ this effect I had to go to the default configuration in "windows_specific.h" cla
         NULL, NULL, wndclass.hInstance, (LPVOID)this
       );
 
-
+![Alt text](http://thumbs4.ebaystatic.com/d/l225/m/mG-AIzI2uYTMaIQa5ClKOMQ.jpg?raw=true "Procedural City image")
 
 
 
