@@ -202,6 +202,7 @@ namespace octet {
 	  coin_sprite,
 	  last_coin_sprite = coin_sprite + num_coins - 1,
 	  player_sprite,
+	  enemy_sprite,
 
       num_sprites,
 
@@ -463,6 +464,10 @@ namespace octet {
 	  // We use the player texture
 	  GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/img.gif");
 	  sprites[player_sprite].init(player, -2.75, -1.72, 0.505f, 0.70f);
+
+	  // We use the enemy texture
+	  GLuint enemy = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/enemy.gif");
+	  sprites[enemy_sprite].init(enemy, 0, -1.72, 0.505f, 0.70f);
 
 	  // We set the border as sprite to walls collision
 	  GLuint white = resource_dict::get_texture_handle(GL_RGB, "#ffffff");
