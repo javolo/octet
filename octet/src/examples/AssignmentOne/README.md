@@ -3,8 +3,8 @@
 To this first assignment the task was to hack the example of Invaders 2D Game that Andy provide us. 
 I decided to start a new game from scratch re-using all possible code from the example give. For that
 reason this are the step followed in the development of this first task:
- 1. Background (including modification of windows_specific definition + removal of boders)
- 2. Player (set player sprite, movement in the screen, collison with walls )
+ 1. Background
+ 2. Player 
  3. Jump Effect (max_height jump, stop with border bottom)
  4. Never ending screen (Andy´s advice, two background images)
  5. Coins (including coin sprites, collision with player, score update)
@@ -30,12 +30,27 @@ this effect I had to go to the default configuration in "windows_specific.h" cla
         NULL, NULL, wndclass.hInstance, (LPVOID)this
       );
 
+// Put the image of new background and old image to see the difference and the background layout of the page
 ![Alt text](https://github.com/javolo/octet/blob/master/octet/src/examples/AssignmentOne/images/Background.gif "Background Image")
 
+# 2. PLAYER
 
+The second step is to put a player in the screen and move it around. The first thing was to move the player around
+the screen and made it collide with the borders not taking in consideration the background image. Using the invaders
+example that wasn´t a problem.
 
+Once the window has been changed and the player sprite was set, the next step is set the bottom border as I wanted 
+the player to go above the brick lane of the image. So for that I had to modify the definition of this border and
+establish the heigh of it to -1.8f as the 0 value is the axis of image´s middle.
 
+When the movement of the player was right I included the movement of the camera when the player is moving left or right.
+Setting the bottom border at a specific height and setting the init position of the player to this bottom border height
+was useless to have a functionality when the user play the key down. It was removed.
 
+// Put the image of background + player
+![Alt text](https://github.com/javolo/octet/blob/master/octet/src/examples/AssignmentOne/images/Background.gif "Background Image")
+
+# 3. PLAYER
 
 
 # 9. PROBLEMS FOUND
@@ -43,5 +58,5 @@ this effect I had to go to the default configuration in "windows_specific.h" cla
 ## 9.1 Border removal
 When the background image was set still around had the white border Andy set to delimiter the movement of the invaders
 in the original game. Playing with the different parameters of the sprite init method, finally I discovered that the 
-last two (widht and height) and setting them accordingly to 0, removed the white background but set the walls of the 
-game.
+last two (widht and height) and setting them accordingly to 0, removed the white background but keeping the walls of 
+the game.
