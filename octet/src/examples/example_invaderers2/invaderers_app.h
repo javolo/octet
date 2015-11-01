@@ -186,6 +186,7 @@ namespace octet {
 	  // Constants definition
       num_borders = 4,
 	  num_coins = 1000,
+	  num_sound_sources = 2,
 
       // sprite definitions
       ship_sprite = 0,
@@ -225,6 +226,13 @@ namespace octet {
 
     // information for our text
     bitmap_font font;
+
+	// Sound definition
+	ALuint coin_sound;
+	unsigned cur_source;
+	ALuint sources[num_sound_sources];
+
+	ALuint get_sound_source() { return sources[cur_source++ % num_sound_sources]; }
 
     // Use the keyboard to move the player around the screen
     void move_player() {
@@ -415,7 +423,6 @@ namespace octet {
 				  value = value.substr(2, 3);
 			  }
 		  }
-		  printf("V: %s\n", value.c_str());
 		  // We make the treatment of the values we´ve got
 		  if (value.compare("1") == 0){
 			  // We create the sprite of the coin in the right position
@@ -429,11 +436,7 @@ namespace octet {
 			  // We increase the coin spacing variable
 			  counter_coin_spacing++;
 		  }
-		  
 	  }
-
-	 /* sprites[coin_sprite + 0].init(coin, 0, 0, 0.25f, 0.4f);
-	  sprites[coin_sprite + 1].init(coin, 0, 0.4f, 0.25f, 0.4f);*/
 
 	  // We use the player texture
 	  GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/img.gif");
