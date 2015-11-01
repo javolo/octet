@@ -5,14 +5,14 @@ I decided to start a new game from scratch re-using all possible code from the e
 reason this are the step followed in the development of this first task:
  1. Background
  2. Player 
- 3. Jump Effect (max_height jump, stop with border bottom)
+ 3. Jump Effect
  4. Never ending screen (Andy´s advice, two background images)
  5. Coins (including coin sprites, collision with player, score update)
  6. Read from CSV (using Andy´s code, searching on the net, problem with path)
  7. Different level of coins (interpreation of eol)
  8. Sounds (jump effect, taking coins)
  9. Problems found (position the score not following the camera, move border wit
-	never ending screen, jump effect & border bottom space)
+	never ending screen)
  10. Possible improvements (move the camera when the player is around the middle of the screen,
 	include enemies, include boxes, include features to the map such as pipes or stairs, level random generator
 	, modify jump max height with difference between start and finish "y")
@@ -72,6 +72,13 @@ I have declared a boolean variable (**"player_descending"**) when the player rea
 back at the floor to start another jump. What I want is either the user is with the key up pressed or try to jump when the 
 player is descending not allow to jump again until the character has touched the floor.
 
+# 4. NEVER ENDING SCREEN
+
+Getting the player jumping and moving around the screen the next phase I wanted to achieve is move the player more than the
+first screen, being capable of going right without limitation. After try several formulas I spoke with Andy and gave me the 
+advice to have two background images and when the camera is fully aligned with the second one move the first one to the right
+of the second and repeat the process again and again to have infinite screen effect.
+
 # 9. PROBLEMS FOUND
 
 ## 9.1 Border removal
@@ -84,6 +91,9 @@ the game.
 One of the problems found with the jump effect is that sometimes the player didn´t get back to the original position 
 touching the floor, it was some space between the player and the floor. Not always happen this issue.To correct this 
 space and after get an advice from Andy I applied a height correction factor when the player was in this situation. 
+
+## 9.3 Never ending screen issues
+
 
 
 
