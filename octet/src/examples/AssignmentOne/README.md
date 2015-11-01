@@ -6,16 +6,15 @@ reason this are the step followed in the development of this first task:
  1. Background
  2. Player 
  3. Jump Effect
- 4. Never ending screen (Andy´s advice, two background images)
+ 4. Never ending screen
  5. Coins (including coin sprites, collision with player, score update)
  6. Read from CSV (using Andy´s code, searching on the net, problem with path)
  7. Different level of coins (interpreation of eol)
  8. Sounds (jump effect, taking coins)
- 9. Problems found (position the score not following the camera, move border wit
-	never ending screen)
+ 9. Problems found (position the score not following the camera)
  10. Possible improvements (move the camera when the player is around the middle of the screen,
 	include enemies, include boxes, include features to the map such as pipes or stairs, level random generator
-	, modify jump max height with difference between start and finish "y")
+	, modify jump max height with difference between start and finish "y", 100 coins 1 live)
  11. Greetings (thanks to Raul (basics of games, matrix understanding, read from CSV and Andy (never ending screen, 
 	jump space when touching the bottom border))
 
@@ -58,7 +57,7 @@ boxes. For that in definition of the key up treatment was modified to allow jump
 
 To have the desired effect instead of apply a small amount each time the user presses the key up I set this amount to be
 0.3 units. That get the effect of going up. To complete the full jump effect I had to create a function (**"update_player_position"**)
-that it was run each frame to push the player down at a constant speed.
+that it was run each frame to push the player down at a constant speed (**look at "key_up" logic section**)
 
 What this function does basically is check if the player is in the air (the position of the player is not equal at the height
 of the bottom border) and apply to it negative speed in the y axis until reach the floor. To get the position of the player I
@@ -79,6 +78,24 @@ first screen, being capable of going right without limitation. After try several
 advice to have two background images and when the camera is fully aligned with the second one move the first one to the right
 of the second and repeat the process again and again to have infinite screen effect.
 
+# 5. COINS
+
+As part of make more interesting the game I included some coins so when the player takes them the score is incremented. I
+defined some static coins and include the logic in the jump effect to when the player collision with the coin update the
+score accordingly.
+
+To include new features to the game I made the coins move each frame its position. I created a function (**"update_coin_position"**)
+so each coin rotate a specific angle. I also made an auxiliar function in the sprite class (**"rotate_sprite_y"**) that
+rotates in the y axis the image of the coin. The coins only rotate when they are active, once they have been taken I don´t
+do it.
+
+# 8. SOUNDS
+
+The last thing I´ve included in the game is the jump and coin sounds. So when the player jump I play this sound and when the player
+take a coin reproduce the corresponding sound. One issue found is that mantaining the key_up pressed the sound repeated 
+continuosly so I included a boolean variable (**"sound_on"**) so only at the beginning of the jump it´s played the sound.
+Then it´s invalidated until the floor is touched for the player.
+
 # 9. PROBLEMS FOUND
 
 ## 9.1 Border removal
@@ -93,7 +110,13 @@ touching the floor, it was some space between the player and the floor. Not alwa
 space and after get an advice from Andy I applied a height correction factor when the player was in this situation. 
 
 ## 9.3 Never ending screen issues
-
+The first problem found with the never ending effect is when I move from the first to the second background image the
+bottom border dissapear and when the player jumped the character was moving down and didn´t make the desired effect.
+What I did was to move the bottom border with the movement of the camera so this error was fixed.
+The second problem was the left border. As I´m moving the first image when camera aligns with the second background,
+the player going left back to the first image created problems and wrong effects. As part of the the movement of 
+background images I change the left border position to fit with the current image set as background (**look at 
+"key_right" logic section**)
 
 
 

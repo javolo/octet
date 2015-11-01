@@ -208,8 +208,11 @@ namespace octet {
 		// We update the player position to make the jump effect
 		void update_coin_position() {
 			for (int i = 0; i != num_coins; ++i) {
-				// Call to the method that rotate the sprite of the coin in the y axis the number of degrees as parameter
-				sprites[coin_sprite + i].rotate_sprite_y(5);
+				// We only move the coins if they are enabled
+				if (sprites[coin_sprite + i].is_enabled()){
+					// Call to the method that rotate the sprite of the coin in the y axis the number of degrees as parameter
+					sprites[coin_sprite + i].rotate_sprite_y(5);
+				}
 			}
 		}
 
