@@ -47,7 +47,7 @@ When the movement of the player was right I included the movement of the camera 
 Setting the bottom border at a specific height and setting the init position of the player to this bottom border height
 was useless to have a functionality when the user play the key down. It was removed.
 
-![Alt text](https://github.com/javolo/octet/blob/master/octet/src/examples/AssignmentOne/images/PlayerBackground.gif "Background Image")
+![Alt text](https://github.com/javolo/octet/blob/master/octet/src/examples/AssignmentOne/images/PlayerBackground.gif "Background Player Image")
 
 # 3. JUMP EFFECT
 
@@ -88,7 +88,7 @@ so each coin rotate a specific angle. I also made an auxiliar function in the sp
 rotates in the y axis the image of the coin. The coins only rotate when they are active, once they have been taken I don´t
 do it.
 
-![Alt text](https://github.com/javolo/octet/blob/master/octet/src/examples/AssignmentOne/images/sreenCoins.gif "Background Image")
+![Alt text](https://github.com/javolo/octet/blob/master/octet/src/examples/AssignmentOne/images/screenCoins.gif "Coins Example")
 
 # 6. READ FROM CSV
 
