@@ -65,9 +65,12 @@ of the bottom border) and apply to it negative speed in the y axis until reach t
 made one function to return its position (**"get_position"** in the sprite class).
 
 I did´t want the player to be jumping forever so I decided to limit the jump effect. To do that I set the **"max_height"**
-variable. This set up to which far the player can get in the jump knowing the start point and the height of the screen. Once
-get this maximum I change the player speed to be negative.
+variable. This sets up how far the player can get in the jump knowing the starting point and the height of the screen. Once
+it reaches this maximum I change the player speed to be negative and start going down. 
 
+I have declared a boolean variable (**"player_descending"**) when the player reach the top height and make him wait until is  
+back at the floor to start another jump. What I want is either the user is with the key up pressed or try to jump when the 
+player is descending not allow to jump again until the character has touched the floor.
 
 # 9. PROBLEMS FOUND
 
