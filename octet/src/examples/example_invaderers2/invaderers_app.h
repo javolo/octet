@@ -229,6 +229,7 @@ namespace octet {
 
 	// Sound definition
 	ALuint coin_sound;
+	ALuint jump_sound;
 	unsigned cur_source;
 	ALuint sources[num_sound_sources];
 
@@ -456,6 +457,7 @@ namespace octet {
 
 	  // sounds
 	  coin_sound = resource_dict::get_sound_handle(AL_FORMAT_MONO16, "assets/assignment/smw_coin.wav");
+	  jump_sound = resource_dict::get_sound_handle(AL_FORMAT_MONO16, "assets/assignment/smw_jump.wav");
 	  cur_source = 0;
 	  alGenSources(num_sound_sources, sources);
 
