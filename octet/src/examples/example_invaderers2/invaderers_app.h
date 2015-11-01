@@ -186,7 +186,7 @@ namespace octet {
 	  // Constants definition
       num_borders = 4,
 	  num_coins = 1000,
-	  num_sound_sources = 2,
+	  num_sound_sources = 8,
 
       // sprite definitions
       ship_sprite = 0,
@@ -281,11 +281,16 @@ namespace octet {
 			  // We check if while jumping we found a coin
 			  for (int i = 0; i != num_coins; ++i) {
 				  if (sprites[player_sprite].collides_with(sprites[coin_sprite + i])) {
+					  // We play the sound of getting a coin
+					  ALuint source = get_sound_source();
+					  alSourcei(source, AL_BUFFER, coin_sound);
+					  alSourcePlay(source);
 					  // We increase the score
 					  score++;
 					  // Disable the coin to appear and to be remove from the system
 					  sprites[coin_sprite + i].is_enabled() = false;
 					  sprites[coin_sprite + i].translate(0, -20);
+					 
 				  }
 			  }
 
@@ -450,7 +455,9 @@ namespace octet {
 	  sprites[first_border_sprite + 3].init(white, 3, 0, 0, 6);
 
 	  // sounds
-	  coin_sound = resource_dict::get_sound_handle(AL_FORMAT_MONO16, "assets/assignment/yoshi_coin.wav");
+	  coin_sound = resource_dict::get_sound_handle(AL_FORMAT_MONO16, "assets/assignment/smw_coin.wav");
+	  cur_source = 0;
+	  alGenSources(num_sound_sources, sources);
 
       // sundry counters and game state.
       num_lives = 3;
