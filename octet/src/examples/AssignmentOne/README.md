@@ -11,10 +11,11 @@ reason this are the step followed in the development of this first task:
  6. Read from CSV (using Andy´s code, searching on the net, problem with path)
  7. Different level of coins (interpreation of eol)
  8. Sounds (jump effect, taking coins)
- 9. Problems found (removal of borders, position the score not following the camera, move border wit
+ 9. Problems found (position the score not following the camera, move border wit
 	never ending screen, jump effect & border bottom space)
  10. Possible improvements (move the camera when the player is around the middle of the screen,
-	include enemies, include boxes, include features to the map such as pipes or stairs, level random generator)
+	include enemies, include boxes, include features to the map such as pipes or stairs, level random generator
+	, modify jump max height with difference between start and finish "y")
  11. Greetings (thanks to Raul (basics of games, matrix understanding, read from CSV and Andy (never ending screen, 
 	jump space when touching the bottom border))
 
@@ -50,7 +51,22 @@ was useless to have a functionality when the user play the key down. It was remo
 // Put the image of background + player
 ![Alt text](https://github.com/javolo/octet/blob/master/octet/src/examples/AssignmentOne/images/Background.gif "Background Image")
 
-# 3. PLAYER
+# 3. JUMP EFFECT
+
+One of the key features I wanted my player to have is being able to jump to pick up objects, avoid enemies or go up to
+boxes. For that in definition of the key up treatment was modified to allow jump effect. 
+
+To have the desired effect instead of apply a small amount each time the user presses the key up I set this amount to be
+0.3 units. That get the effect of going up. To complete the full jump effect I had to create a function (**"update_player_position"**)
+that it was run each frame to push the player down at a constant speed.
+
+What this function does basically is check if the player is in the air (the position of the player is not equal at the height
+of the bottom border) and apply to it negative speed in the y axis until reach the floor. To get the position of the player I
+made one function to return its position (**"get_position"** in the sprite class).
+
+I did´t want the player to be jumping forever so I decided to limit the jump effect. To do that I set the **"max_height"**
+variable. This set up to which far the player can get in the jump knowing the start point and the height of the screen. Once
+get this maximum I change the player speed to be negative.
 
 
 # 9. PROBLEMS FOUND
@@ -60,3 +76,6 @@ When the background image was set still around had the white border Andy set to 
 in the original game. Playing with the different parameters of the sprite init method, finally I discovered that the 
 last two (widht and height) and setting them accordingly to 0, removed the white background but keeping the walls of 
 the game.
+
+## 9.2 Bottom space after player´s jump
+
