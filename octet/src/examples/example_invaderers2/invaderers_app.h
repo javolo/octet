@@ -279,6 +279,10 @@ namespace octet {
 			  // We add some force to the jump to make the effect
 			  player_speed += 0.30f;
 			  sprites[player_sprite].translate(0, +player_speed);
+			  // We play the sound of getting a coin
+			  ALuint source = get_sound_source();
+			  alSourcei(source, AL_BUFFER, jump_sound);
+			  alSourcePlay(source);
 			  // We check if while jumping we found a coin
 			  for (int i = 0; i != num_coins; ++i) {
 				  if (sprites[player_sprite].collides_with(sprites[coin_sprite + i])) {
