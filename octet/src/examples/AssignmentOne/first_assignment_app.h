@@ -171,6 +171,7 @@ namespace octet {
 				else {
 					// If the player is descending we continue going with negative speed
 					sprites[player_sprite].translate(0, -player_speed);
+					// Applied correction factor when player not touching the floor after jump
 					if (sprites[player_sprite].get_position().y() < -1.76f && sprites[player_sprite].get_position().y() >= -1.78f){
 						sprites[player_sprite].translate(0, -0.05f);
 					}
@@ -190,6 +191,7 @@ namespace octet {
 				// If the player position is not at height -1.8f the player has jumped so we push him down to the floor
 				const float player_speed = 0.1f;
 				sprites[player_sprite].translate(0, -player_speed);
+				// Applied correction factor when player not touching the floor after jump
 				if (sprites[player_sprite].get_position().y() < -1.76f && sprites[player_sprite].get_position().y() >= -1.78f){
 					sprites[player_sprite].translate(0, -0.05f);
 					// In the collision with floor set the jump sound again to play

@@ -81,4 +81,9 @@ last two (widht and height) and setting them accordingly to 0, removed the white
 the game.
 
 ## 9.2 Bottom space after player´s jump
+One of the problems found with the jump effect is that sometimes the player didn´t get back to the original position 
+touching the floor, it was some space between the player and the floor. Not always happen this issue.To correct this 
+space and after get an advice from Andy I applied a height correction factor when the player was in this situation. 
+
+
 
