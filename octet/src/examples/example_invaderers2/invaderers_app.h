@@ -181,6 +181,8 @@ namespace octet {
 	int counter_coin_lines = 0;
 	// We create a variable to set the position of the coin depending on the position in the CSV file
 	const float coin_spacing = 0.4f;
+	// Jump sound variable
+	bool sound_on = true;
 
     enum {
 	  // Constants definition
@@ -279,10 +281,14 @@ namespace octet {
 			  // We add some force to the jump to make the effect
 			  player_speed += 0.30f;
 			  sprites[player_sprite].translate(0, +player_speed);
-			  // We play the sound of getting a coin
-			  ALuint source = get_sound_source();
-			  alSourcei(source, AL_BUFFER, jump_sound);
-			  alSourcePlay(source);
+			  if (sound_on){
+				  // We play the sound of getting a coin
+				  ALuint source = get_sound_source();
+				  alSourcei(source, AL_BUFFER, jump_sound);
+				  alSourcePlay(source);
+				  // We invalidate to sound only once when the up key is pressed for long
+				  sound_on = false;
+			  }
 			  // We check if while jumping we found a coin
 			  for (int i = 0; i != num_coins; ++i) {
 				  if (sprites[player_sprite].collides_with(sprites[coin_sprite + i])) {
@@ -304,6 +310,8 @@ namespace octet {
 				  // Update boolean variable in case we left pressed the up button
 				  player_descending = true;
 				  sprites[player_sprite].translate(0, -player_speed);
+				  // In the collision with floor set the jump sound again to play
+				  sound_on = true;
 			  }
 		  }
 		  else {
@@ -317,6 +325,8 @@ namespace octet {
 				  player_descending = false;
 				  sprites[player_sprite].translate(0, +player_speed);
 			  }
+			  // In the collision with floor set the jump sound again to play
+			  sound_on = true;
 		  }
 	  }
     }
@@ -330,9 +340,13 @@ namespace octet {
 			sprites[player_sprite].translate(0, -player_speed);
 			if (sprites[player_sprite].get_position().y() < -1.76f && sprites[player_sprite].get_position().y() >= -1.78f){
 				sprites[player_sprite].translate(0, -0.05f);
+				// In the collision with floor set the jump sound again to play
+				sound_on = true;
 			} 
 			if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 0])) {
 				sprites[player_sprite].translate(0, +player_speed);
+				// In the collision with floor set the jump sound again to play
+				sound_on = true;
 			}
 		}
 	}
