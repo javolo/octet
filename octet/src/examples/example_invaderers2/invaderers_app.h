@@ -325,8 +325,6 @@ namespace octet {
 				  player_descending = false;
 				  sprites[player_sprite].translate(0, +player_speed);
 			  }
-			  // In the collision with floor set the jump sound again to play
-			  sound_on = true;
 		  }
 	  }
     }
