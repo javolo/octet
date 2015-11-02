@@ -47,29 +47,29 @@ to this height.
 # 3. JUMP EFFECT
 
 One of the key features I wanted my player to have is being able to jump to pick up objects, avoid enemies or go up to
-boxes. For that in definition of the key up treatment was modified to allow jump effect. 
+boxes.
 
-To have the desired effect instead of apply a small amount each time the user presses the key up I set this amount to be
-0.3 units. That get the effect of going up. To complete the full jump effect I had to create a function (**"update_player_position"**)
-that it was run each frame to push the player down at a constant speed (**look at "key_up" logic section**)
+To have the desired effect instead of apply a constant speed each time the user presses the key up I set this amount to be
+0.3 units. That get the effect of going up quicker. To complete the full jump effect I had to create a function 
+(**"update_player_position"**) that it was run each frame to push the player down at a constant speed (**look at "key_up" logic section**)
 
-What this function does basically is check if the player is in the air (the position of the player is not equal at the height
-of the bottom border) and apply to it negative speed in the y axis until reach the floor. To get the position of the player I
-made one function to return its position (**"get_position"** in the sprite class).
+This function does basically checks if the player is in the air (the position of the player is not the bottom border one) and 
+apply a negative speed in the y axis until reach the floor. To get the position of the player I made one function to return 
+its position (**"get_position"** in the sprite class).
 
 I did´t want the player to be jumping forever so I decided to limit the jump effect. To do that I set the **"max_height"**
 variable. This sets up how far the player can get in the jump knowing the starting point and the height of the screen. Once
 it reaches this maximum I change the player speed to be negative and start going down. 
 
-I have declared a boolean variable (**"player_descending"**) when the player reach the top height and make him wait until is  
-back at the floor to start another jump. What I want is either the user is with the key up pressed or try to jump when the 
-player is descending not allow to jump again until the character has touched the floor.
+I have declared a boolean variable (**"player_descending"**) to make the player wait until is back at the floor to start another 
+jump when is reched. What I want is either the user is with the key up pressed or try to jump when the player is descending not 
+allow to jump again until the character has touched the floor.
 
 # 4. NEVER ENDING SCREEN
 
 Getting the player jumping and moving around the screen the next phase I wanted to achieve is move the player more than the
 first screen, being capable of going right without limitation. After try several formulas I spoke with Andy and gave me the 
-advice to have two background images and when the camera is fully aligned with the second one move the first one to the right
+advice to have two background images and when the camera is fully aligned with the second one move the first to the right
 of the second and repeat the process again and again to have infinite screen effect.
 
 # 5. COINS
@@ -100,44 +100,37 @@ me to put absolute path to the file in order to be read correctly.
 
 # 7. SOUNDS
 
-The last thing I´ve included in the game is the jump and coin sounds. So when the player jump I play this sound and when the player
-take a coin reproduce the corresponding sound. One issue found is that mantaining the key_up pressed the sound repeated 
-continuosly so I included a boolean variable (**"sound_on"**) so only at the beginning of the jump it´s played the sound.
-Then it´s invalidated until the floor is touched for the player.
+The last thing I´ve included in the game is the jump and coin sounds. One issue found is that mantaining the key_up pressed 
+the sound repeated continuosly so I included a boolean variable (**"sound_on"**). Only at the beginning of the jump it´s 
+played the sound. Then it´s invalidated until the floor is touched for the player.
 
 # 8. PROBLEMS FOUND
 
-## 8.1 Border removal
-When the background image was set still around had the white border Andy set to delimiter the movement of the invaders
-in the original game. Playing with the different parameters of the sprite init method, finally I discovered that the 
-last two (widht and height) and setting them accordingly to 0, removed the white background but keeping the walls of 
-the game.
+## 8.1 Bottom space after player´s jump
+The jump effect generated a problem and it was that sometimes the player didn´t get back to the original position 
+touching the floor, it was some space between them but not always. To correct this gap and after get an advice 
+from Andy I applied a height correction factor when the player was in this situation. 
 
-## 8.2 Bottom space after player´s jump
-One of the problems found with the jump effect is that sometimes the player didn´t get back to the original position 
-touching the floor, it was some space between the player and the floor. Not always happen this issue.To correct this 
-space and after get an advice from Andy I applied a height correction factor when the player was in this situation. 
-
-## 8.3 Never ending screen issues
+## 8.2 Never ending screen issues
 The first problem found with the never ending effect is when I move from the first to the second background image the
-bottom border dissapear and when the player jumped the character was moving down and didn´t make the desired effect.
-What I did was to move the bottom border with the movement of the camera so this error was fixed.
-The second problem was the left border. As I´m moving the first image when camera aligns with the second background,
-the player going left back to the first image created problems and wrong effects. As part of the the movement of 
-background images I change the left border position to fit with the current image set as background (**look at 
-"key_right" logic section**)
+bottom border dissapear and when the player jumped it moved down and didn´t make the desired effect. What I did was to 
+move the bottom border with the camera´s movement so this error was fixed.
 
-## 8.4 Position Score movement	
-One issue found moving the camera with the player was the score dissapeared and I wanted to move with the camera to
-be shown always. After several tries I get to increase the x position of the score with the camera x position in the
+The second problem was the left border. When I moved the first image and the camera aligned with the second background,
+the player going left back to the first image created wrong effects and the game to crash to not have image to draw. As 
+part of the the movement of background images I change the left border position as well (**look at "key_right" logic section**)
+
+## 8.3 Position Score movement	
+One issue found moving the camera with the player was that the score dissapeared and I wanted to move with the camera 
+to be shown always. After several tries I get to increase the x position of the score with the camera x position in the
 draw world method. That made the score follow the camera movement.
 
 # 9. POSSIBLE IMPROVEMENTS
 
-As this is the first kind of game I did there is huge space for improvement adding some more features:
- * Make the player not to be always in the left part and start the movement of the camera something along the middle
+As this is the first kind of game I made there is huge space for improvement adding some more features:
+ * Make the player not to be always in the left part and start the movement of the camera along the middle
  of the screen
- * Include enemies, boxes and features to the map
+ * Include enemies, boxes and features to the map (such as pipes, stairs...)
  * Create a level random generator
  * Amend the jump max_height to be calculated with start and end position.
  * Every 100 coins one live up
@@ -145,4 +138,4 @@ As this is the first kind of game I did there is huge space for improvement addi
 # 10. GREETINGS
 
 Just a small note to say big thank you to Raul Araujo and Andy Thomason for all the help provided during the whole 
-assignment explaining me some concepts and giving me useful advices.
+assignment explaining me some key concepts and giving me useful advices.
