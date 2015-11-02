@@ -8,14 +8,11 @@ reason this are the step followed in the development of this first task:
  3. Jump Effect
  4. Never ending screen
  5. Coins 
- 6. Read from CSV (using Andy´s code, searching on the net, problem with path)
- 7. Different level of coins (interpreation of eol)
- 8. Sounds 
- 9. Problems found (position the score not following the camera)
- 10. Possible improvements (move the camera when the player is around the middle of the screen,
-	include enemies, include boxes, include features to the map such as pipes or stairs, level random generator
-	, modify jump max height with difference between start and finish "y", 100 coins 1 live)
- 11. Greetings (thanks to Raul (basics of games, matrix understanding, read from CSV and Andy (never ending screen, 
+ 6. Read from CSV
+ 7. Sounds 
+ 8. Problems found 
+ 9. Possible improvements
+ 10. Greetings (thanks to Raul (basics of games, matrix understanding, read from CSV and Andy (never ending screen, 
 	jump space when touching the bottom border))
 
 # 1. BACKGROUND
@@ -30,7 +27,7 @@ this effect I had to go to the default configuration in "windows_specific.h" cla
         NULL, NULL, wndclass.hInstance, (LPVOID)this
       );
 
-![Alt text](https://github.com/javolo/octet/blob/master/octet/src/examples/AssignmentOne/images/ScreenDifference "Background Image")
+![Alt text](https://github.com/javolo/octet/blob/master/octet/src/examples/AssignmentOne/images/ScreenDifference.gif "Background Image")
 
 # 2. PLAYER
 
@@ -91,29 +88,38 @@ do it.
 
 # 6. READ FROM CSV
 
+One of the requirements was to read from a CSV file to input parameter, create a map or draw elements in the game. I decided
+to use the file to create the level´s map of my game. For that I use the code Andy provided and also use the cplusplus forum
+for further information.
 
+I read coma by comma all the elements and I interpret them. At this early stage of the game, 0 means nothings, 1 means to draw
+a coin. I also included different level of coins what brought a special treatment for the end of line characters solved finding 
+an unusual lenght of String. Once found I updated the spacing variables to get the correct position.
 
-# 8. SOUNDS
+One problem found was that the file wasn´t read properly. Searching different alternatives the issue was with the path forcing
+me to put absolute path to the file in order to be read correctly.
+
+# 7. SOUNDS
 
 The last thing I´ve included in the game is the jump and coin sounds. So when the player jump I play this sound and when the player
 take a coin reproduce the corresponding sound. One issue found is that mantaining the key_up pressed the sound repeated 
 continuosly so I included a boolean variable (**"sound_on"**) so only at the beginning of the jump it´s played the sound.
 Then it´s invalidated until the floor is touched for the player.
 
-# 9. PROBLEMS FOUND
+# 8. PROBLEMS FOUND
 
-## 9.1 Border removal
+## 8.1 Border removal
 When the background image was set still around had the white border Andy set to delimiter the movement of the invaders
 in the original game. Playing with the different parameters of the sprite init method, finally I discovered that the 
 last two (widht and height) and setting them accordingly to 0, removed the white background but keeping the walls of 
 the game.
 
-## 9.2 Bottom space after player´s jump
+## 8.2 Bottom space after player´s jump
 One of the problems found with the jump effect is that sometimes the player didn´t get back to the original position 
 touching the floor, it was some space between the player and the floor. Not always happen this issue.To correct this 
 space and after get an advice from Andy I applied a height correction factor when the player was in this situation. 
 
-## 9.3 Never ending screen issues
+## 8.3 Never ending screen issues
 The first problem found with the never ending effect is when I move from the first to the second background image the
 bottom border dissapear and when the player jumped the character was moving down and didn´t make the desired effect.
 What I did was to move the bottom border with the movement of the camera so this error was fixed.
@@ -122,5 +128,22 @@ the player going left back to the first image created problems and wrong effects
 background images I change the left border position to fit with the current image set as background (**look at 
 "key_right" logic section**)
 
+## 8.4 Position Score movement	
+One issue found moving the camera with the player was the score dissapeared and I wanted to move with the camera to
+be shown always. After several tries I get to increase the x position of the score with the camera x position in the
+draw world method. That made the score follow the camera movement.
 
+# 9. POSSIBLE IMPROVEMENTS
 
+As this is the first kind of game I did there is huge space for improvement adding some more features:
+ * Make the player not to be always in the left part and start the movement of the camera something along the middle
+ of the screen
+ * Include enemies, boxes and features to the map
+ * Create a level random generator
+ * Amend the jump max_height to be calculated with start and end position.
+ * Every 100 coins one live up
+
+# 10. GREETINGS
+
+Just a small note to say big thank you to Raul Araujo and Andy for all the help provided during the whole assignment
+explaining me some concepts and giving me useful advices.

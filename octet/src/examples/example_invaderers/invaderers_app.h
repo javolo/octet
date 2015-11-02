@@ -391,7 +391,7 @@ namespace octet {
       enum { max_quads = 32 };
       bitmap_font::vertex vertices[max_quads*4];
       uint32_t indices[max_quads*6];
-      aabb bb(vec3(0, 0, 0), vec3(256, 256, 0));
+      aabb bb(vec3(210, 0, 34), vec3(134, 256, 0));
 
       unsigned num_quads = font.build_mesh(bb, vertices, indices, max_quads, text, 0);
       glActiveTexture(GL_TEXTURE0);
