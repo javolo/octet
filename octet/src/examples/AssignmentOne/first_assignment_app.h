@@ -282,7 +282,7 @@ namespace octet {
 			GLuint coin = resource_dict::get_texture_handle(GL_RGBA, "assets/assignment/coin2.gif");
 
 			// We read the CSV file with the map of the coins
-			std::ifstream level("C:\\Users\\Javo\\Documents\\GitHub\\octet\\octet\\assets\\assignment\\level.csv");
+			std::ifstream level("../level.csv");
 			std::string value;
 
 			if (level.bad()) printf("ERROR\n");

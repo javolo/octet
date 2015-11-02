@@ -30,8 +30,7 @@ this effect I had to go to the default configuration in "windows_specific.h" cla
         NULL, NULL, wndclass.hInstance, (LPVOID)this
       );
 
-// Put the image of new background and old image to see the difference and the background layout of the page
-![Alt text](https://github.com/javolo/octet/blob/master/octet/src/examples/AssignmentOne/images/Background.gif "Background Image")
+![Alt text](https://github.com/javolo/octet/blob/master/octet/src/examples/AssignmentOne/images/ScreenDifference "Background Image")
 
 # 2. PLAYER
 
