@@ -10,7 +10,7 @@
 //
 
 namespace octet {
-	class turtle {
+	class Turtle {
 	
 		// Variables of the L-System
 		std::string turtle_axiom;
@@ -21,10 +21,10 @@ namespace octet {
 	public:
 
 		// Empty Constructor
-		turtle(){}
+		Turtle(){}
 
 		// Init method to set the parameters received
-		void init(std::string axiom, float angle, std::vector<std::string> rules, int iterations){
+		Turtle(std::string axiom, float angle, std::vector<std::string> rules, int iterations){
 			turtle_axiom = axiom;
 			turtle_angle = angle;
 			turtle_rules = rules;

@@ -1,4 +1,4 @@
-// Libraries to read the file
+﻿// Libraries to read the file
 #include <iostream>
 #include <fstream>
 #include "turtle.h"
@@ -11,9 +11,9 @@ namespace octet {
 		// This lets us move our camera
 		mat4t cameraToWorld;
 
-		// shader to draw a textured triangle
-		texture_shader texture_shader_;
 		ref<visual_scene> app_scene;
+		// Variable turtle set the values in init
+		Turtle L_System;
 
 		enum {
 			// Constants definition
@@ -32,17 +32,37 @@ namespace octet {
 		L_System_Generator(int argc, char **argv) : app(argc, argv) {
 		}
 
+		// Use the keyboard to generate the tree
+		void generateTree() {
+
+
+		}
+
 		// this is called once OpenGL is initialized
 		void app_init() {
 			app_scene = new visual_scene();
 			app_scene->create_default_camera_and_lights();
 			app_scene->get_camera_instance(0)->set_far_plane(100000.0f);
 
+			// We generate the parameter of L-System
+			std::string axiom = "X";
+			float angle = 25.0f;
+			std::string rule1 = "F−[[X]+X]+F[+FX]−X";
+			std::string rule2 = "FF";
+			std::vector<std::string> turtle_rules;
+			turtle_rules[0] = rule1;
+			turtle_rules[1] = rule2;
+			int turtle_iterations;
+
+			L_System = Turtle();
+
 		}
 
 		// called every frame to move things
 		void simulate() {
 			
+			// Method to iterate when pressing the key up
+			generateTree();
 
 		}
 
