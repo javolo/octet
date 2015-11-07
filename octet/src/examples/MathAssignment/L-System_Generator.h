@@ -119,7 +119,7 @@ namespace octet {
 		// We draw a leaf at the end of a branch
 		void draw_leaf(){
 			// We need green color for the leafs
-			material *green = new material(vec4(0, 0, 1, 1));
+			material *green = new material(vec4(1, 0.45f, 0.15f, 0.4f));
 		}
 
 		// Use the keyboard to generate the tree
