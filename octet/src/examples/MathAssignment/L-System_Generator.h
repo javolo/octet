@@ -21,6 +21,14 @@ namespace octet {
 		std::vector<std::string> rules;
 		std::string axiom;
 		float current_angle = 0.0f;
+
+		// Structure to store position and angle
+		// Once we have the structure with vector and angle create an array or something 
+		// with this kind of variable
+
+		// Variable of the current position
+		// We need a structure to store a vec3 (x, y, z) position
+		// We need to store also the angle as a float
 		
 
 		enum {
@@ -82,9 +90,12 @@ namespace octet {
 				}
 				else if (tree_string[i] == '['){
 					// Save the current position for position and angle
+					// We need something to store the position and angle
 				}
 				else if (tree_string[i] == ']'){
 					// Restore the position and angle previously saved
+					// We need a variable to say current position and when that appears 
+					// restore in this variable what it´s stored
 				}
 				else if (tree_string[i] == '-'){
 					// '-' means "turn left 25 degrees", we change the sign and set the angle (Wikipedia L-System) 
@@ -119,8 +130,6 @@ namespace octet {
 				// We interpret now the string generated
 				intepret_tree_string();
 			}
-
-
 		}
 
 		// this is called once OpenGL is initialized
