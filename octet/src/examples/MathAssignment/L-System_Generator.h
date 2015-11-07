@@ -73,22 +73,24 @@ namespace octet {
 			// We iterate through the String to draw the tree
 			for (int i = 0; i < tree_string.size(); i++){
 				if (tree_string[i] == 'F'){
-
+					// '-' means "turn left 25 degrees"
 				}
 				else if (tree_string[i] == 'X'){
-
+					// Don´t correspond with anything
 				}
 				else if (tree_string[i] == '['){
-
+					// Save the current position for position and angle
 				}
 				else if (tree_string[i] == ']'){
-
+					// Restore the position and angle previously saved
 				}
 				else if (tree_string[i] == '-'){
-					
+					// '-' means "turn left 25 degrees", we change the sign and set the angle (Wikipedia L-System) 
+					current_angle -= L_System.getAngle();
 				}
 				else if (tree_string[i] == '+'){
-
+					// '+' means "turn right 25 degrees", we set the angle as positive one (Wikipedia L-System) 
+					current_angle += L_System.getAngle();
 				}
 
 
