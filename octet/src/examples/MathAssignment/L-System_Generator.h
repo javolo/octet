@@ -20,6 +20,7 @@ namespace octet {
 		int iteration = 1;
 		std::vector<std::string> rules;
 		std::string axiom;
+		float current_angle = 0.0f;
 		
 
 		enum {
@@ -69,7 +70,29 @@ namespace octet {
 
 		// Interpretation and drawing of the 
 		void intepret_tree_string(){
+			// We iterate through the String to draw the tree
+			for (int i = 0; i < tree_string.size(); i++){
+				if (tree_string[i] == 'F'){
 
+				}
+				else if (tree_string[i] == 'X'){
+
+				}
+				else if (tree_string[i] == '['){
+
+				}
+				else if (tree_string[i] == ']'){
+
+				}
+				else if (tree_string[i] == '-'){
+					
+				}
+				else if (tree_string[i] == '+'){
+
+				}
+
+
+			}
 		}
 
 		// Use the keyboard to generate the tree
