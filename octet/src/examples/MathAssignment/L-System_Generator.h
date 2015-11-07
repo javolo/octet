@@ -73,10 +73,12 @@ namespace octet {
 			// We iterate through the String to draw the tree
 			for (int i = 0; i < tree_string.size(); i++){
 				if (tree_string[i] == 'F'){
-					// '-' means "turn left 25 degrees"
+					// F means draw forward (draw trunk)
+					draw_trunk();
 				}
 				else if (tree_string[i] == 'X'){
-					// Don´t correspond with anything
+					// Don´t correspond with anything (let´s print a leaf)
+					draw_leaf();
 				}
 				else if (tree_string[i] == '['){
 					// Save the current position for position and angle
@@ -95,6 +97,16 @@ namespace octet {
 
 
 			}
+		}
+
+		// We draw a trunk line
+		void draw_trunk(){
+			
+		}
+
+		// We draw a leaf at the end of a branch
+		void draw_leaf(){
+
 		}
 
 		// Use the keyboard to generate the tree
