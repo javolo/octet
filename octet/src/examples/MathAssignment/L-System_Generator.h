@@ -42,7 +42,7 @@ namespace octet {
 		// Generation of new String applying rules
 		void generate_tree_string(){
 			// We applied the rules to the different characters of the axiom String
-			// Axiom variable
+			// Axiom variable (first iteration we load it)
 			if (iteration == 1) {
 				axiom = L_System.getAxiom();
 				rules = L_System.getRules();
@@ -67,6 +67,11 @@ namespace octet {
 			
 		}
 
+		// Interpretation and drawing of the 
+		void intepret_tree_string(){
+
+		}
+
 		// Use the keyboard to generate the tree
 		void management_system() {
 			// We want in key up to add another iteration to the tree and in key down to decrease this iteration
@@ -74,6 +79,8 @@ namespace octet {
 				// We need to generate the new String from the axiom and the rules and interpret this 
 				// First thing is to generate the new String
 				generate_tree_string();
+				// We interpret now the string generated
+				intepret_tree_string();
 			}
 
 
