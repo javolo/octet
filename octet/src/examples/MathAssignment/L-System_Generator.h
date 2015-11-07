@@ -112,12 +112,14 @@ namespace octet {
 
 		// We draw a trunk line
 		void draw_trunk(){
-			
+			// I want orange colour for the trunk
+			material *orange = new material(vec4(0.9f, 0.2f, 0, 1));
 		}
 
 		// We draw a leaf at the end of a branch
 		void draw_leaf(){
-
+			// We need green color for the leafs
+			material *green = new material(vec4(0, 0, 1, 1));
 		}
 
 		// Use the keyboard to generate the tree
