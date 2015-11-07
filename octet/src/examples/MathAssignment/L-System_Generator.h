@@ -79,29 +79,31 @@ namespace octet {
 		// Interpretation and drawing of the 
 		void intepret_tree_string(){
 			// We iterate through the String to draw the tree
-			for (int i = 0; i < tree_string.size(); i++){
-				if (tree_string[i] == 'F'){
+			for (int i = 0; i < axiom.size(); i++){
+				if (axiom[i] == 'F'){
 					// F means draw forward (draw trunk)
 					draw_trunk();
+					// At the moment we want to draw online one line
+					break;
 				}
-				else if (tree_string[i] == 'X'){
+				else if (axiom[i] == 'X'){
 					// Don´t correspond with anything (let´s print a leaf)
 					draw_leaf();
 				}
-				else if (tree_string[i] == '['){
+				else if (axiom[i] == '['){
 					// Save the current position for position and angle
 					// We need something to store the position and angle
 				}
-				else if (tree_string[i] == ']'){
+				else if (axiom[i] == ']'){
 					// Restore the position and angle previously saved
 					// We need a variable to say current position and when that appears 
 					// restore in this variable what it´s stored
 				}
-				else if (tree_string[i] == '-'){
+				else if (axiom[i] == '-'){
 					// '-' means "turn left 25 degrees", we change the sign and set the angle (Wikipedia L-System) 
 					current_angle -= L_System.getAngle();
 				}
-				else if (tree_string[i] == '+'){
+				else if (axiom[i] == '+'){
 					// '+' means "turn right 25 degrees", we set the angle as positive one (Wikipedia L-System) 
 					current_angle += L_System.getAngle();
 				}
@@ -114,6 +116,11 @@ namespace octet {
 		void draw_trunk(){
 			// I want orange colour for the trunk
 			material *orange = new material(vec4(0.9f, 0.2f, 0, 1));
+			mesh *trunk_line = new mesh_box(vec3(4));
+			scene_node *node = new scene_node();
+			app_scene->add_child(node);
+			app_scene->add_mesh_instance(new mesh_instance(node, trunk_line, orange));
+			node->rotate(0.0f, vec3(0, 0, 1));
 		}
 
 		// We draw a leaf at the end of a branch
