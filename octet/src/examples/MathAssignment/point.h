@@ -15,12 +15,14 @@ namespace octet {
 		// Variables of the L-System
 		vec3 point_position;
 		float point_angle;
-		
 
 	public:
 
 		// Empty Constructor
-		Point(){}
+		Point(){
+			point_position = vec3(0, 0, 0);
+			point_angle = 0.0f;
+		}
 
 		// Init method to set the parameters received
 		Point(vec3 position, float angle){

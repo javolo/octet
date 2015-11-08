@@ -29,16 +29,12 @@ namespace octet {
 
 		// Variable of the current position and current angle
 		// Both init to 0
-		vec3 current_point_position = vec3(0, 0, 0);
-		float current_angle = 0.0f;
-		
-		
+		Point current_point = Point();
 
 		enum {
 			// Constants definition
 
 			num_sprites
-
 		};
 
 		// big array of sprites
