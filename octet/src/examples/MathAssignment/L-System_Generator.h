@@ -24,11 +24,11 @@ namespace octet {
 		float current_angle = 0.0f;
 
 		// Structure to store position and angle
-		// Once we have the structure with vector and angle create an array or something 
-		// with this kind of variable
+		std::vector<Point> store_points;
 
 		// Variable of the current position and current angle
-		// Both init to 0
+		// We´ve created a class for that and created an init method to set the parameters
+		// at the beginning to 0
 		Point current_point = Point();
 
 		enum {
