@@ -15,7 +15,7 @@ followed create the assignment game:
  9. Possible improvements
  10. Greetings 
 
- [linkname](https://youtu.be/8_KrbfG6R2U)
+ [Assignment 1](https://youtu.be/8_KrbfG6R2U)
 
 # 1. BACKGROUND
 
