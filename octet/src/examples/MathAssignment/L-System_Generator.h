@@ -3,6 +3,7 @@
 #include <fstream>
 #include "turtle.h"
 #include "sprite.h"
+#include "point.h"
 
 namespace octet {
 	class L_System_Generator : public octet::app {
@@ -26,9 +27,11 @@ namespace octet {
 		// Once we have the structure with vector and angle create an array or something 
 		// with this kind of variable
 
-		// Variable of the current position
-		// We need a structure to store a vec3 (x, y, z) position
-		// We need to store also the angle as a float
+		// Variable of the current position and current angle
+		// Both init to 0
+		vec3 current_point_position = vec3(0, 0, 0);
+		float current_angle = 0.0f;
+		
 		
 
 		enum {
@@ -115,8 +118,12 @@ namespace octet {
 		// We draw a trunk line
 		void draw_trunk(){
 			// I want orange colour for the trunk
-			material *orange = new material(vec4(0.9f, 0.2f, 0, 1));
-			mesh *trunk_line = new mesh_box(vec3(4));
+			mat4t mat = mat4t();
+			mat.loadIdentity();
+			mat.rotate(90.0f, 1, 0, 0);
+
+			material *orange = new material(vec4(0.9f, 0.3f, 0, 1));
+			mesh *trunk_line = new mesh_box(vec3(0.2f, 0.2f, 1), mat);
 			scene_node *node = new scene_node();
 			app_scene->add_child(node);
 			app_scene->add_mesh_instance(new mesh_instance(node, trunk_line, orange));
