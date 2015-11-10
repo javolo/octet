@@ -34,14 +34,23 @@ namespace octet {
 		vec3 get_point_position() {
 			return point_position;
 		}
+		float get_point_position_y(){
+			return point_position.y();
+		}
+		float get_point_position_x(){
+			return point_position.x();
+		}
 		float get_angle() {
 			return point_angle;
 		}
 		void set_angle(float angle) {
 			point_angle = angle;
 		}
-		void set_position(vec3 position){
-			point_position = position;
+		void set_position_y(float new_position){
+			point_position.y() = new_position;
+		}
+		void set_position_x(float new_position){
+			point_position.x() = new_position;
 		}
 	};
 }

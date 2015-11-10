@@ -28,6 +28,8 @@ namespace octet {
 		// We´ve created a class for that and created an init method to set the parameters
 		// at the beginning to 0
 		Point current_point = Point();
+		// Variable to set the length of the lines
+		float line_length = 1.0f;
 
 		enum {
 			// Constants definition
@@ -120,7 +122,7 @@ namespace octet {
 			mat4t mat = mat4t();
 			mat.loadIdentity();
 			mat.rotate(90.0f, 1, 0, 0);
-			mesh *trunk_line = new mesh_box(vec3(0.2f, 0.2f, 1), mat);
+			mesh *trunk_line = new mesh_box(vec3(0.2f, 0.2f, line_length), mat);
 			scene_node *node = new scene_node();
 			app_scene->add_child(node);
 			app_scene->add_mesh_instance(new mesh_instance(node, trunk_line, orange));
@@ -132,7 +134,10 @@ namespace octet {
 
 		// Method to upadte current point position
 		void update_current_point_position(){
-			
+			// We use Pitagorean and the trigronometric relationships to obtain what x and y grow when 
+			// draw a line depending on the current position
+			current_point.set_position_y(current_point.get_point_position_y() + (line_length*cos(current_angle)));
+			current_point.set_position_x(current_point.get_point_position_x() + (line_length*sin(current_angle)));
 		}
 
 		// We draw a leaf at the end of a branch
