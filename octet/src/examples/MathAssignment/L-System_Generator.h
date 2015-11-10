@@ -81,9 +81,6 @@ namespace octet {
 					// F means draw forward (draw trunk)
 					draw_trunk();
 					// Each time we draw a line we have to update the current point position
-
-					// At the moment we want to draw online one line
-					break;
 				}
 				else if (axiom[i] == 'X'){
 					// Don´t correspond with anything (let´s print a leaf)
@@ -97,7 +94,7 @@ namespace octet {
 				else if (axiom[i] == ']'){
 					// Restore the position and angle previously saved
 					// We want the last element of the vector as we want to retrieve the point in order
-					current_point = stored_points[stored_points.size - 1];
+					current_point = stored_points[stored_points.size() - 1];
 					stored_points.pop_back();
 					// Removing elements keep the space in memory, we want to free this space
 					stored_points.shrink_to_fit();
