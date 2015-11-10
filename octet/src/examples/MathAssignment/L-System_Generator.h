@@ -22,10 +22,8 @@ namespace octet {
 		std::vector<std::string> rules;
 		std::string axiom;
 		float current_angle = 0.0f;
-
 		// Structure to store position and angle
-		std::vector<Point> store_points;
-
+		std::vector<Point> stored_points;
 		// Variable of the current position and current angle
 		// We´ve created a class for that and created an init method to set the parameters
 		// at the beginning to 0
@@ -82,6 +80,8 @@ namespace octet {
 				if (axiom[i] == 'F'){
 					// F means draw forward (draw trunk)
 					draw_trunk();
+					// Each time we draw a line we have to update the current point position
+
 					// At the moment we want to draw online one line
 					break;
 				}
@@ -90,13 +90,17 @@ namespace octet {
 					draw_leaf();
 				}
 				else if (axiom[i] == '['){
-					// Save the current position for position and angle
-					// We need something to store the position and angle
+					// Store the point in a vector of points
+					// Vectors stored elements at the end
+					stored_points.push_back(current_point);
 				}
 				else if (axiom[i] == ']'){
 					// Restore the position and angle previously saved
-					// We need a variable to say current position and when that appears 
-					// restore in this variable what it´s stored
+					// We want the last element of the vector as we want to retrieve the point in order
+					current_point = stored_points[stored_points.size - 1];
+					stored_points.pop_back();
+					// Removing elements keep the space in memory, we want to free this space
+					stored_points.shrink_to_fit();
 				}
 				else if (axiom[i] == '-'){
 					// '-' means "turn left 25 degrees", we change the sign and set the angle (Wikipedia L-System) 
@@ -114,22 +118,39 @@ namespace octet {
 		// We draw a trunk line
 		void draw_trunk(){
 			// I want orange colour for the trunk
+			material *orange = new material(vec4(0.9f, 0.3f, 0, 1));
+
 			mat4t mat = mat4t();
 			mat.loadIdentity();
 			mat.rotate(90.0f, 1, 0, 0);
-
-			material *orange = new material(vec4(0.9f, 0.3f, 0, 1));
 			mesh *trunk_line = new mesh_box(vec3(0.2f, 0.2f, 1), mat);
 			scene_node *node = new scene_node();
 			app_scene->add_child(node);
 			app_scene->add_mesh_instance(new mesh_instance(node, trunk_line, orange));
-			node->rotate(0.0f, vec3(0, 0, 1));
+			node->rotate(current_angle, vec3(0, 0, 1));
+
+			// We call a method to update the current position to the end of the line
+			update_current_point_position();
+		}
+
+		// Method to upadte current point position
+		void update_current_point_position(){
+			
 		}
 
 		// We draw a leaf at the end of a branch
 		void draw_leaf(){
 			// We need green color for the leafs
 			material *green = new material(vec4(1, 0.45f, 0.15f, 0.4f));
+
+			mat4t mat = mat4t();
+			mat.loadIdentity();
+			mat.rotate(90.0f, 1, 0, 0);
+			mesh *trunk_line = new mesh_box(vec3(0.2f, 0.2f, 1), mat);
+			scene_node *node = new scene_node();
+			app_scene->add_child(node);
+			app_scene->add_mesh_instance(new mesh_instance(node, trunk_line, green));
+			node->rotate(current_angle, vec3(0, 0, 1));
 		}
 
 		// Use the keyboard to generate the tree

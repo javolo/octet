@@ -37,5 +37,11 @@ namespace octet {
 		float get_angle() {
 			return point_angle;
 		}
+		void set_angle(float angle) {
+			point_angle = angle;
+		}
+		void set_position(vec3 position){
+			point_position = position;
+		}
 	};
 }
