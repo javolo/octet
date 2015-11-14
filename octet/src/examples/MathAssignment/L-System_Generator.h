@@ -33,18 +33,6 @@ namespace octet {
 		Point current_point = Point();
 		// Variable to set the length of the lines
 		float line_length = 0.1f;
-		// Definition of colours on top
-		
-
-		enum {
-			// Constants definition
-
-			num_sprites
-		};
-
-		// big array of sprites
-		sprite sprites[num_sprites];
-
 
 	public:
 
@@ -120,7 +108,7 @@ namespace octet {
 					current_point.set_angle(current_point.get_angle() - L_System.getAngle());
 				}
 			}
-			axiom = "X";
+			axiom = L_System.getAxiom();
 		}
 
 		// We draw a trunk line
@@ -134,7 +122,6 @@ namespace octet {
 			// We store this point??
 			tree_points.push_back(current_point);
 		}
-
 
 		// We draw a leaf at the end of a branch
 		void draw_leaf(){
@@ -155,7 +142,6 @@ namespace octet {
 			current_point.set_position_x(current_point.get_point_position_x() + (line_length*sin((current_point.get_angle())* (M_PI / 180))));
 		}
 
-
 		// We draw a trunk line
 		void draw_tree(){
 
@@ -174,7 +160,6 @@ namespace octet {
 			if (is_key_down(key_up)) {
 				// We need to generate the new String from the axiom and the rules and interpret this
 				// We increase the number of iterations
-				printf("IT: %i\n: ", num_iteration);
 				if (num_iteration <= L_System.getIterations()){
 					num_iteration++;
 					
@@ -188,10 +173,9 @@ namespace octet {
 			}
 			
 			if (is_key_down(key_down)) {
-				num_iteration--;
-				printf("IT2 : %i\n: ", num_iteration);
-				if (num_iteration > 0 && num_iteration <= L_System.getIterations()){
-					
+				// We reduce the number of iterations and generate the tree
+				if (num_iteration > 0){
+					num_iteration--;
 					// First thing is to generate the new String
 					for (int i = 0; i < num_iteration; i++){
 						generate_tree_string();
