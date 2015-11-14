@@ -126,7 +126,7 @@ namespace octet {
 		// We draw a leaf at the end of a branch
 		void draw_leaf(){
 			//glClearColor(1, 0.35f, 0.15f, 0.4f);
-			glColor3f(0.9f, 0.3f, 0);
+			//glColor3f(0.9f, 0.3f, 0);
 			glBegin(GL_LINES);
 			glVertex3f(current_point.get_point_position_x(), current_point.get_point_position_y(), 0);
 			update_current_point_position();
@@ -147,7 +147,7 @@ namespace octet {
 
 			// We print the tree
 			glBegin(GL_LINES);
-			glColor3f(0.9f, 0.3f, 0);
+			glColor3f(0, 1, 0);
 			for (int i = 0; i < tree_points.size(); i++){
 				glVertex3f(tree_points[i].get_point_position_x(), tree_points[i].get_point_position_y(), 0);
 			}
