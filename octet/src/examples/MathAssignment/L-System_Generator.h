@@ -19,7 +19,7 @@ namespace octet {
 		// String variable
 		string tree_string;
 		// Variable iteration to see in which iteration we are
-		int iteration = 1;
+		int num_iteration = 0;
 		dynarray<string> rules;
 		string axiom;
 		float current_angle = 0.0f;
@@ -32,7 +32,7 @@ namespace octet {
 		// at the beginning to 0
 		Point current_point = Point();
 		// Variable to set the length of the lines
-		float line_length = 0.2f;
+		float line_length = 0.1f;
 		// Definition of colours on top
 		
 
@@ -57,7 +57,7 @@ namespace octet {
 			// We applied the rules to the different characters of the axiom String
 			// Axiom variable (first iteration we load it)
 			dynarray<char> result;
-			if (iteration == 1) {
+			if (num_iteration == 1) {
 				axiom = L_System.getAxiom();
 				rules = L_System.getRules();
 			}
@@ -69,8 +69,8 @@ namespace octet {
 					}
 				}
 				else if (axiom[i] == 'F'){
-					for (int j = 0; j < rules[1].size(); j++){
-						result.push_back(rules[1][j]);
+					for (int j = 0; j < rules[0].size(); j++){
+						result.push_back(rules[0][j]);
 					}
 				}
 				else {
@@ -80,10 +80,7 @@ namespace octet {
 			result.push_back(0x00);
 			axiom = string(result.data());
 			//axiom = tree_string;
-			printf("TREE: %s\n", axiom.c_str());
-			tree_string = "";
-			iteration++;
-			
+			//printf("TREE: %s\n", axiom.c_str());	
 		}
 
 		// Interpretation and drawing of the 
@@ -122,37 +119,27 @@ namespace octet {
 					// '+' means "turn right 25 degrees", we set the angle as positive one (Wikipedia L-System) 
 					current_point.set_angle(current_point.get_angle() - L_System.getAngle());
 				}
-
-
 			}
+			axiom = "X";
 		}
 
 		// We draw a trunk line
 		void draw_trunk(){
 			// In this method we only store the point of the tree as in the draw world method each frame
 			// it´s gonna paint the tree
-			//glClearColor(0.9f, 0.3f, 0, 1);
-
 			// We store the first point
 			tree_points.push_back(current_point);
 			// We calculate the end position of the line
 			update_current_point_position();
 			// We store this point??
 			tree_points.push_back(current_point);
-
-			/*glColor3f(0.9f, 0.3f, 0);
-			glBegin(GL_LINES);
-			glVertex3f(current_point.get_point_position_x(), current_point.get_point_position_y(), 0);
-			update_current_point_position();
-			glVertex3f(current_point.get_point_position_x(), current_point.get_point_position_y(), 0);
-			glEnd();*/
 		}
 
 
 		// We draw a leaf at the end of a branch
 		void draw_leaf(){
 			//glClearColor(1, 0.35f, 0.15f, 0.4f);
-			glColor3f(1, 0.35f, 0.15f);
+			glColor3f(0.9f, 0.3f, 0);
 			glBegin(GL_LINES);
 			glVertex3f(current_point.get_point_position_x(), current_point.get_point_position_y(), 0);
 			update_current_point_position();
@@ -173,8 +160,8 @@ namespace octet {
 		void draw_tree(){
 
 			// We print the tree
-			glColor3f(1, 0.35f, 0.15f);
 			glBegin(GL_LINES);
+			glColor3f(0.9f, 0.3f, 0);
 			for (int i = 0; i < tree_points.size(); i++){
 				glVertex3f(tree_points[i].get_point_position_x(), tree_points[i].get_point_position_y(), 0);
 			}
@@ -185,11 +172,33 @@ namespace octet {
 		void management_system() {
 			// We want in key up to add another iteration to the tree and in key down to decrease this iteration
 			if (is_key_down(key_up)) {
-				// We need to generate the new String from the axiom and the rules and interpret this 
-				// First thing is to generate the new String
-				generate_tree_string();
-				// We interpret now the string generated
-				intepret_tree_string();
+				// We need to generate the new String from the axiom and the rules and interpret this
+				// We increase the number of iterations
+				printf("IT: %i\n: ", num_iteration);
+				if (num_iteration <= L_System.getIterations()){
+					num_iteration++;
+					
+					// First thing is to generate the new String
+					for (int i = 0; i < num_iteration; i++){
+						generate_tree_string();
+					}
+					// We interpret now the string generated
+					intepret_tree_string();
+				}
+			}
+			
+			if (is_key_down(key_down)) {
+				num_iteration--;
+				printf("IT2 : %i\n: ", num_iteration);
+				if (num_iteration > 0 && num_iteration <= L_System.getIterations()){
+					
+					// First thing is to generate the new String
+					for (int i = 0; i < num_iteration; i++){
+						generate_tree_string();
+					}
+					// We interpret now the string generated
+					intepret_tree_string();
+				}
 			}
 		}
 
@@ -200,19 +209,25 @@ namespace octet {
 			app_scene->get_camera_instance(0)->set_far_plane(100000.0f);
 
 			// We generate the parameter of L-System
-			string axiom = "X";
-			float angle = 25.0f;
-			string rule1 = "F-[[X]+X]+F[+FX]-X";
+			string axiom = "F";
+			float angle = 25.7f;
+	/*		string rule1 = "F-[[X]+X]+F[+FX]-X";
 			string rule2 = "FF";
+			int iterations = 5;*/
+
+			/*string rule1 = "F[+X][-X]FX";
+			string rule2 = "FF";
+			int iterations = 7;*/
+
+			string rule1 = "F[+F]F[-F]F";
+			//string rule2 = "FF";
 			int iterations = 5;
 
 			L_System.set_rule(rule1);
-			L_System.set_rule(rule2);
+			//L_System.set_rule(rule2);
 			L_System.set_angle(angle);
 			L_System.set_axiom(axiom);
-			printf("AX: %s\n", axiom);
 			L_System.set_iterations(iterations);
-			printf("TS: %i\n", L_System.getRules().size());
 		}
 
 		// called every frame to move things
