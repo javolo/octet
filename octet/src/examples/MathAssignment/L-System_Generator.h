@@ -41,7 +41,7 @@ namespace octet {
 		}
 
 		// We generate the substring looking at the set of rules
-		dynarray<char> substitute_string(dynarray<char> result, char letter){
+		dynarray<char> substitute_string(dynarray<char>& result, char letter){
 			// We iterate through the rules array to find the correct one to apply
 			for (int i = 0; i < rules.size(); i++){
 				int rule_position = rules[i].find("->");
@@ -50,7 +50,7 @@ namespace octet {
 					// We compare with the letter passed to see if the same and then apply this rule
 					if (left_part == letter){
 						// We push in the result array the letter of the rule
-						for (int j = 0; j < rules[i].size(); j++){
+						for (int j = rule_position+2; j < rules[i].size(); j++){
 							result.push_back(rules[i][j]);
 						}
 					}
@@ -70,15 +70,8 @@ namespace octet {
 				rules = L_System.getRules();
 			}
 			for (int i = 0; i < axiom.size(); i++){
-				if (axiom[i] == 'X' ){
-					for (int j = 0; j < rules[0].size(); j++){
-						result.push_back(rules[0][j]);
-					}
-				}
-				else if (axiom[i] == 'F'){
-					for (int j = 0; j < rules[1].size(); j++){
-						result.push_back(rules[1][j]);
-					}
+				if (axiom[i] == 'X' || axiom[i] == 'F'){
+					substitute_string(result, axiom[i]);
 				}
 				else {
 					result.push_back(axiom[i]);
