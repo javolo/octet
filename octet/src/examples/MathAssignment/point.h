@@ -20,7 +20,7 @@ namespace octet {
 
 		// Empty Constructor
 		Point(){
-			point_position = vec3(0, 0, 0);
+			point_position = vec3(0, -13, 0);
 			point_angle = 0.0f;
 		}
 

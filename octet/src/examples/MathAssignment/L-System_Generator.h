@@ -17,20 +17,22 @@ namespace octet {
 		// Variable turtle set the values in init
 		Turtle L_System;
 		// String variable
-		std::string tree_string = "";
+		string tree_string;
 		// Variable iteration to see in which iteration we are
 		int iteration = 1;
-		std::vector<std::string> rules;
-		std::string axiom;
+		dynarray<string> rules;
+		string axiom;
 		float current_angle = 0.0f;
-		// Structure to store position and angle
-		std::vector<Point> stored_points;
+		// Structure to store position and angle depending on rules
+		dynarray<Point> stored_points;
+		// Structure to store all the points to be drawn
+		dynarray<Point> tree_points;
 		// Variable of the current position and current angle
 		// We´ve created a class for that and created an init method to set the parameters
 		// at the beginning to 0
 		Point current_point = Point();
 		// Variable to set the length of the lines
-		float line_length = 1.0f;
+		float line_length = 0.2f;
 		// Definition of colours on top
 		
 
@@ -54,25 +56,31 @@ namespace octet {
 		void generate_tree_string(){
 			// We applied the rules to the different characters of the axiom String
 			// Axiom variable (first iteration we load it)
+			dynarray<char> result;
 			if (iteration == 1) {
 				axiom = L_System.getAxiom();
 				rules = L_System.getRules();
 			}
 			printf("SIZE: %i\n", rules.size());
-			for (int i = 0; i < axiom.length(); i++){
-				//printf("%c\n", axiom[i]);
+			for (int i = 0; i < axiom.size(); i++){
 				if (axiom[i] == 'X'){
-					tree_string += rules[0];
+					for (int j = 0; j < rules[0].size(); j++){
+						result.push_back(rules[0][j]);
+					}
 				}
 				else if (axiom[i] == 'F'){
-					tree_string += rules[1];
+					for (int j = 0; j < rules[1].size(); j++){
+						result.push_back(rules[1][j]);
+					}
 				}
-				else{
-					tree_string += axiom[i];
+				else {
+					result.push_back(axiom[i]);
 				}
 			}
-			axiom = tree_string;
-			printf("TREE: %s\n", tree_string.c_str());
+			result.push_back(0x00);
+			axiom = string(result.data());
+			//axiom = tree_string;
+			printf("TREE: %s\n", axiom.c_str());
 			tree_string = "";
 			iteration++;
 			
@@ -80,6 +88,8 @@ namespace octet {
 
 		// Interpretation and drawing of the 
 		void intepret_tree_string(){
+			tree_points.reset();
+			current_point = Point();
 			// We iterate through the String to draw the tree
 			for (int i = 0; i < axiom.size(); i++){
 				if (axiom[i] == 'F'){
@@ -88,7 +98,7 @@ namespace octet {
 				}
 				else if (axiom[i] == 'X'){
 					// Don´t correspond with anything (let´s print a leaf)
-					//draw_leaf();
+					draw_trunk();
 					//break;
 				}
 				else if (axiom[i] == '['){
@@ -102,15 +112,15 @@ namespace octet {
 					current_point = stored_points[stored_points.size() - 1];
 					stored_points.pop_back();
 					// Removing elements keep the space in memory, we want to free this space
-					stored_points.shrink_to_fit();
+					
 				}
 				else if (axiom[i] == '-'){
 					// '-' means "turn left 25 degrees", we change the sign and set the angle (Wikipedia L-System) 
-					current_angle -= L_System.getAngle();
+					current_point.set_angle(current_point.get_angle() + L_System.getAngle());
 				}
 				else if (axiom[i] == '+'){
 					// '+' means "turn right 25 degrees", we set the angle as positive one (Wikipedia L-System) 
-					current_angle += L_System.getAngle();
+					current_point.set_angle(current_point.get_angle() - L_System.getAngle());
 				}
 
 
@@ -119,7 +129,30 @@ namespace octet {
 
 		// We draw a trunk line
 		void draw_trunk(){
-			glClearColor(0.9f, 0.3f, 0, 1);
+			// In this method we only store the point of the tree as in the draw world method each frame
+			// it´s gonna paint the tree
+			//glClearColor(0.9f, 0.3f, 0, 1);
+
+			// We store the first point
+			tree_points.push_back(current_point);
+			// We calculate the end position of the line
+			update_current_point_position();
+			// We store this point??
+			tree_points.push_back(current_point);
+
+			/*glColor3f(0.9f, 0.3f, 0);
+			glBegin(GL_LINES);
+			glVertex3f(current_point.get_point_position_x(), current_point.get_point_position_y(), 0);
+			update_current_point_position();
+			glVertex3f(current_point.get_point_position_x(), current_point.get_point_position_y(), 0);
+			glEnd();*/
+		}
+
+
+		// We draw a leaf at the end of a branch
+		void draw_leaf(){
+			//glClearColor(1, 0.35f, 0.15f, 0.4f);
+			glColor3f(1, 0.35f, 0.15f);
 			glBegin(GL_LINES);
 			glVertex3f(current_point.get_point_position_x(), current_point.get_point_position_y(), 0);
 			update_current_point_position();
@@ -131,17 +164,21 @@ namespace octet {
 		void update_current_point_position(){
 			// We use Pitagorean and the trigronometric relationships to obtain what x and y grow when 
 			// draw a line depending on the current position
-			printf("C Y B: %f\n", current_point.get_point_position_y());
-			printf("C X B: %f\n", current_point.get_point_position_x());
-			current_point.set_position_y(current_point.get_point_position_y() + (line_length*cos((current_angle)* (M_PI / 180))));
-			current_point.set_position_x(current_point.get_point_position_x() + (line_length*sin((current_angle)* (M_PI / 180))));
-			printf("C Y A: %f\n", current_point.get_point_position_y());
-			printf("C X A: %f\n", current_point.get_point_position_x());
+			current_point.set_position_y(current_point.get_point_position_y() + (line_length*cos((current_point.get_angle())* (M_PI / 180))));
+			current_point.set_position_x(current_point.get_point_position_x() + (line_length*sin((current_point.get_angle())* (M_PI / 180))));
 		}
 
-		// We draw a leaf at the end of a branch
-		void draw_leaf(){
 
+		// We draw a trunk line
+		void draw_tree(){
+
+			// We print the tree
+			glColor3f(1, 0.35f, 0.15f);
+			glBegin(GL_LINES);
+			for (int i = 0; i < tree_points.size(); i++){
+				glVertex3f(tree_points[i].get_point_position_x(), tree_points[i].get_point_position_y(), 0);
+			}
+			glEnd();
 		}
 
 		// Use the keyboard to generate the tree
@@ -163,18 +200,19 @@ namespace octet {
 			app_scene->get_camera_instance(0)->set_far_plane(100000.0f);
 
 			// We generate the parameter of L-System
-			std::string axiom = "X";
+			string axiom = "X";
 			float angle = 25.0f;
-			std::string rule1 = "F-[[X]+X]+F[+FX]-X";
-			std::string rule2 = "FF";
-			std::vector<std::string> turtle_rules;
-			turtle_rules.push_back(rule1);
-			turtle_rules.push_back(rule2);
+			string rule1 = "F-[[X]+X]+F[+FX]-X";
+			string rule2 = "FF";
 			int iterations = 5;
 
-			// We set all the parameters for the L-System
-			L_System = Turtle(axiom, angle, turtle_rules, iterations);
-
+			L_System.set_rule(rule1);
+			L_System.set_rule(rule2);
+			L_System.set_angle(angle);
+			L_System.set_axiom(axiom);
+			printf("AX: %s\n", axiom);
+			L_System.set_iterations(iterations);
+			printf("TS: %i\n", L_System.getRules().size());
 		}
 
 		// called every frame to move things

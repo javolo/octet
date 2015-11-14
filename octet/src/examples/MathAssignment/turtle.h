@@ -13,26 +13,18 @@ namespace octet {
 	class Turtle {
 	
 		// Variables of the L-System
-		std::string turtle_axiom;
+		string turtle_axiom;
 		float turtle_angle;
-		std::vector<std::string> turtle_rules;
+		dynarray<string> turtle_rules;
 		int turtle_iterations;
 
 	public:
-
+		
 		// Empty Constructor
 		Turtle(){}
 
-		// Init method to set the parameters received
-		Turtle(std::string axiom, float angle, std::vector<std::string> rules, int iterations){
-			turtle_axiom = axiom;
-			turtle_angle = angle;
-			turtle_rules = rules;
-			turtle_iterations = iterations;
-		}
-
 		// Some useful get methods
-		std::string getAxiom() { 
+		string getAxiom() { 
 			return turtle_axiom;
 		}
 		float getAngle() {
@@ -41,8 +33,20 @@ namespace octet {
 		int getIterations() {
 			return turtle_iterations;
 		}
-		std::vector<std::string> getRules(){
+		dynarray<string>& getRules(){
 			return turtle_rules;
-		}		
+		}
+		void set_rule(string rule) {
+			turtle_rules.push_back(rule);
+		}
+		void set_axiom(string axiom) {
+			turtle_axiom = axiom;
+		}
+		void set_iterations(int iterations) {
+			turtle_iterations = iterations;
+		}
+		void set_angle(float angle) {
+			turtle_angle = angle;
+		}
 	};
 }
