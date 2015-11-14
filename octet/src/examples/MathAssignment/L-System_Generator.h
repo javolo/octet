@@ -88,8 +88,8 @@ namespace octet {
 				}
 				else if (axiom[i] == 'X'){
 					// Don´t correspond with anything (let´s print a leaf)
-					draw_leaf();
-					break;
+					//draw_leaf();
+					//break;
 				}
 				else if (axiom[i] == '['){
 					// Store the point in a vector of points
@@ -119,27 +119,12 @@ namespace octet {
 
 		// We draw a trunk line
 		void draw_trunk(){
-			/*printf("C Y T: %f\n", current_point.get_point_position_y());
-			printf("C X T: %f\n", current_point.get_point_position_x());*/
-			// I want orange colour for the trunk
-			material *orange = new material(vec4(0.9f, 0.3f, 0, 1));
-			mat4t mat = mat4t();
-			mat.loadIdentity();
-			mat.rotate(90.0f, 1, 0, 0);
-			mesh *trunk_line = new mesh_box(vec3(0.05f, 0.05f, line_length), mat);
-			scene_node *node = new scene_node();
-			app_scene->add_child(node);
-			app_scene->add_mesh_instance(new mesh_instance(node, trunk_line, orange));
-			// We call a method to update the current position to the end of the line
-			update_current_point_position();
-			// Translate the node to this calculated new point
-			node->translate(current_point.get_point_position());
-			node->rotate(current_angle, vec3(0, 0, 1));
-			/*glBegin(GL_LINES);
+			glClearColor(0.9f, 0.3f, 0, 1);
+			glBegin(GL_LINES);
 			glVertex3f(current_point.get_point_position_x(), current_point.get_point_position_y(), 0);
 			update_current_point_position();
 			glVertex3f(current_point.get_point_position_x(), current_point.get_point_position_y(), 0);
-			glEnd();*/
+			glEnd();
 		}
 
 		// Method to upadte current point position
@@ -148,30 +133,15 @@ namespace octet {
 			// draw a line depending on the current position
 			printf("C Y B: %f\n", current_point.get_point_position_y());
 			printf("C X B: %f\n", current_point.get_point_position_x());
-			current_point.set_position_y(current_point.get_point_position_y() + (2*line_length*cos(current_angle* (M_PI / 180))));
-			current_point.set_position_x(current_point.get_point_position_x() + (2*line_length*sin(current_angle* (M_PI / 180))));
+			current_point.set_position_y(current_point.get_point_position_y() + (line_length*cos((current_angle)* (M_PI / 180))));
+			current_point.set_position_x(current_point.get_point_position_x() + (line_length*sin((current_angle)* (M_PI / 180))));
 			printf("C Y A: %f\n", current_point.get_point_position_y());
 			printf("C X A: %f\n", current_point.get_point_position_x());
 		}
 
 		// We draw a leaf at the end of a branch
 		void draw_leaf(){
-			// We need green color for the leafs
-			material *green = new material(vec4(1, 0.45f, 0.15f, 0.4f));
-			printf("C Y L: %f\n", current_point.get_point_position_y());
-			printf("C X L: %f\n", current_point.get_point_position_x());
-			mat4t mat = mat4t();
-			mat.loadIdentity();
-			//mat.rotate(90.0f, 1, 0, 0);
-			mesh *leaf_line = new mesh_box(vec3(0.05f, 0.05f, line_length));
-			scene_node *node = new scene_node();
-			app_scene->add_child(node);
-			app_scene->add_mesh_instance(new mesh_instance(node, leaf_line, green));
-			//update_current_point_position();
-			node->translate(current_point.get_point_position());
-			node->rotate(current_angle, vec3(0, 0, 1));
-			
-			
+
 		}
 
 		// Use the keyboard to generate the tree
@@ -202,6 +172,7 @@ namespace octet {
 			turtle_rules.push_back(rule2);
 			int iterations = 5;
 
+			// We set all the parameters for the L-System
 			L_System = Turtle(axiom, angle, turtle_rules, iterations);
 
 		}
@@ -211,6 +182,8 @@ namespace octet {
 			
 			// Method to iterate when pressing the keys
 			management_system();
+			// We draw the points all the time
+			draw_tree();
 
 		}
 
