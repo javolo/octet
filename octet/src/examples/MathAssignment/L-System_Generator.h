@@ -32,13 +32,33 @@ namespace octet {
 		// at the beginning to 0
 		Point current_point = Point();
 		// Variable to set the length of the lines
-		float line_length = 0.1f;
+		float line_length = 0.01f;
 
 	public:
 
 		// this is called when we construct the class
 		L_System_Generator(int argc, char **argv) : app(argc, argv) {
 		}
+
+		// We generate the substring looking at the set of rules
+		dynarray<char> substitute_string(dynarray<char> result, char letter){
+			// We iterate through the rules array to find the correct one to apply
+			for (int i = 0; i < rules.size(); i++){
+				int rule_position = rules[i].find("->");
+				if (rule_position == 1){
+					char left_part = rules[i][0];
+					// We compare with the letter passed to see if the same and then apply this rule
+					if (left_part == letter){
+						// We push in the result array the letter of the rule
+						for (int j = 0; j < rules[i].size(); j++){
+							result.push_back(rules[i][j]);
+						}
+					}
+				}
+			}
+			return result;
+		}
+
 
 		// Generation of new String applying rules
 		void generate_tree_string(){
@@ -49,16 +69,15 @@ namespace octet {
 				axiom = L_System.getAxiom();
 				rules = L_System.getRules();
 			}
-			printf("SIZE: %i\n", rules.size());
 			for (int i = 0; i < axiom.size(); i++){
-				if (axiom[i] == 'X'){
+				if (axiom[i] == 'X' ){
 					for (int j = 0; j < rules[0].size(); j++){
 						result.push_back(rules[0][j]);
 					}
 				}
 				else if (axiom[i] == 'F'){
-					for (int j = 0; j < rules[0].size(); j++){
-						result.push_back(rules[0][j]);
+					for (int j = 0; j < rules[1].size(); j++){
+						result.push_back(rules[1][j]);
 					}
 				}
 				else {
@@ -83,8 +102,7 @@ namespace octet {
 				}
 				else if (axiom[i] == 'X'){
 					// Don´t correspond with anything (let´s print a leaf)
-					draw_trunk();
-					//break;
+					draw_leaf();
 				}
 				else if (axiom[i] == '['){
 					// Store the point in a vector of points
@@ -116,22 +134,25 @@ namespace octet {
 			// In this method we only store the point of the tree as in the draw world method each frame
 			// it´s gonna paint the tree
 			// We store the first point
+			current_point.set_point_type("trunk");
 			tree_points.push_back(current_point);
 			// We calculate the end position of the line
 			update_current_point_position();
 			// We store this point??
+			current_point.set_point_type("trunk");
 			tree_points.push_back(current_point);
 		}
 
 		// We draw a leaf at the end of a branch
 		void draw_leaf(){
-			//glClearColor(1, 0.35f, 0.15f, 0.4f);
-			//glColor3f(0.9f, 0.3f, 0);
-			glBegin(GL_LINES);
-			glVertex3f(current_point.get_point_position_x(), current_point.get_point_position_y(), 0);
+			// We store the first point
+			current_point.set_point_type("leaf");
+			tree_points.push_back(current_point);
+			// We calculate the end position of the line
 			update_current_point_position();
-			glVertex3f(current_point.get_point_position_x(), current_point.get_point_position_y(), 0);
-			glEnd();
+			// We store this point??
+			current_point.set_point_type("leaf");
+			tree_points.push_back(current_point);
 		}
 
 		// Method to upadte current point position
@@ -146,10 +167,20 @@ namespace octet {
 		void draw_tree(){
 
 			// We print the tree
+			glClearColor(0, 0, 0, 1);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			glBegin(GL_LINES);
-			glColor3f(0, 1, 0);
+			
 			for (int i = 0; i < tree_points.size(); i++){
-				glVertex3f(tree_points[i].get_point_position_x(), tree_points[i].get_point_position_y(), 0);
+				if (tree_points[i].get_point_type() == "trunk"){
+					glColor3f(0.9f, 0.3f, 0.0f);
+					glVertex3f(tree_points[i].get_point_position_x(), tree_points[i].get_point_position_y(), 0);
+				}
+				else if (tree_points[i].get_point_type() == "leaf"){
+					glColor3f(0, 1, 0);
+					glVertex3f(tree_points[i].get_point_position_x(), tree_points[i].get_point_position_y(), 0);
+				}
+				
 			}
 			glEnd();
 		}
@@ -184,6 +215,10 @@ namespace octet {
 					intepret_tree_string();
 				}
 			}
+
+			// Key right we load another file
+			if (is_key_down(key_right)) {
+			}
 		}
 
 		// this is called once OpenGL is initialized
@@ -193,52 +228,34 @@ namespace octet {
 			app_scene->get_camera_instance(0)->set_far_plane(100000.0f);
 
 			// We generate the parameter of L-System
-			string axiom = "F";
-			float angle = 25.7f;
-	/*		string rule1 = "F-[[X]+X]+F[+FX]-X";
-			string rule2 = "FF";
-			int iterations = 5;*/
+			string axiom = "X";
+			float angle = 22.5f;
+			string rule1 = "X->F-[[X]+X]+F[+FX]-X";
+			string rule2 = "F->FF";
+			int iterations = 5;
 
 			/*string rule1 = "F[+X][-X]FX";
 			string rule2 = "FF";
 			int iterations = 7;*/
 
-			string rule1 = "F[+F]F[-F]F";
-			//string rule2 = "FF";
-			int iterations = 5;
+			//string rule1 = "F[+F]F[-F]F";
+			////string rule2 = "FF";
+			//int iterations = 5;
 
 			L_System.set_rule(rule1);
-			//L_System.set_rule(rule2);
+			L_System.set_rule(rule2);
 			L_System.set_angle(angle);
 			L_System.set_axiom(axiom);
 			L_System.set_iterations(iterations);
 		}
 
-		// called every frame to move things
-		void simulate() {
-			
+		// this is called to draw the world
+		void draw_world(int x, int y, int w, int h) {
+
 			// Method to iterate when pressing the keys
 			management_system();
 			// We draw the points all the time
 			draw_tree();
-
-		}
-
-		// this is called to draw the world
-		void draw_world(int x, int y, int w, int h) {
-
-			int vx = 0, vy = 0;
-			get_viewport_size(vx, vy);
-			app_scene->begin_render(vx, vy);
-
-			// update matrices. assume 30 fps.
-			app_scene->update(1.0f / 30);
-
-			// draw the scene
-			app_scene->render((float)vx / vy);
-
-			// We call simulate to start doing things
-			simulate();
 		}
 	};
 

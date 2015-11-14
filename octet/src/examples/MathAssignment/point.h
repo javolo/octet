@@ -15,19 +15,21 @@ namespace octet {
 		// Variables of the L-System
 		vec3 point_position;
 		float point_angle;
+		string point_type;
 
 	public:
 
 		// Empty Constructor
 		Point(){
-			point_position = vec3(0, -13, 0);
+			point_position = vec3(0, -0.75, 0);
 			point_angle = 0.0f;
 		}
 
 		// Init method to set the parameters received
-		Point(vec3 position, float angle){
+		Point(vec3 position, float angle, string type){
 			point_position = position;
 			point_angle = angle;
+			point_type = type;
 		}
 
 		// Some useful get methods
@@ -42,6 +44,12 @@ namespace octet {
 		}
 		float get_angle() {
 			return point_angle;
+		}
+		string get_point_type(){
+			return point_type;
+		}
+		void set_point_type(string type){
+			point_type = type;
 		}
 		void set_angle(float angle) {
 			point_angle = angle;
