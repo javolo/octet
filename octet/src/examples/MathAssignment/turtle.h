@@ -48,5 +48,8 @@ namespace octet {
 		void set_angle(float angle) {
 			turtle_angle = angle;
 		}
+		void reset_rules_array(){
+			turtle_rules.reset();
+		}
 	};
 }

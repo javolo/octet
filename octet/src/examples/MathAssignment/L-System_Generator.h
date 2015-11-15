@@ -92,7 +92,7 @@ namespace octet {
 			current_point = Point();
 			// We iterate through the String to draw the tree
 			for (int i = 0; i < axiom.size(); i++){
-				if (axiom[i] == 'F'){
+				if (axiom[i] == 'F' || axiom[i] == 'G'){
 					// F means draw forward (draw trunk)
 					draw_trunk();
 				}
@@ -157,7 +157,6 @@ namespace octet {
 
 		// We draw a trunk line
 		void draw_tree(){
-
 			// We print the tree
 			glClearColor(0, 0, 0, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -177,13 +176,19 @@ namespace octet {
 			glEnd();
 		}
 
+		// Reset screen method
+		void reset_screen(){
+			glClearColor(0, 0, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		}
+
 		// Use the keyboard to generate the tree
 		void management_system() {
 			// We want in key up to add another iteration to the tree and in key down to decrease this iteration
 			if (is_key_down(key_up)) {
 				// We need to generate the new String from the axiom and the rules and interpret this
 				// We increase the number of iterations
-				if (num_iteration <= L_System.getIterations()){
+				if (num_iteration < L_System.getIterations()){
 					num_iteration++;
 					
 					// First thing is to generate the new String
@@ -222,12 +227,35 @@ namespace octet {
 					load_configuration_file();
 				}
 			}
+			// Key F1 to increase the angle in 5 degrees
+			if (is_key_down(key_f1)) {
+				L_System.set_angle(L_System.getAngle() + 5);
+			}
+			// Key F2 to decrease the angle in 5 degrees
+			if (is_key_down(key_f2)) {
+				L_System.set_angle(L_System.getAngle() - 5);
+			}
+			// Key F7 to increase the number of iterations
+			if (is_key_down(key_f7)) {
+				L_System.set_iterations(L_System.getIterations() + 1);
+			}
+			// Key F8 to decrease the number of iterations
+			if (is_key_down(key_f8)) {
+				// We check if the number of iteration is greater than 1 so the least number of iteration allowed is 1
+				if (L_System.getIterations() > 1){
+					L_System.set_iterations(L_System.getIterations() - 1);
+				}
+			}
 		}
 
 
 		// Load Configuration file Method depending
 		void load_configuration_file() {
 			//http://www.dinomage.com/2012/01/tutorial-using-tinyxml-part-1/
+			// We reset the rules to avoid load previous ones
+			L_System.reset_rules_array();
+			// We reset as the num of iterations to start from the beginning
+			num_iteration = 0;
 			// First of all, we generate the file name
 			std::string filename = "File";
 			char file_number [2];
@@ -241,10 +269,14 @@ namespace octet {
 			L_System.set_axiom(file.FirstChildElement("LSystem")->FirstChildElement("Axiom")->GetText());
 			L_System.set_angle(atof(file.FirstChildElement("LSystem")->FirstChildElement("Angle")->GetText()));
 			L_System.set_iterations(atoi(file.FirstChildElement("LSystem")->FirstChildElement("Iterations")->GetText()));
+			// We load the rules now
 			for (TiXmlElement *elem = file.FirstChildElement("LSystem")->FirstChildElement("Rules")->FirstChildElement();
 				elem != NULL; elem = elem->NextSiblingElement()) {
+				printf("RL: %s\n", elem->ToElement()->GetText());
 				L_System.set_rule(elem->ToElement()->GetText());
 			}
+			// Once we finished to upload the configuration we run the first iteration
+			glFlush();
 		}
 
 
