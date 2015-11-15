@@ -35,9 +35,12 @@ namespace octet {
 		// at the beginning to 0
 		Point current_point = Point();
 		// Variable to set the length of the lines
-		float line_length = 0.1f;
+		float line_length = 0.10f;
 		// Variable to set the file to upload. We start from 1
 		int num_file = 1;
+		// Boolean variable to see if we have scaled before
+		boolean scaled = false;
+		int times_scaled = 0;
 
 	public:
 
@@ -176,12 +179,6 @@ namespace octet {
 			glEnd();
 		}
 
-		// Reset screen method
-	/*	void reset_screen(){
-			glClearColor(0, 0, 1, 1);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		}*/
-
 		// We draw a trunk line
 		void scale_tree(){
 			// We have to check if the highest point in the tree is out of the screen to scale the tree
@@ -203,6 +200,34 @@ namespace octet {
 			printf("TOP: %f\n", top_point_y);
 			printf("BOTTOM: %f\n", bottom_point_y);
 			// After discover the both points we set the init point of start the tree and the scale (factor * line_height)
+			// We check if the top point is out of the screen > 1
+			if (top_point_y > 1){
+				line_length = line_length * 0.5f;
+				// if we have scaled the tree we need to re-interpret the tree to fit in the page
+				tree_generation();
+				times_scaled++;
+				// We find out  if we have to scale the tree to fit in the page
+				scale_tree();
+			}
+			else if (top_point_y < 0 && times_scaled > 0){
+				line_length = line_length * 2.0f * times_scaled;
+				// if we have scaled the tree we need to re-interpret the tree to fit in the page
+				tree_generation();
+				times_scaled--;
+				// We find out  if we have to scale the tree to fit in the page
+				scale_tree();
+			}
+			printf("LL: %f\n", line_length);
+		}
+
+		// Function to generate trees
+		void tree_generation(){
+			// First thing is to generate the new String
+			for (int i = 0; i < num_iteration; i++){
+				generate_tree_string();
+			}
+			// We interpret now the string generated
+			intepret_tree_string();
 		}
 
 		// Use the keyboard to generate the tree
@@ -213,29 +238,20 @@ namespace octet {
 				// We increase the number of iterations
 				if (num_iteration < L_System.getIterations()){
 					num_iteration++;
-					
-					// First thing is to generate the new String
-					for (int i = 0; i < num_iteration; i++){
-						generate_tree_string();
-					}
+					// Call to tree generation function
+					tree_generation();
 					// We find out  if we have to scale the tree to fit in the page
 					scale_tree();
-					// We interpret now the string generated
-					intepret_tree_string();
 				}
 			}
 			if (is_key_down(key_down)) {
 				// We reduce the number of iterations and generate the tree
 				if (num_iteration > 0){
 					num_iteration--;
-					// First thing is to generate the new String
-					for (int i = 0; i < num_iteration; i++){
-						generate_tree_string();
-					}
+					// Call to tree generation function
+					tree_generation();
 					// We find out  if we have to scale the tree to fit in the page
 					scale_tree();
-					// We interpret now the string generated
-					intepret_tree_string();
 				}
 			}
 			// Key left to load previous file
@@ -282,6 +298,9 @@ namespace octet {
 			L_System.reset_rules_array();
 			// We reset as the num of iterations to start from the beginning
 			num_iteration = 0;
+			// We reset as well the line length because the previous tree could be scaled
+			line_length = 0.10f;
+			scaled = false;
 			// First of all, we generate the file name
 			std::string filename = "File";
 			char file_number [2];
