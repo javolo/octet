@@ -35,7 +35,7 @@ namespace octet {
 		// at the beginning to 0
 		Point current_point = Point();
 		// Variable to set the length of the lines
-		float line_length = 0.01f;
+		float line_length = 0.1f;
 		// Variable to set the file to upload. We start from 1
 		int num_file = 1;
 
@@ -177,9 +177,32 @@ namespace octet {
 		}
 
 		// Reset screen method
-		void reset_screen(){
+	/*	void reset_screen(){
 			glClearColor(0, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		}*/
+
+		// We draw a trunk line
+		void scale_tree(){
+			// We have to check if the highest point in the tree is out of the screen to scale the tree
+			float bottom_point_y;
+			float top_point_y;
+
+			// The bottom point will be the first point in the tree
+			bottom_point_y = tree_points[0].get_point_position_y();
+			top_point_y = tree_points[0].get_point_position_y();
+
+			for (int i = 1; i < tree_points.size(); i++){
+				if (tree_points[i].get_point_position_y() < bottom_point_y){
+					bottom_point_y = tree_points[i].get_point_position_y();
+				}
+				if (tree_points[i].get_point_position_y() > top_point_y){
+					top_point_y = tree_points[i].get_point_position_y();
+				}
+			}
+			printf("TOP: %f\n", top_point_y);
+			printf("BOTTOM: %f\n", bottom_point_y);
+			// After discover the both points we set the init point of start the tree and the scale (factor * line_height)
 		}
 
 		// Use the keyboard to generate the tree
@@ -195,6 +218,8 @@ namespace octet {
 					for (int i = 0; i < num_iteration; i++){
 						generate_tree_string();
 					}
+					// We find out  if we have to scale the tree to fit in the page
+					scale_tree();
 					// We interpret now the string generated
 					intepret_tree_string();
 				}
@@ -207,6 +232,8 @@ namespace octet {
 					for (int i = 0; i < num_iteration; i++){
 						generate_tree_string();
 					}
+					// We find out  if we have to scale the tree to fit in the page
+					scale_tree();
 					// We interpret now the string generated
 					intepret_tree_string();
 				}
@@ -248,7 +275,6 @@ namespace octet {
 			}
 		}
 
-
 		// Load Configuration file Method depending
 		void load_configuration_file() {
 			//http://www.dinomage.com/2012/01/tutorial-using-tinyxml-part-1/
@@ -275,8 +301,6 @@ namespace octet {
 				printf("RL: %s\n", elem->ToElement()->GetText());
 				L_System.set_rule(elem->ToElement()->GetText());
 			}
-			// Once we finished to upload the configuration we run the first iteration
-			glFlush();
 		}
 
 
