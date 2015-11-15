@@ -19,7 +19,7 @@ namespace octet {
 
 	public:
 
-		// Empty Constructor
+		// Empty Constructor with default values
 		Point(){
 			point_position = vec3(0, -0.75, 0);
 			point_angle = 0.0f;

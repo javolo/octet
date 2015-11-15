@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LSystem>
+  <Axiom>F</Axiom>
+  <Angle>25.7></Angle>
+  <Rules>
+    <Rule>F->F[+F]F[-F]F</Rule>
+  </Rules>
+  <Iterations>5</Iterations>
+</LSystem>

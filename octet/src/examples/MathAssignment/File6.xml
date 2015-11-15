@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LSystem>
+  <Axiom>X</Axiom>
+  <Angle>22.5></Angle>
+  <Rules>
+    <Rule>X->F-[[X]+X]+F[+FX]-X</Rule>
+    <Rule>F->FF</Rule>
+  </Rules>
+  <Iterations>5</Iterations>
+</LSystem>

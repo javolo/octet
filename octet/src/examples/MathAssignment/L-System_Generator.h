@@ -33,6 +33,8 @@ namespace octet {
 		Point current_point = Point();
 		// Variable to set the length of the lines
 		float line_length = 0.01f;
+		// Variable to set the file to upload. We start from 1
+		int num_file = 1;
 
 	public:
 
@@ -79,8 +81,6 @@ namespace octet {
 			}
 			result.push_back(0x00);
 			axiom = string(result.data());
-			//axiom = tree_string;
-			//printf("TREE: %s\n", axiom.c_str());	
 		}
 
 		// Interpretation and drawing of the 
@@ -104,18 +104,16 @@ namespace octet {
 				}
 				else if (axiom[i] == ']'){
 					// Restore the position and angle previously saved
-					// We want the last element of the vector as we want to retrieve the point in order
+					// We want the last element of the vector as we want to retrieve the points in order
 					current_point = stored_points[stored_points.size() - 1];
-					stored_points.pop_back();
-					// Removing elements keep the space in memory, we want to free this space
-					
+					stored_points.pop_back();					
 				}
 				else if (axiom[i] == '-'){
-					// '-' means "turn left 25 degrees", we change the sign and set the angle (Wikipedia L-System) 
+					// '-' means "turn left X degrees", we change the sign and set the angle (Wikipedia L-System) 
 					current_point.set_angle(current_point.get_angle() + L_System.getAngle());
 				}
 				else if (axiom[i] == '+'){
-					// '+' means "turn right 25 degrees", we set the angle as positive one (Wikipedia L-System) 
+					// '+' means "turn right X degrees", we set the angle as positive one (Wikipedia L-System) 
 					current_point.set_angle(current_point.get_angle() - L_System.getAngle());
 				}
 			}
@@ -132,7 +130,6 @@ namespace octet {
 			// We calculate the end position of the line
 			update_current_point_position();
 			// We store this point??
-			current_point.set_point_type("trunk");
 			tree_points.push_back(current_point);
 		}
 
@@ -144,7 +141,6 @@ namespace octet {
 			// We calculate the end position of the line
 			update_current_point_position();
 			// We store this point??
-			current_point.set_point_type("leaf");
 			tree_points.push_back(current_point);
 		}
 
@@ -195,7 +191,6 @@ namespace octet {
 					intepret_tree_string();
 				}
 			}
-			
 			if (is_key_down(key_down)) {
 				// We reduce the number of iterations and generate the tree
 				if (num_iteration > 0){
@@ -208,11 +203,38 @@ namespace octet {
 					intepret_tree_string();
 				}
 			}
-
+			// Key left to load previous file
+			if (is_key_down(key_left)) {
+				// Decrease the number of file to load if we are not at the first one
+				if (num_file > 1){
+					num_file--;
+					load_configuration_file();
+				}
+			}
 			// Key right we load another file
 			if (is_key_down(key_right)) {
+				// Increase the number of the file if we are not exceeding the number of files
+				if (num_file < 8){
+					num_file++;
+					load_configuration_file();
+				}
 			}
 		}
+
+
+		// Load Configuration file Method depending
+		void load_configuration_file() {
+			// First of all, we generate the file name
+			std::string filename = "File";
+			char file_number [2];
+			itoa(num_file, file_number, 10);
+			filename += file_number;
+			filename += ".xml";
+			printf("Filename: %s\n", filename.c_str());
+
+
+		}
+
 
 		// this is called once OpenGL is initialized
 		void app_init() {
@@ -223,16 +245,16 @@ namespace octet {
 			// We generate the parameter of L-System
 			string axiom = "X";
 			float angle = 22.5f;
-			string rule1 = "X->F-[[X]+X]+F[+FX]-X";
+			/*string rule1 = "X->F-[[X]+X]+F[+FX]-X";
 			string rule2 = "F->FF";
-			int iterations = 5;
+			int iterations = 5;*/
 
-			/*string rule1 = "F[+X][-X]FX";
-			string rule2 = "FF";
-			int iterations = 7;*/
+			string rule1 = "X->F[+X][-X]FX";
+			string rule2 = "F->FF";
+			int iterations = 7;
 
-			//string rule1 = "F[+F]F[-F]F";
-			////string rule2 = "FF";
+			//string rule1 = "X->F[+F]F[-F]F";
+			////string rule2 = "F->FF";
 			//int iterations = 5;
 
 			L_System.set_rule(rule1);
