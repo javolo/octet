@@ -4,6 +4,9 @@
 #include "turtle.h"
 #include "sprite.h"
 #include "point.h"
+#include <sstream>
+#include "tinyxml2.h"
+using namespace tinyxml2;
 
 namespace octet {
 	class L_System_Generator : public octet::app {
@@ -224,6 +227,7 @@ namespace octet {
 
 		// Load Configuration file Method depending
 		void load_configuration_file() {
+			//http://www.dinomage.com/2012/01/tutorial-using-tinyxml-part-1/
 			// First of all, we generate the file name
 			std::string filename = "File";
 			char file_number [2];
@@ -231,8 +235,16 @@ namespace octet {
 			filename += file_number;
 			filename += ".xml";
 			printf("Filename: %s\n", filename.c_str());
-
-
+			TiXmlDocument file;
+			file.LoadFile(filename.c_str());
+			// Once loaded the file we set the initial parameters
+			L_System.set_axiom(file.FirstChildElement("LSystem")->FirstChildElement("Axiom")->GetText());
+			L_System.set_angle(atof(file.FirstChildElement("LSystem")->FirstChildElement("Angle")->GetText()));
+			L_System.set_iterations(atoi(file.FirstChildElement("LSystem")->FirstChildElement("Iterations")->GetText()));
+			for (TiXmlElement *elem = file.FirstChildElement("LSystem")->FirstChildElement("Rules")->FirstChildElement();
+				elem != NULL; elem = elem->NextSiblingElement()) {
+				L_System.set_rule(elem->ToElement()->GetText());
+			}
 		}
 
 
@@ -242,26 +254,8 @@ namespace octet {
 			app_scene->create_default_camera_and_lights();
 			app_scene->get_camera_instance(0)->set_far_plane(100000.0f);
 
-			// We generate the parameter of L-System
-			string axiom = "X";
-			float angle = 22.5f;
-			/*string rule1 = "X->F-[[X]+X]+F[+FX]-X";
-			string rule2 = "F->FF";
-			int iterations = 5;*/
-
-			string rule1 = "X->F[+X][-X]FX";
-			string rule2 = "F->FF";
-			int iterations = 7;
-
-			//string rule1 = "X->F[+F]F[-F]F";
-			////string rule2 = "F->FF";
-			//int iterations = 5;
-
-			L_System.set_rule(rule1);
-			L_System.set_rule(rule2);
-			L_System.set_angle(angle);
-			L_System.set_axiom(axiom);
-			L_System.set_iterations(iterations);
+			// We load the first tree to start displaying something
+			load_configuration_file();
 		}
 
 		// this is called to draw the world
