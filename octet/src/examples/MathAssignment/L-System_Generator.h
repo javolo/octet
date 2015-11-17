@@ -37,6 +37,8 @@ namespace octet {
 		Point current_point = Point();
 		// Variable to set the length of the lines
 		float line_length = 0.10f;
+		// Variable to control the line thickness
+		float line_thickness = 10.0f;
 		// Variable to set the file to upload. We start from 1
 		int num_file = 1;
 		// Boolean variable to see if we have scaled before
@@ -167,6 +169,7 @@ namespace octet {
 			// We print the tree
 			glClearColor(0, 0, 0, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glLineWidth(line_thickness);
 			glBegin(GL_LINES);
 			
 			for (int i = 0; i < tree_points.size(); i++){
@@ -178,7 +181,6 @@ namespace octet {
 					glColor3f(color2.x(), color2.y(), color2.z());
 					glVertex3f(tree_points[i].get_point_position_x(), tree_points[i].get_point_position_y(), 0);
 				}
-				
 			}
 			glEnd();
 		}
@@ -299,11 +301,25 @@ namespace octet {
 					L_System.set_iterations(L_System.getIterations() - 1);
 				}
 			}
-			// Key F7 to increase the number of iterations
+			// A key to change randomly the colours
 			if (is_key_down('A')) {
 				// We generate a new pair of colours randomly
 				color1 = colouring.get_random_color();
 				color2 = colouring.get_random_color();
+				// Call to tree generation function
+				tree_generation();
+			}
+			// C key increase the line thickness
+			if (is_key_down('C')) {
+				// We increase the line thickness
+				line_thickness += 1.0f;
+				// Call to tree generation function
+				tree_generation();
+			}
+			// V key increase the line thickness
+			if (is_key_down('V')) {
+				// We increase the line thickness
+				line_thickness -= 1.0f;
 				// Call to tree generation function
 				tree_generation();
 			}
@@ -349,8 +365,8 @@ namespace octet {
 			app_scene->get_camera_instance(0)->set_far_plane(100000.0f);
 
 			// We load the first tree to start displaying something
-			color1 = colouring.get_color(2);
-			color2 = colouring.get_color(3);
+			color1 = colouring.get_color(8);
+			color2 = colouring.get_color(9);
 			load_configuration_file();
 		}
 
