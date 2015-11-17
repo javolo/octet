@@ -343,8 +343,10 @@ namespace octet {
 			L_System.reset_rules_array();
 			// We reset as the num of iterations to start from the beginning
 			num_iteration = 0;
-			// We reset as well the line length because the previous tree could be scaled
+			// We reset as well the line length, thickness and the times scaled variable because the previous tree
+			// could have modified that
 			line_length = 0.10f;
+			line_thickness = 1.0f;
 			times_scaled = 0;
 			// First of all, we generate the file name
 			std::string filename = "File";
@@ -376,8 +378,8 @@ namespace octet {
 			app_scene->get_camera_instance(0)->set_far_plane(100000.0f);
 
 			// We load the first tree to start displaying something
-			color1 = colouring.get_color(8);
-			color2 = colouring.get_color(9);
+			color1 = colouring.get_color(0);
+			color2 = colouring.get_color(1);
 			load_configuration_file();
 		}
 
