@@ -1,9 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LSystem>
-  <Axiom>F-F-F-F-F</Axiom>
-  <Angle>72></Angle>
+  <Axiom>F</Axiom>
+  <Angle>25.7</Angle>
   <Rules>
-    <Rule>F->F-F++F+F-F-F</Rule>
+    <Rule>F->F[+F]F[-F]F</Rule>
+    <Rule>F->F[+F]F</Rule>
+    <Rule>F->F[-F]F</Rule>
   </Rules>
   <Iterations>6</Iterations>
 </LSystem>

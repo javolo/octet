@@ -61,18 +61,38 @@ namespace octet {
 				int rule_position = rules[i].find("->");
 				if (rule_position == 1){
 					char left_part = rules[i][0];
+					// STOCHASTIC PART
+					// We count the number of times this letter is repeated in the left part so we can determine
+					// the probability like 1 / num_times
+					dynarray<string> different_rules = decision_times(left_part);
 					// We compare with the letter passed to see if the same and then apply this rule
-					if (left_part == letter){
+					if (different_rules.size() > 0){
+						int random_rule = rand() % different_rules.size();
 						// We push in the result array the letter of the rule
-						for (int j = rule_position+2; j < rules[i].size(); j++){
-							result.push_back(rules[i][j]);
+						for (int j = rule_position + 2; j < different_rules[random_rule].size(); j++){
+							result.push_back(different_rules[random_rule][j]);
 						}
+					}
+				}
+				// If it´s greater that 1 could be a left part of more than one character or 
+				// If contain < or > that for context sensitivity
+			}
+			return result;
+		}
+
+		// Function to tell you how many times the letter repeat how decision branching
+		dynarray<string> decision_times(char letter){
+			dynarray<string> result;
+			for (int i = 0; i < rules.size(); i++){
+				int rule_position = rules[i].find("->");
+				if (rule_position == 1){
+					if (rules[i][0] == letter){
+						result.push_back(rules[i]);
 					}
 				}
 			}
 			return result;
 		}
-
 
 		// Generation of new String applying rules
 		void generate_tree_string(){
