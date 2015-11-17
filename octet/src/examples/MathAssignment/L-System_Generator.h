@@ -38,7 +38,7 @@ namespace octet {
 		// Variable to set the length of the lines
 		float line_length = 0.10f;
 		// Variable to control the line thickness
-		float line_thickness = 10.0f;
+		float line_thickness = 1.0f;
 		// Variable to set the file to upload. We start from 1
 		int num_file = 1;
 		// Boolean variable to see if we have scaled before
@@ -56,27 +56,15 @@ namespace octet {
 
 		// We generate the substring looking at the set of rules
 		dynarray<char> substitute_string(dynarray<char>& result, char letter){
-			// We iterate through the rules array to find the correct one to apply
-			for (int i = 0; i < rules.size(); i++){
-				int rule_position = rules[i].find("->");
-				if (rule_position == 1){
-					char left_part = rules[i][0];
-					// STOCHASTIC PART
-					// We count the number of times this letter is repeated in the left part so we can determine
-					// the probability like 1 / num_times
-					dynarray<string> different_rules = decision_times(left_part);
-					// We compare with the letter passed to see if the same and then apply this rule
-					if (different_rules.size() > 0){
-						int random_rule = rand() % different_rules.size();
-						// We push in the result array the letter of the rule
-						for (int j = rule_position + 2; j < different_rules[random_rule].size(); j++){
-							result.push_back(different_rules[random_rule][j]);
-						}
+
+			dynarray<string> different_rules = decision_times(letter);
+			if (different_rules.size() > 0){
+					int random_rule = rand() % different_rules.size();
+					// We push in the result array the letter of the rule
+					for (int j = 3; j < different_rules[random_rule].size(); j++){
+						result.push_back(different_rules[random_rule][j]);
 					}
 				}
-				// If it´s greater that 1 could be a left part of more than one character or 
-				// If contain < or > that for context sensitivity
-			}
 			return result;
 		}
 
@@ -86,6 +74,8 @@ namespace octet {
 			for (int i = 0; i < rules.size(); i++){
 				int rule_position = rules[i].find("->");
 				if (rule_position == 1){
+					/*printf("LEFT: %c\n", rules[i][0]);
+					printf("LET: %c\n", letter);*/
 					if (rules[i][0] == letter){
 						result.push_back(rules[i]);
 					}
@@ -112,6 +102,7 @@ namespace octet {
 				}
 			}
 			result.push_back(0x00);
+			printf("R: %s\n", string(result.data()));
 			axiom = string(result.data());
 		}
 
