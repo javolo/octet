@@ -4,6 +4,7 @@
 #include "turtle.h"
 #include "sprite.h"
 #include "point.h"
+#include "color.h"
 #include <sstream>
 #include "tinyxml2.h"
 using namespace tinyxml2;
@@ -41,6 +42,9 @@ namespace octet {
 		// Boolean variable to see if we have scaled before
 		boolean scaled = false;
 		int times_scaled = 0;
+		Colour colouring = Colour();
+		vec3 color1;
+		vec3 color2;
 
 	public:
 
@@ -167,11 +171,11 @@ namespace octet {
 			
 			for (int i = 0; i < tree_points.size(); i++){
 				if (tree_points[i].get_point_type() == "trunk"){
-					glColor3f(0.9f, 0.3f, 0.0f);
+					glColor3f(color1.x(), color1.y(), color1.z());
 					glVertex3f(tree_points[i].get_point_position_x(), tree_points[i].get_point_position_y(), 0);
 				}
 				else if (tree_points[i].get_point_type() == "leaf"){
-					glColor3f(0, 1, 0);
+					glColor3f(color2.x(), color2.y(), color2.z());
 					glVertex3f(tree_points[i].get_point_position_x(), tree_points[i].get_point_position_y(), 0);
 				}
 				
@@ -210,10 +214,12 @@ namespace octet {
 				scale_tree();
 			}
 			else if (top_point_y < 0 && times_scaled > 0){
+				printf("TS: %i\n", times_scaled);
 				line_length = line_length * 2.0f * times_scaled;
 				// if we have scaled the tree we need to re-interpret the tree to fit in the page
 				tree_generation();
-				times_scaled--;
+				//times_scaled--;
+				times_scaled = 0;
 				// We find out  if we have to scale the tree to fit in the page
 				scale_tree();
 			}
@@ -273,10 +279,14 @@ namespace octet {
 			// Key F1 to increase the angle in 5 degrees
 			if (is_key_down(key_f1)) {
 				L_System.set_angle(L_System.getAngle() + 5);
+				// Call to tree generation function
+				tree_generation();
 			}
 			// Key F2 to decrease the angle in 5 degrees
 			if (is_key_down(key_f2)) {
 				L_System.set_angle(L_System.getAngle() - 5);
+				// Call to tree generation function
+				tree_generation();
 			}
 			// Key F7 to increase the number of iterations
 			if (is_key_down(key_f7)) {
@@ -289,6 +299,14 @@ namespace octet {
 					L_System.set_iterations(L_System.getIterations() - 1);
 				}
 			}
+			// Key F7 to increase the number of iterations
+			if (is_key_down('A')) {
+				// We generate a new pair of colours randomly
+				color1 = colouring.get_random_color();
+				color2 = colouring.get_random_color();
+				// Call to tree generation function
+				tree_generation();
+			}
 		}
 
 		// Load Configuration file Method depending
@@ -300,7 +318,7 @@ namespace octet {
 			num_iteration = 0;
 			// We reset as well the line length because the previous tree could be scaled
 			line_length = 0.10f;
-			scaled = false;
+			times_scaled = 0;
 			// First of all, we generate the file name
 			std::string filename = "File";
 			char file_number [2];
@@ -320,6 +338,7 @@ namespace octet {
 				printf("RL: %s\n", elem->ToElement()->GetText());
 				L_System.set_rule(elem->ToElement()->GetText());
 			}
+
 		}
 
 
@@ -330,6 +349,8 @@ namespace octet {
 			app_scene->get_camera_instance(0)->set_far_plane(100000.0f);
 
 			// We load the first tree to start displaying something
+			color1 = colouring.get_color(2);
+			color2 = colouring.get_color(3);
 			load_configuration_file();
 		}
 
