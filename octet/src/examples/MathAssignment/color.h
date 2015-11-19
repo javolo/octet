@@ -48,7 +48,7 @@ namespace octet {
 			return colours[num_color];
 		}
 		vec3 get_random_color() {
-			int randomizer = rand() % 10;
+			int randomizer = rand() % colours.size();
 			return colours[randomizer];
 		}
 	};

@@ -6,8 +6,6 @@
 #include "point.h"
 #include "color.h"
 #include <sstream>
-#include "tinyxml2.h"
-using namespace tinyxml2;
 
 namespace octet {
 	class L_System_Generator : public octet::app {
@@ -74,8 +72,6 @@ namespace octet {
 			for (int i = 0; i < rules.size(); i++){
 				int rule_position = rules[i].find("->");
 				if (rule_position == 1){
-					/*printf("LEFT: %c\n", rules[i][0]);
-					printf("LET: %c\n", letter);*/
 					if (rules[i][0] == letter){
 						result.push_back(rules[i]);
 					}
@@ -338,7 +334,6 @@ namespace octet {
 
 		// Load Configuration file Method depending
 		void load_configuration_file() {
-			//http://www.dinomage.com/2012/01/tutorial-using-tinyxml-part-1/
 			// We reset the rules to avoid load previous ones
 			L_System.reset_rules_array();
 			// We reset as the num of iterations to start from the beginning
@@ -354,7 +349,6 @@ namespace octet {
 			itoa(num_file, file_number, 10);
 			filename += file_number;
 			filename += ".xml";
-			printf("Filename: %s\n", filename.c_str());
 			TiXmlDocument file;
 			file.LoadFile(filename.c_str());
 			// Once loaded the file we set the initial parameters
@@ -364,10 +358,8 @@ namespace octet {
 			// We load the rules now
 			for (TiXmlElement *elem = file.FirstChildElement("LSystem")->FirstChildElement("Rules")->FirstChildElement();
 				elem != NULL; elem = elem->NextSiblingElement()) {
-				printf("RL: %s\n", elem->ToElement()->GetText());
 				L_System.set_rule(elem->ToElement()->GetText());
 			}
-
 		}
 
 
