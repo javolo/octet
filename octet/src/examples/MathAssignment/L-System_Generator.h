@@ -110,11 +110,11 @@ namespace octet {
 			for (int i = 0; i < axiom.size(); i++){
 				if (axiom[i] == 'F' || axiom[i] == 'G'){
 					// F means draw forward (draw trunk)
-					draw_trunk();
+					draw_line("trunk");
 				}
 				else if (axiom[i] == 'X'){
 					// Don´t correspond with anything (let´s print a leaf)
-					draw_leaf();
+					draw_line("leaf");
 				}
 				else if (axiom[i] == '['){
 					// Store the point in a vector of points
@@ -140,22 +140,11 @@ namespace octet {
 		}
 
 		// We draw a trunk line
-		void draw_trunk(){
+		void draw_line(string type_line){
 			// In this method we only store the point of the tree as in the draw world method each frame
 			// it´s gonna paint the tree
 			// We store the first point
-			current_point.set_point_type("trunk");
-			tree_points.push_back(current_point);
-			// We calculate the end position of the line
-			update_current_point_position();
-			// We store this point??
-			tree_points.push_back(current_point);
-		}
-
-		// We draw a leaf at the end of a branch
-		void draw_leaf(){
-			// We store the first point
-			current_point.set_point_type("leaf");
+			current_point.set_point_type(type_line);
 			tree_points.push_back(current_point);
 			// We calculate the end position of the line
 			update_current_point_position();
