@@ -6,7 +6,7 @@
 //
 // Math Assignment: L-System
 //
-// Turtle class
+// Colour class
 //
 
 namespace octet {

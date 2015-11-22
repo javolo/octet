@@ -39,8 +39,7 @@ namespace octet {
 		float line_thickness = 1.0f;
 		// Variable to set the file to upload. We start from 1
 		int num_file = 1;
-		// Boolean variable to see if we have scaled before
-		boolean scaled = false;
+		// Int variable to see if how many times we´ve scaled the tree
 		int times_scaled = 0;
 		Colour colouring = Colour();
 		vec3 color1;
@@ -98,7 +97,6 @@ namespace octet {
 				}
 			}
 			result.push_back(0x00);
-			printf("R: %s\n", string(result.data()));
 			axiom = string(result.data());
 		}
 
@@ -199,8 +197,6 @@ namespace octet {
 					top_point_y = tree_points[i].get_point_position_y();
 				}
 			}
-			printf("TOP: %f\n", top_point_y);
-			printf("BOTTOM: %f\n", bottom_point_y);
 			// After discover the both points we set the init point of start the tree and the scale (factor * line_height)
 			// We check if the top point is out of the screen > 1
 			if (top_point_y > 1){
@@ -212,7 +208,6 @@ namespace octet {
 				scale_tree();
 			}
 			else if (top_point_y < 0 && times_scaled > 0){
-				printf("TS: %i\n", times_scaled);
 				line_length = line_length * 2.0f * times_scaled;
 				// if we have scaled the tree we need to re-interpret the tree to fit in the page
 				tree_generation();
@@ -221,7 +216,6 @@ namespace octet {
 				// We find out  if we have to scale the tree to fit in the page
 				scale_tree();
 			}
-			printf("LL: %f\n", line_length);
 		}
 
 		// Function to generate trees
