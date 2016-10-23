@@ -421,6 +421,47 @@ namespace octet { namespace scene {
       }
     }
 
+	// Method to manipulate the camera and have another angle that fits with the game I want to do.
+	/// scenes often arrive with no camera of lights
+	void create_default_camera_and_lights_jav() {
+		/// default camera_instance
+		if (camera_instances.size() == 0) {
+			aabb bb = get_world_aabb();
+			bb = bb.get_union(aabb(vec3(0, 0, 0), vec3(5, 5, 5)));
+			scene_node *node = add_scene_node();
+			camera_instance *cam = new camera_instance();
+			float bb_size = length(bb.get_half_extent()) * 2.0f;
+			float distance = max(bb.get_max().z(), bb_size) * 2;
+			node->access_nodeToParent().translate(0, 0, distance);
+			float f = distance * 2, n = f * 0.001f;
+			cam->set_node(node);
+			cam->set_perspective(0, 45, 1, n, f);
+			camera_instances.push_back(cam);
+		}
+
+		/// default light instance
+		if (light_instances.size() == 0) {
+			scene_node *node = add_scene_node();
+			light *_light = new light();
+			light_instance *li = new light_instance();
+			node->access_nodeToParent().translate(100, 100, 100);
+			node->access_nodeToParent().rotateX(45);
+			node->access_nodeToParent().rotateY(45);
+			_light->set_color(vec4(0, 1, 1, 1));
+			_light->set_kind(atom_directional);
+			li->set_node(node);
+			li->set_light(_light);
+			light_instances.push_back(li);
+		}
+
+		if (!object_shader) {
+			object_shader = new bump_shader();
+			object_shader->init(false);
+			skin_shader = new bump_shader();
+			skin_shader->init(true);
+		}
+	}
+
     void play_all_anims(resource_dict &dict) {
       dynarray<resource*> anims;
       dict.find_all(anims, atom_animation);

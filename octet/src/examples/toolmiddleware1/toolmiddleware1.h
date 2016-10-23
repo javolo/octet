@@ -28,30 +28,36 @@ namespace octet {
 
 	/// this is called once OpenGL is initialized
 	void app_init() {
+		// Camera definition
 		app_scene = new visual_scene();
-		app_scene->create_default_camera_and_lights();
+		app_scene->create_default_camera_and_lights_jav();
 		app_scene->get_camera_instance(0)->get_node()->translate(vec3(0, 4, 0));
 
+		// Material definition
 		material *red = new material(vec4(1, 0, 0, 1));
 		material *green = new material(vec4(0, 1, 0, 1));
 		material *blue = new material(vec4(0, 0, 1, 1));
 
+		// Object is scene definition
+		// Sphere
 		mat4t mat;
 		mat.translate(-3, 6, 0);
 		app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), red, true);
 
+		// Box
 		mat.loadIdentity();
 		mat.translate(0, 10, 0);
 		app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), red, true);
 
+		// Cylinder
 		mat.loadIdentity();
 		mat.translate(3, 6, 0);
 		app_scene->add_shape(mat, new mesh_cylinder(zcylinder(vec3(0, 0, 0), 2, 4)), blue, true);
 
-		// ground
+		// Ground
 		mat.loadIdentity();
 		mat.translate(0, -1, 0);
-		app_scene->add_shape(mat, new mesh_box(vec3(200, 1, 200)), green, false);
+		app_scene->add_shape(mat, new mesh_box(vec3(5, 1, 5)), green, false);
 	}
 
 	/// this is called to draw the world
