@@ -31,7 +31,7 @@ namespace octet {
 		// Camera definition
 		app_scene = new visual_scene();
 		app_scene->create_default_camera_and_lights_jav();
-		app_scene->get_camera_instance(0)->get_node()->translate(vec3(0, 4, 0));
+		app_scene->get_camera_instance(0)->get_node()->translate(vec3(0, 8, 18));
 
 		// Material definition
 		material *red = new material(vec4(1, 0, 0, 1));
@@ -57,7 +57,7 @@ namespace octet {
 		// Ground
 		mat.loadIdentity();
 		mat.translate(0, -1, 0);
-		app_scene->add_shape(mat, new mesh_box(vec3(5, 1, 5)), green, false);
+		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 20)), green, false);
 	}
 
 	/// this is called to draw the world
