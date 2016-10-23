@@ -5,6 +5,10 @@
 // Modular Framework for OpenGLES2 rendering on multiple platforms.
 //
 // Tools & Middleware Assignment 1
+// Requirements:
+// - Hinge constraints
+// - Springe constraints
+// - Collision callbacks
 //
 
 #define OCTET_BULLET 1
