@@ -1,15 +1,19 @@
 ////////////////////////////////////////////////////////////////////////////////
-//
-// (C) Andy Thomason 2012-2014
-//
-// Modular Framework for OpenGLES2 rendering on multiple platforms.
-//
-// Tools & Middleware Assignment 1
-// Requirements:
-// - Hinge constraints
-// - Springe constraints
-// - Collision callbacks
-//
+//																			  //
+// (C) Andy Thomason 2012-2014												  //
+//																			  //
+// Javier de la Osa Escalada												  //
+//																			  //
+// Modular Framework for OpenGLES2 rendering on multiple platforms.			  //
+//																			  //
+// Tools & Middleware Assignment 1											  //
+// Requirements:															  //
+// - Hinge constraints														  //
+// - Springe constraints													  //
+// - Collision callbacks													  //
+// - Read from CSV or text file												  //
+//																			  //
+////////////////////////////////////////////////////////////////////////////////
 
 #define OCTET_BULLET 1
 
