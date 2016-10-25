@@ -31,7 +31,10 @@ namespace octet {
 		// Camera definition
 		app_scene = new visual_scene();
 		app_scene->create_default_camera_and_lights_jav();
-		app_scene->get_camera_instance(0)->get_node()->translate(vec3(0, 8, 18));
+		// Position of camera related with elements
+		app_scene->get_camera_instance(0)->get_node()->translate(vec3(0, 20, 18));
+		// Try to rotate the camera to have better view of elements in the scene
+		app_scene->get_camera_instance(0)->get_node()->rotate(-20, vec3(1, 0, 0));
 
 		// Material definition
 		material *red = new material(vec4(1, 0, 0, 1));
@@ -58,6 +61,17 @@ namespace octet {
 		mat.loadIdentity();
 		mat.translate(0, -1, 0);
 		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 20)), green, false);
+
+		mat.loadIdentity();
+		mat.translate(0, 1, 20);
+		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 0)), green, false);
+
+		mat.loadIdentity();
+		mat.translate(0, 1, -20);
+		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 0)), green, false);
+		mat.loadIdentity();
+		mat.translate(0, 5, 0);
+		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 0)), green, false);
 	}
 
 	/// this is called to draw the world
