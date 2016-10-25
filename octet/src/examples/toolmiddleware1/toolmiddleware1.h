@@ -61,17 +61,26 @@ namespace octet {
 		mat.loadIdentity();
 		mat.translate(0, -1, 0);
 		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 20)), green, false);
-
+		//// Border 1 (closest to the camera)
 		mat.loadIdentity();
 		mat.translate(0, 1, 20);
-		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 0)), green, false);
-
+		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 1)), green, false);
+		// Border 2 (farest to the camera)
 		mat.loadIdentity();
 		mat.translate(0, 1, -20);
-		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 0)), green, false);
+		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 1)), green, false);
+		// Border 3 (left hand side)
 		mat.loadIdentity();
-		mat.translate(0, 5, 0);
-		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 0)), green, false);
+		mat.translate(-19, 1, 0);
+		mat.rotateY90();
+		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 1)), green, false);
+		// Border 4 (right hand side)
+		mat.loadIdentity();
+		mat.translate(19, 1, 0);
+		mat.rotateY90();
+		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 1)), green, false);
+
+		// Potential change when load from xml or csv file
 	}
 
 	/// this is called to draw the world
