@@ -77,9 +77,9 @@ namespace octet {
 		scene_node* sphere2 = app_scene->get_mesh_instance(1)->get_node();
 		btRigidBody * rbSphere2 = sphere2->get_rigid_body();
 		// Location Sphere 1
-		btVector3 locationSphere1;
+		btVector3 locationSphere1 = btVector3(sphere1->get_nodeToParent().x, sphere1->get_nodeToParent().y, sphere1->get_nodeToParent().z);
 		// Location Sphere 2
-		btVector3 locationSphere2;
+		btVector3 locationSphere2 = btVector3(sphere2->get_nodeToParent().x, sphere2->get_nodeToParent().y, sphere2->get_nodeToParent().z);
 
 
 
