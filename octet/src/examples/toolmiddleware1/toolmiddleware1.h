@@ -51,9 +51,9 @@ namespace octet {
 		mat.translate(-3, 6, 0);
 		// Location Sphere 1
 		btVector3 locationSphere1 = btVector3(-3, 6, 0);
-		printf("Sphere 1 X(-3): %i \n", locationSphere1.getX());
-		printf("Sphere 2 X(6): %i \n", locationSphere1.getY());
-		printf("Sphere 3 X(0): %i \n", locationSphere1.getZ());
+		printf("Sphere 1 X(-3): %f \n", locationSphere1.getX());
+		printf("Sphere 2 X(6): %f \n", locationSphere1.getY());
+		printf("Sphere 3 X(0): %f \n", locationSphere1.getZ());
 		// Add sphere to the scene
 		app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), red, true);
 
