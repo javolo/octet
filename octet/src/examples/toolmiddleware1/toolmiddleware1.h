@@ -65,8 +65,12 @@ namespace octet {
 		// 5. Axis
 
 		// With all this information we can create the bullet physics hinge constraint and see how that constraint work in the world
-
 		btHingeConstraint* hinge;
+		// Rigid Body Sphere 1
+		btRigidBody * rbSphere1;
+		btRigidBody * rbSphere2;
+
+
 
 
 		// Box
