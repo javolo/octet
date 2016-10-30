@@ -83,6 +83,9 @@ namespace octet {
 		// Rigid Body Sphere 1
 		scene_node* sphere1 = app_scene->get_mesh_instance(0)->get_node();
 		btRigidBody* rbSphere1 = sphere1->get_rigid_body();
+		// We create a velocity vector to add some movements and see better the hinge constraint
+		btVector3 velocitySphere1 = btVector3(10, 10, 10);
+		rbSphere1->setLinearVelocity(velocitySphere1);
 		// Rigid Body Sphere 2
 		scene_node* sphere2 = app_scene->get_mesh_instance(1)->get_node();
 		btRigidBody* rbSphere2 = sphere2->get_rigid_body();
