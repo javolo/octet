@@ -49,11 +49,19 @@ namespace octet {
 		// Sphere 1
 		mat4t mat;
 		mat.translate(-3, 6, 0);
+		// Location Sphere 1
+		btVector3 locationSphere1 = btVector3(-3, 6, 0);
+		printf("Sphere 1 X(-3): %i \n", locationSphere1.getX());
+		printf("Sphere 2 X(6): %i \n", locationSphere1.getY());
+		printf("Sphere 3 X(0): %i \n", locationSphere1.getZ());
+		// Add sphere to the scene
 		app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), red, true);
 
 		// Sphere 2
 		mat.loadIdentity();
 		mat.translate(0, 10, 0);
+		// Location Sphere 2
+		btVector3 locationSphere2 = btVector3(0, 10, 0);
 		app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), blue, true);
 
 		// We create the HINGE Constraint
@@ -76,10 +84,6 @@ namespace octet {
 		// Rigid Body Sphere 2
 		scene_node* sphere2 = app_scene->get_mesh_instance(1)->get_node();
 		btRigidBody * rbSphere2 = sphere2->get_rigid_body();
-		// Location Sphere 1
-		btVector3 locationSphere1 = btVector3(sphere1->get_nodeToParent().x, sphere1->get_nodeToParent().y, sphere1->get_nodeToParent().z);
-		// Location Sphere 2
-		btVector3 locationSphere2 = btVector3(sphere2->get_nodeToParent().x, sphere2->get_nodeToParent().y, sphere2->get_nodeToParent().z);
 		// Axis (We´ll set the axis in the Y plane, but it can be changed easily)
 		btVector3 axisY = btVector3(0, 1, 0);
 
