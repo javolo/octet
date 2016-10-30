@@ -84,16 +84,16 @@ namespace octet {
 		scene_node* sphere1 = app_scene->get_mesh_instance(0)->get_node();
 		btRigidBody* rbSphere1 = sphere1->get_rigid_body();
 		// We create a velocity vector to add some movements and see better the hinge constraint
-		btVector3 velocitySphere1 = btVector3(0, 0, 20);
+		btVector3 velocitySphere1 = btVector3(0, 0, 0);
 		rbSphere1->setLinearVelocity(velocitySphere1);
 		// Rigid Body Sphere 2
 		scene_node* sphere2 = app_scene->get_mesh_instance(1)->get_node();
 		btRigidBody* rbSphere2 = sphere2->get_rigid_body();
-
-		btVector3 velocitySphere2 = btVector3(0, 0, 0);
+		// Speed for sphere 2
+		btVector3 velocitySphere2 = btVector3(30, 0, 30);
 		rbSphere2->setLinearVelocity(velocitySphere2);
 		// Axis (We´ll set the axis in the Y plane, but it can be changed easily)
-		btVector3 axisY = btVector3(0, 1, 0);
+		btVector3 axisY = btVector3(1, 0, 0);
 		// With all this information we can create the bullet physics hinge constraint and see how that constraint work in the world
 		btHingeConstraint* hinge = new btHingeConstraint(*rbSphere1, *rbSphere2, locationSphere1, locationSphere2, axisY, axisY);
 		// Once we have created the constraint, we add it to the world
@@ -141,6 +141,7 @@ namespace octet {
 	// Use the keyboard to move the elements around the screen
 	// The first element we are going to move is the sphere to set up the hinge constraint
 	// TO DO: Set up the keys to move the camera around the world
+	// Try to move one of the balls with the keys to see if we can see better the hinge constraint
 
 	void manageKeyInputs() {
 
@@ -157,6 +158,8 @@ namespace octet {
 		}
 
 	}
+
+	// TO DO: Handle collisions with walls to not stop when hit them
 
 
 	/// this is called to draw the world
