@@ -52,7 +52,7 @@ namespace octet { namespace scene {
       btCollisionDispatcher *dispatcher;            /// handler for collisions between objects
       btDbvtBroadphase *broadphase;                 /// handler for broadphase (rough) collision
       btSequentialImpulseConstraintSolver *solver;  /// handler to resolve collisions
-      btDiscreteDynamicsWorld *world;             /// physics world, contains rigid bodies
+      btDiscreteDynamicsWorld *world;               /// physics world, contains rigid bodies
       typedef btCollisionShape collison_shape_t;
     #else
       typedef void collison_shape_t;

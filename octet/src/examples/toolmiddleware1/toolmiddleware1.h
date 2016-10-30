@@ -21,6 +21,7 @@ namespace octet {
   class toolmiddleware1 : public app {
     // scene for drawing box
     ref<visual_scene> app_scene;
+
   public:
     /// this is called when we construct the class before everything is initialised.
     toolmiddleware1(int argc, char **argv) : app(argc, argv) {
@@ -30,6 +31,7 @@ namespace octet {
 	void app_init() {
 		// Camera definition
 		app_scene = new visual_scene();
+		// Definition of lights.
 		app_scene->create_default_camera_and_lights_jav();
 		// Position of camera related with elements
 		app_scene->get_camera_instance(0)->get_node()->translate(vec3(0, 20, 18));
@@ -41,21 +43,41 @@ namespace octet {
 		material *green = new material(vec4(0, 1, 0, 1));
 		material *blue = new material(vec4(0, 0, 1, 1));
 
-		// Object is scene definition
-		// Sphere
+		// Definiton of the objects in the scene
+		// TO DO: Read the objects from a CSV or XML file.
+
+		// Sphere 1
 		mat4t mat;
 		mat.translate(-3, 6, 0);
 		app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), red, true);
 
-		// Box
+		// Sphere 2
 		mat.loadIdentity();
 		mat.translate(0, 10, 0);
-		app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), red, true);
+		app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), blue, true);
+
+		// We create the HINGE Constraint
+		// We need:
+		// 1. Rigid body Sphere 1
+		// 2. Rigid body Sphere 2
+		// 3. Location Sphere 1
+		// 4. Location Sphere 2
+		// 5. Axis
+
+		// With all this information we can create the bullet physics hinge constraint and see how that constraint work in the world
+
+		btHingeConstraint* hinge;
+
+
+		// Box
+		/*mat.loadIdentity();
+		mat.translate(0, 10, 0);
+		app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), red, true);*/
 
 		// Cylinder
-		mat.loadIdentity();
+		/*mat.loadIdentity();
 		mat.translate(3, 6, 0);
-		app_scene->add_shape(mat, new mesh_cylinder(zcylinder(vec3(0, 0, 0), 2, 4)), blue, true);
+		app_scene->add_shape(mat, new mesh_cylinder(zcylinder(vec3(0, 0, 0), 2, 4)), blue, true);*/
 
 
 		// Hard way to have the tablero of the game
