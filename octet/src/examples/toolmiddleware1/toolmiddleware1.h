@@ -33,6 +33,8 @@ namespace octet {
 	void app_init() {
 		// Camera definition
 		app_scene = new visual_scene();
+		// we obtain the bullet physics world for the scene
+		gameWorld = app_scene->get_world();
 		// Definition of lights.
 		app_scene->create_default_camera_and_lights_jav();
 		// Position of camera related with elements
@@ -88,6 +90,8 @@ namespace octet {
 		btVector3 axisY = btVector3(0, 1, 0);
 		// With all this information we can create the bullet physics hinge constraint and see how that constraint work in the world
 		btHingeConstraint* hinge = new btHingeConstraint(*rbSphere1, *rbSphere2, locationSphere1, locationSphere2, axisY, axisY);
+		// Once we have created the constraint, we add it to the world
+		gameWorld->addConstraint(hinge, true);
 
 		// Box
 		/*mat.loadIdentity();
