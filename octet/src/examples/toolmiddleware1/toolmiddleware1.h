@@ -57,6 +57,10 @@ namespace octet {
 		mat.translate(3, 6, 0);
 		app_scene->add_shape(mat, new mesh_cylinder(zcylinder(vec3(0, 0, 0), 2, 4)), blue, true);
 
+
+		// Hard way to have the tablero of the game
+		// TO DO: Find the BT collider to make a composition of all the tablero parts
+
 		// Ground
 		mat.loadIdentity();
 		mat.translate(0, -1, 0);
@@ -79,11 +83,26 @@ namespace octet {
 		mat.translate(19, 1, 0);
 		mat.rotateY90();
 		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 1)), green, false);
+		
 	}
 
 	// Use the keyboard to move the elements around the screen
 	// The first element we are going to move is the sphere to set up the hinge constraint
+	// TO DO: Set up the keys to move the camera around the world
+
 	void manageKeyInputs() {
+
+		if (is_key_down(key_left)) {
+		}
+
+		if (is_key_down(key_right)) {
+		}
+
+		if (is_key_down(key_up)) {
+		}
+
+		if (is_key_down(key_down)) {
+		}
 
 	}
 
