@@ -71,9 +71,14 @@ namespace octet {
 		// With all this information we can create the bullet physics hinge constraint and see how that constraint work in the world
 		btHingeConstraint* hinge;
 		// Rigid Body Sphere 1
-		btRigidBody * rbSphere1 = app_scene->get_mesh_instance(0)->get_node()->get_rigid_body();
-		btRigidBody * rbSphere2 = app_scene->get_mesh_instance(0)->get_node()->get_rigid_body();
+		scene_node* sphere1 = app_scene->get_mesh_instance(0)->get_node();
+		btRigidBody* rbSphere1 = sphere1->get_rigid_body();
+		// Rigid Body Sphere 2
+		scene_node* sphere2 = app_scene->get_mesh_instance(1)->get_node();
+		btRigidBody * rbSphere2 = sphere2->get_rigid_body();
+		// Location Sphere 1
 		btVector3 locationSphere1;
+		// Location Sphere 2
 		btVector3 locationSphere2;
 
 
