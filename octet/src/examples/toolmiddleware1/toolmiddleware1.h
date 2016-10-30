@@ -57,12 +57,13 @@ namespace octet {
 		app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), blue, true);
 
 		// We create the HINGE Constraint
+		// btHingeConstraint::btHingeConstraint(btRigidBody & rbA, btRigidBody & rbB, const btVector3 & pivotInA, const btVector3 & pivotInB, const btVector3 & axisInA, const btVector3 & axisInB, bool useReferenceFrameA = false )
 		// We need:
-		// 1. Rigid body Sphere 1
-		// 2. Rigid body Sphere 2
-		// 3. Location Sphere 1
-		// 4. Location Sphere 2
-		// 5. Axis
+		// 1. Rigid body Sphere 1 (btRigidBody, scene_node has one)
+		// 2. Rigid body Sphere 2 (btRigidBody, scene_node has one)
+		// 3. Location Sphere 1 (btVector3, with coordinates of rigid body)
+		// 4. Location Sphere 2 (btVector3, with coordinates of rigid body)
+		// 5. Axis (btVector3, axis X, Y and Z, depending where we want the hinge axis)
 
 		// With all this information we can create the bullet physics hinge constraint and see how that constraint work in the world
 		btHingeConstraint* hinge;
