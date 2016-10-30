@@ -61,7 +61,7 @@ namespace octet {
 		mat.loadIdentity();
 		mat.translate(0, -1, 0);
 		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 20)), green, false);
-		//// Border 1 (closest to the camera)
+		// Border 1 (closest to the camera)
 		mat.loadIdentity();
 		mat.translate(0, 1, 20);
 		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 1)), green, false);
@@ -79,12 +79,21 @@ namespace octet {
 		mat.translate(19, 1, 0);
 		mat.rotateY90();
 		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 1)), green, false);
-
-		// Potential change when load from xml or csv file
 	}
+
+	// Use the keyboard to move the elements around the screen
+	// The first element we are going to move is the sphere to set up the hinge constraint
+	void manageKeyInputs() {
+
+	}
+
 
 	/// this is called to draw the world
 	void draw_world(int x, int y, int w, int h) {
+
+		// Call the method to manage inputs
+		manageKeyInputs();
+
 		int vx = 0, vy = 0;
 		get_viewport_size(vx, vy);
 		app_scene->begin_render(vx, vy);
