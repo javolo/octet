@@ -21,6 +21,8 @@ namespace octet {
   class toolmiddleware1 : public app {
     // scene for drawing box
     ref<visual_scene> app_scene;
+	// We need a variable bullet physics world variable
+	btDiscreteDynamicsWorld* gameWorld;
 
   public:
     /// this is called when we construct the class before everything is initialised.

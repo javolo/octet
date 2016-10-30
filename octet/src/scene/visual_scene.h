@@ -296,6 +296,13 @@ namespace octet { namespace scene {
       #endif
     }
 
+	// We create a method to obtain the btDynamic world (bullet physics world)
+	#ifdef OCTET_BULLET
+		btDiscreteDynamicsWorld* get_world() {
+			return world;
+		}
+	#endif
+
     /// helper to add a mesh to a scene and also to create the corresponding physics object
     mesh_instance *add_shape(mat4t_in mat, mesh *msh, material *mtl, bool is_dynamic=false, float mass=1, collison_shape_t *shape=NULL) {
       scene_node *node = new scene_node(this);
