@@ -75,17 +75,17 @@ namespace octet {
 		// 3. Location Sphere 1 (btVector3, with coordinates of rigid body)
 		// 4. Location Sphere 2 (btVector3, with coordinates of rigid body)
 		// 5. Axis (btVector3, axis X, Y and Z, depending where we want the hinge axis)
-
-		// With all this information we can create the bullet physics hinge constraint and see how that constraint work in the world
-		btHingeConstraint* hinge;
+		
 		// Rigid Body Sphere 1
 		scene_node* sphere1 = app_scene->get_mesh_instance(0)->get_node();
 		btRigidBody* rbSphere1 = sphere1->get_rigid_body();
 		// Rigid Body Sphere 2
 		scene_node* sphere2 = app_scene->get_mesh_instance(1)->get_node();
-		btRigidBody * rbSphere2 = sphere2->get_rigid_body();
+		btRigidBody* rbSphere2 = sphere2->get_rigid_body();
 		// Axis (We´ll set the axis in the Y plane, but it can be changed easily)
 		btVector3 axisY = btVector3(0, 1, 0);
+		// With all this information we can create the bullet physics hinge constraint and see how that constraint work in the world
+		btHingeConstraint* hinge = new btHingeConstraint(*rbSphere1, *rbSphere2, locationSphere1, locationSphere2, axisY, axisY);
 
 		// Box
 		/*mat.loadIdentity();
