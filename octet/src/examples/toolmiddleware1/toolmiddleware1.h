@@ -80,9 +80,8 @@ namespace octet {
 		btVector3 locationSphere1 = btVector3(sphere1->get_nodeToParent().x, sphere1->get_nodeToParent().y, sphere1->get_nodeToParent().z);
 		// Location Sphere 2
 		btVector3 locationSphere2 = btVector3(sphere2->get_nodeToParent().x, sphere2->get_nodeToParent().y, sphere2->get_nodeToParent().z);
-
-
-
+		// Axis (We´ll set the axis in the Y plane, but it can be changed easily)
+		btVector3 axisY = btVector3(0, 1, 0);
 
 		// Box
 		/*mat.loadIdentity();
