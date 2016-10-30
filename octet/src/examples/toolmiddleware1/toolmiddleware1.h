@@ -52,9 +52,9 @@ namespace octet {
 
 		// Sphere 1
 		mat4t mat;
-		mat.translate(-3, 6, 0);
+		mat.translate(-3, 0, 0);
 		// Location Sphere 1
-		btVector3 locationSphere1 = btVector3(-3, 6, 0);
+		btVector3 locationSphere1 = btVector3(-3, 0, 0);
 		printf("Sphere 1 X(-3): %f \n", locationSphere1.getX());
 		printf("Sphere 2 X(6): %f \n", locationSphere1.getY());
 		printf("Sphere 3 X(0): %f \n", locationSphere1.getZ());
@@ -63,9 +63,9 @@ namespace octet {
 
 		// Sphere 2
 		mat.loadIdentity();
-		mat.translate(0, 10, 0);
+		mat.translate(0, 6, 0);
 		// Location Sphere 2
-		btVector3 locationSphere2 = btVector3(0, 10, 0);
+		btVector3 locationSphere2 = btVector3(0, 3, 0);
 		app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), blue, true);
 
 		// We create the HINGE Constraint
@@ -84,13 +84,13 @@ namespace octet {
 		scene_node* sphere1 = app_scene->get_mesh_instance(0)->get_node();
 		btRigidBody* rbSphere1 = sphere1->get_rigid_body();
 		// We create a velocity vector to add some movements and see better the hinge constraint
-		btVector3 velocitySphere1 = btVector3(0, 0, 0);
+		btVector3 velocitySphere1 = btVector3(0, 0, 20);
 		rbSphere1->setLinearVelocity(velocitySphere1);
 		// Rigid Body Sphere 2
 		scene_node* sphere2 = app_scene->get_mesh_instance(1)->get_node();
 		btRigidBody* rbSphere2 = sphere2->get_rigid_body();
 
-		btVector3 velocitySphere2 = btVector3(10, 0, 10);
+		btVector3 velocitySphere2 = btVector3(0, 0, 0);
 		rbSphere2->setLinearVelocity(velocitySphere2);
 		// Axis (We´ll set the axis in the Y plane, but it can be changed easily)
 		btVector3 axisY = btVector3(0, 1, 0);
@@ -116,25 +116,25 @@ namespace octet {
 		// Ground
 		mat.loadIdentity();
 		mat.translate(0, -1, 0);
-		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 20)), green, false);
+		app_scene->add_shape(mat, new mesh_box(vec3(25, 1, 25)), green, false);
 		// Border 1 (closest to the camera)
 		mat.loadIdentity();
-		mat.translate(0, 1, 20);
-		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 1)), green, false);
+		mat.translate(0, 1, 25);
+		app_scene->add_shape(mat, new mesh_box(vec3(25, 2, 1)), green, false);
 		// Border 2 (farest to the camera)
 		mat.loadIdentity();
-		mat.translate(0, 1, -20);
-		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 1)), green, false);
+		mat.translate(0, 1, -25);
+		app_scene->add_shape(mat, new mesh_box(vec3(25, 2, 1)), green, false);
 		// Border 3 (left hand side)
 		mat.loadIdentity();
-		mat.translate(-19, 1, 0);
+		mat.translate(-24, 1, 0);
 		mat.rotateY90();
-		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 1)), green, false);
+		app_scene->add_shape(mat, new mesh_box(vec3(25, 2, 1)), green, false);
 		// Border 4 (right hand side)
 		mat.loadIdentity();
-		mat.translate(19, 1, 0);
+		mat.translate(24, 1, 0);
 		mat.rotateY90();
-		app_scene->add_shape(mat, new mesh_box(vec3(20, 1, 1)), green, false);
+		app_scene->add_shape(mat, new mesh_box(vec3(25, 2, 1)), green, false);
 		
 	}
 
