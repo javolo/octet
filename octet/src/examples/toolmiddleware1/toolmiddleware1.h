@@ -57,6 +57,9 @@ namespace octet {
 		app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), blue, true);
 
 		// We create the HINGE Constraint
+		// Definition taken from Bullet physics Wiki
+		// http://bulletphysics.org/Bullet/BulletFull/classbtHingeConstraint.html#a5ae4261a17e0f0f8947025eae818f0c8
+		// https://github.com/bulletphysics/bullet3/blob/master/examples/Constraints/TestHingeTorque.cpp
 		// btHingeConstraint::btHingeConstraint(btRigidBody & rbA, btRigidBody & rbB, const btVector3 & pivotInA, const btVector3 & pivotInB, const btVector3 & axisInA, const btVector3 & axisInB, bool useReferenceFrameA = false )
 		// We need:
 		// 1. Rigid body Sphere 1 (btRigidBody, scene_node has one)
