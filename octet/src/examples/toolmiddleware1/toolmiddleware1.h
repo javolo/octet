@@ -138,6 +138,9 @@ namespace octet {
 		scene_node* box2 = app_scene->get_mesh_instance(3)->get_node();
 		btRigidBody* rbBox2 = box2->get_rigid_body();
 
+		// Spring Constraint Definition
+		btGeneric6DofSpringConstraint* springConstraint = new btGeneric6DofSpringConstraint(*rbBox1, *rbBox2, frameInA, frameInB, true);
+
 		// Cylinder
 		/*mat.loadIdentity();
 		mat.translate(3, 6, 0);
