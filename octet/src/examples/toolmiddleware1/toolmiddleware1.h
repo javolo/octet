@@ -147,6 +147,12 @@ namespace octet {
 		// 3. Angular Upper Limit
 		// 4. Angular Lower Limit
 		// There are other limits like the stiffness, damping, equilibrum point. We are not going to set anything yet. We´ll add something if needed
+		springConstraint->setLinearUpperLimit(btVector3(3.0, 0.0, 0.0));
+		springConstraint->setLinearLowerLimit(btVector3(-3.0, 0.0, 0.0));
+		// lock all rorations
+		springConstraint->setAngularLowerLimit(btVector3(0.0f, 0.0f, 1.0f));
+		springConstraint->setAngularUpperLimit(btVector3(0.0f, 0.0f, -1.0f));
+
 
 		// Cylinder
 		/*mat.loadIdentity();
