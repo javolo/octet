@@ -59,14 +59,14 @@ namespace octet {
 		printf("Sphere 2 X(6): %f \n", locationSphere1.getY());
 		printf("Sphere 3 X(0): %f \n", locationSphere1.getZ());
 		// Add sphere to the scene
-		app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), red, true);
+		app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), red, true, 10.0f);
 
 		// Sphere 2
 		mat.loadIdentity();
 		mat.translate(0, 6, 0);
 		// Location Sphere 2
 		btVector3 locationSphere2 = btVector3(0, 3, 0);
-		app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), blue, true);
+		app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), blue, true, 1.0f);
 
 		// We create the HINGE Constraint
 		// Definition taken from Bullet physics Wiki
@@ -90,7 +90,7 @@ namespace octet {
 		scene_node* sphere2 = app_scene->get_mesh_instance(1)->get_node();
 		btRigidBody* rbSphere2 = sphere2->get_rigid_body();
 		// Speed for sphere 2
-		btVector3 velocitySphere2 = btVector3(30, 0, 30);
+		btVector3 velocitySphere2 = btVector3(100, 0, 100);
 		rbSphere2->setLinearVelocity(velocitySphere2);
 		// Axis (We´ll set the axis in the Y plane, but it can be changed easily)
 		btVector3 axisY = btVector3(1, 0, 0);
