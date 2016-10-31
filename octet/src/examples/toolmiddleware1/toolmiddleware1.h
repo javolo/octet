@@ -99,7 +99,13 @@ namespace octet {
 		// Once we have created the constraint, we add it to the world
 		gameWorld->addConstraint(hinge, true);
 
-		// Box
+
+		// We create the SPRING Constraint
+		// Definition taken from Bullet physics Wiki
+		// http://bulletphysics.org/Bullet/BulletFull/classbtGeneric6DofConstraint.html
+		// Example used: http://gamedev.stackexchange.com/questions/54349/what-are-frame-a-and-frame-b-in-btgeneric6dofconstraints-constructor-for
+
+		// Box 1
 		/*mat.loadIdentity();
 		mat.translate(0, 10, 0);
 		app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), red, true);*/
