@@ -122,6 +122,7 @@ namespace octet {
 		// Transform Box 1
 		btTransform frameInA;
 		frameInA = btTransform::getIdentity();
+		frameInA.setOrigin(btVector3(btScalar(0.0f), btScalar(0.0f), btScalar(0.0f)));
 
 		// Box 2
 		mat.loadIdentity();
@@ -131,6 +132,7 @@ namespace octet {
 		// Transform Box 2
 		btTransform frameInB;
 		frameInB = btTransform::getIdentity();
+		frameInB.setOrigin(btVector3(btScalar(0.0f), btScalar(-5.0f), btScalar(0.0f)));
 
 		// Rigid Body Box 2
 		scene_node* box2 = app_scene->get_mesh_instance(3)->get_node();
