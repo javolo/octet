@@ -104,11 +104,29 @@ namespace octet {
 		// Definition taken from Bullet physics Wiki
 		// http://bulletphysics.org/Bullet/BulletFull/classbtGeneric6DofConstraint.html
 		// Example used: http://gamedev.stackexchange.com/questions/54349/what-are-frame-a-and-frame-b-in-btgeneric6dofconstraints-constructor-for
+		// 1. Rigid body Box 1 (btRigidBody, scene_node has one)
+		// 2. Rigid body Box 2 (btRigidBody, scene_node has one)
+		// 3. Transform Box 1 (btTransform)
+		// 4. Transform Box 2 (btTransform)
+		// 5. Linear Reference Frame A (bool)
 
 		// Box 1
-		/*mat.loadIdentity();
+		mat.loadIdentity();
 		mat.translate(0, 10, 0);
-		app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), red, true);*/
+		app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), red, true);
+
+		// Rigid Body Box 1
+		scene_node* box1 = app_scene->get_mesh_instance(2)->get_node();
+		btRigidBody* rbBox1 = box1->get_rigid_body();
+
+		// Box 2
+		mat.loadIdentity();
+		mat.translate(-3, 10, 0);
+		app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), blue, true);
+
+		// Rigid Body Box 2
+		scene_node* box2 = app_scene->get_mesh_instance(3)->get_node();
+		btRigidBody* rbBox2 = box2->get_rigid_body();
 
 		// Cylinder
 		/*mat.loadIdentity();
