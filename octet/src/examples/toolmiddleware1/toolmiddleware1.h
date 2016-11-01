@@ -193,6 +193,32 @@ namespace octet {
 		
 	}
 
+	// Method to handle the collision in the bullet physics world
+	// Code taken from here: http://hamelot.io/programming/using-bullet-only-for-collision-detection/
+
+	void handleCollisions() {
+
+		//Perform collision detection
+		gameWorld->performDiscreteCollisionDetection();
+		int numManifolds = gameWorld->getDispatcher()->getNumManifolds();
+		//For each contact manifold
+		for (int i = 0; i < numManifolds; i++) {
+			btPersistentManifold* contactManifold = gameWorld->getDispatcher()->getManifoldByIndexInternal(i);
+			const btCollisionObject* obA = static_cast<const btCollisionObject*>(contactManifold->getBody0());
+			const btCollisionObject* obB = static_cast<const btCollisionObject*>(contactManifold->getBody1());
+			contactManifold->refreshContactPoints(obA->getWorldTransform(), obB->getWorldTransform());
+			int numContacts = contactManifold->getNumContacts();
+			//For each contact point in that manifold
+			for (int j = 0; j < numContacts; j++) {
+				//Get the contact information
+				btManifoldPoint& pt = contactManifold->getContactPoint(j);
+				btVector3 ptA = pt.getPositionWorldOnA();
+				btVector3 ptB = pt.getPositionWorldOnB();
+				double ptdist = pt.getDistance();
+			}
+		}
+	}
+
 	// Use the keyboard to move the elements around the screen
 	// The first element we are going to move is the sphere to set up the hinge constraint
 	// TO DO: Set up the keys to move the camera around the world
@@ -232,6 +258,9 @@ namespace octet {
 
 		// draw the scene
 		app_scene->render((float)vx / vy);
+
+		// We call the method to handle collisions
+		handleCollisions();
 	}
   };
 }
