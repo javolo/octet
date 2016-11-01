@@ -112,7 +112,7 @@ namespace octet {
 
 		// Box 1
 		mat.loadIdentity();
-		mat.translate(0, 0, -5);
+		mat.translate(5, 0, -5);
 		app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), red, true);
 
 		// Rigid Body Box 1
@@ -154,7 +154,7 @@ namespace octet {
 		springConstraint->setAngularUpperLimit(btVector3(0.0f, 0.0f, 1.5f));
 		// We add the constraint to the world
 		// We set the second parameter to false to be able to do collisions
-		gameWorld->addConstraint(springConstraint, true);
+		gameWorld->addConstraint(springConstraint, false);
 		// More limits added
 		springConstraint->enableSpring(0, true);
 		springConstraint->setStiffness(0, 39.478f);
@@ -205,7 +205,11 @@ namespace octet {
 		for (int i = 0; i < numManifolds; i++) {
 			btPersistentManifold* contactManifold = gameWorld->getDispatcher()->getManifoldByIndexInternal(i);
 			const btCollisionObject* obA = static_cast<const btCollisionObject*>(contactManifold->getBody0());
+			scene_node * currentObjA = ((scene_node*)obA->getUserPointer());
+			if (currentObjA->getEnableCollisions()) continue;
 			const btCollisionObject* obB = static_cast<const btCollisionObject*>(contactManifold->getBody1());
+			scene_node * currentObjB = ((scene_node*)obB->getUserPointer());
+			if (currentObjB->getEnableCollisions()) continue;
 			contactManifold->refreshContactPoints(obA->getWorldTransform(), obB->getWorldTransform());
 			int numContacts = contactManifold->getNumContacts();
 			//For each contact point in that manifold
@@ -215,6 +219,10 @@ namespace octet {
 				btVector3 ptA = pt.getPositionWorldOnA();
 				btVector3 ptB = pt.getPositionWorldOnB();
 				double ptdist = pt.getDistance();
+
+				std::string dist = "Collision between objects at position (" + std::to_string(currentObjA->get_position().x()) + "," + std::to_string(currentObjA->get_position().y()) + "," + std::to_string(currentObjA->get_position().z()) + ") and (" + std::to_string(currentObjB->get_position().x()) + ", " + std::to_string(currentObjB->get_position().y()) + ", " + std::to_string(currentObjB->get_position().z()) + ") " + "\n";
+				printf(dist.c_str());
+
 			}
 		}
 	}

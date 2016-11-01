@@ -26,6 +26,8 @@ namespace octet { namespace scene {
 
     // is this node and all its children renderable?
     bool enabled;
+	// boolean to avoid collisions with ground
+	bool enableCollisions;
 
   public:
     RESOURCE_META(scene_node)
@@ -34,7 +36,8 @@ namespace octet { namespace scene {
     scene_node(scene_node *parent = 0) {
       nodeToParent.loadIdentity();
       sid = atom_;
-      enabled = true;
+	  enabled = true;
+      enableCollisions = false;
       if (parent) {
         parent->add_child(this);
       }
@@ -167,6 +170,16 @@ namespace octet { namespace scene {
     void set_enabled(bool value) {
       enabled = value;
     }
+
+	/// get enabled collisions
+	bool getEnableCollisions() {
+		return enableCollisions;
+	}
+
+	/// set enable collisions
+	void setEnableCollsions(bool enableColl) {
+		enableCollisions = enableColl;
+	}
 
     /// reset the matrix
     void loadIdentity() {
