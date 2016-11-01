@@ -112,7 +112,7 @@ namespace octet {
 
 		// Box 1
 		mat.loadIdentity();
-		mat.translate(5, 0, -5);
+		mat.translate(0, 0, -5);
 		app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), red, true);
 
 		// Rigid Body Box 1
@@ -126,7 +126,7 @@ namespace octet {
 
 		// Box 2
 		mat.loadIdentity();
-		mat.translate(-3, 0, -5);
+		mat.translate(0, 0, -5);
 		app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), blue, true);
 
 		// Transform Box 2
@@ -205,9 +205,11 @@ namespace octet {
 		for (int i = 0; i < numManifolds; i++) {
 			btPersistentManifold* contactManifold = gameWorld->getDispatcher()->getManifoldByIndexInternal(i);
 			const btCollisionObject* obA = static_cast<const btCollisionObject*>(contactManifold->getBody0());
+			// We obtain the scene node of the bt collision object to get the position later on OBJECT A
 			scene_node * currentObjA = ((scene_node*)obA->getUserPointer());
 			if (currentObjA->getEnableCollisions()) continue;
 			const btCollisionObject* obB = static_cast<const btCollisionObject*>(contactManifold->getBody1());
+			// We obtain the scene node of the bt collision object to get the position later on OBJECT B
 			scene_node * currentObjB = ((scene_node*)obB->getUserPointer());
 			if (currentObjB->getEnableCollisions()) continue;
 			contactManifold->refreshContactPoints(obA->getWorldTransform(), obB->getWorldTransform());
