@@ -336,6 +336,7 @@ namespace octet { namespace scene {
           world->addRigidBody(rigid_body);
           rigid_body->setUserPointer(node);
           node->set_rigid_body(rigid_body);
+		  node->setEnableCollsions(!is_dynamic);
         }
       #endif
       return result;
