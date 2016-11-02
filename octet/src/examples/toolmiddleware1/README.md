@@ -8,6 +8,7 @@ Specifically we needed to implement the following concepts:
  3. Detect collisions
  4. Read from external file
 
+
  [Assignment 1]()
 
 # 1. Hinge Constraint
@@ -28,6 +29,14 @@ balls rotated around the other one taking like reference the axis in which the h
 
 # 2. Spring Constraint
 
+After the implementation of the hinge constraint where I spend a lot of time investigating new concepts and the insights of the bullet 
+physics library, create a spring constraint was relatively easier job to do. I found a really good example in this 
+<a href="http://gamedev.stackexchange.com/questions/54349/what-are-frame-a-and-frame-b-in-btgeneric6dofconstraints-constructor-for">page</a>.
+
+I follow the same steps, create all the elements needed in order to create the constraint looking in the example in case of doubt. I used cubes
+for this example and one of the problems raised was how to position them to clearly see the effect of the spring constraint. After figuring out
+that now the boxes did the spring effect but when collide they overlapped each other. That was consequence of not have implemented the collisions
+properly, something to add later on.
 
 # 3. Collision Detection
 
