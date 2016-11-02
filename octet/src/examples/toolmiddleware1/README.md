@@ -11,11 +11,22 @@ Specifically we needed to implement the following concepts:
 
 # 1. Hinge Constraint
 
-![Alt text]()
+A hinge constraint limit the rotation movement of an object as it was fixed by a hinge joint like a door. To implement that using bullet
+physics I´ve followed its documentation <a href="http://bulletphysics.org/Bullet/BulletFull/classbtHingeConstraint.html#a5ae4261a17e0f0f8947025eae818f0c8">here</a>.
+Following the official specification I created step by step all the elements involved in the hinge constraint and at the end I´ve joined
+all together. 
+
+Once I have the constraint fully done and I tried to run the program, nothing was happening. I looked on internet about that issue and I 
+found out that I was missing the addition of the constraint to the bullet physics dynamic world. The scene node class has a variable defined 
+but it wasn´t accesible so I implemented the getter method. Once I did that, added the constraint to the bullet physics world and run the
+programme again the cosntraint was working.
+
+Another problem I faced it´s I couldn´t see properly in the example how the hinge constraint worked. After a few try and error tests I 
+decided to put some weight into one of the objects involved in the constraint. With that fix, using spheres I could see how one of the 
+balls rotated around the other one taking like reference the axis in which the hinge constraint was defined. 
 
 # 2. Spring Constraint
 
-![Alt text]()
 
 # 3. Collision Detection
 
@@ -37,17 +48,5 @@ the elements in the file, looping through all the single shapes in the list.
 With all the objects retrieved from the XML file I created a list that I used to identify the type of shape. The hinge constraint 
 will be only applied to spheres or spheres and cylinders. The spring constraint could be applied to any kind of object. 
 
-# 5. 
+# 5. Sound system
 
-![Alt text]()
-<a href="http://bullet.googlecode.com/svn/trunk/Demos/ConstraintDemo/ConstraintDemo.cpp"> this page</a> 
-
-# 6. 
-
-# 7. 
-
-# 8. 
-
-# 9. 
-
-# 10. 
