@@ -1,5 +1,7 @@
 #TOOLS & MIDDLEWARE: ASSIGNMENT ONE
 
+In this first assignment of Tools & Middleware we were asked to investigate and play with the bullet physics library.
+
 
 
  [Assignment 1]()
@@ -19,19 +21,16 @@
 # 5. 
 
 ![Alt text]()
+<a href="http://bullet.googlecode.com/svn/trunk/Demos/ConstraintDemo/ConstraintDemo.cpp"> this page</a> 
 
 # 6. READ FROM CSV
 
-One of the requirements was to read from a CSV file to input parameter, create a map or draw elements in the game. I decided
-to use the file to create the level´s map of my game. For that I use the code Andy provided and also use the cplusplus forum
-for further information.
+One of the requirements was to read from a CSV, text file or similar to input the parameters of the objects in order to create
+them for the assignment. I decided to use an XML file to put in the game pitch the elements that will be affected by the constraints. 
+For that reason I've used the code created for Intro to Programming first homework.
 
-I read coma by comma all the elements and I interpret them. At this early stage of the game, 0 means nothings, 1 means to draw
-a coin. I also included different level of coins what brought a special treatment for the end of line characters solved finding 
-an unusual lenght of String. Once found I updated the spacing variables to get the correct position.
-
-One problem found was that the file wasn´t read properly. Searching different alternatives the issue was with the path forcing
-me to put absolute path to the file in order to be read correctly.
+I read the element list (boxes, spheres and cylinders) that contains some important values like the position, the speed, the weigth 
+needed in the different kind of constraints implemented in the assignment.
 
 # 7. 
 
