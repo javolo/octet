@@ -41,9 +41,11 @@ properly, something to add later on.
 # 3. Collision Detection
 
 For the collision detection I´ve used the example <a href="http://hamelot.io/programming/using-bullet-only-for-collision-detection/"> here</a> 
-One of the issues I faced with the collision detection is that having the objects in the ground they generated a collision as well. I had to
-created a new boolean field in the scene node class to deal with this. When I add the objects to the scene I populate that field depending if 
-I want to detect the collision or not. The only ones deactivated is the ground and its boundaries.
+The example is strainght forward and it fixed the overlapping problem had with the spring constraint example.
+
+One of the issues I faced with the collision detection is that having the objects in the ground they generated a collision as well. I didn´t want
+that collision to be detected so I had to create a new boolean variable in the scene node class to deal with this. When I add the objects to the 
+scene I populate that field depending if I want to detect the collision or not. The only element deactivated are the ground and its boundaries.
 
 # 4. READ FROM CSV
 
