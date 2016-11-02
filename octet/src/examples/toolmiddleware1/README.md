@@ -2,10 +2,11 @@
 
 In this first assignment of Tools & Middleware we were asked to investigate and play with the bullet physics library.
 Specifically we needed to implement the following concepts:
-	1. Hinge constraint
-	2. Spring constraint 
-	3. Detect collisions
-	4. Read from external file
+
+ 1. Hinge constraint
+ 2. Spring constraint 
+ 3. Detect collisions
+ 4. Read from external file
 
  [Assignment 1]()
 
