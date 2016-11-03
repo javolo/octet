@@ -1,11 +1,13 @@
 #undef output 
-#include "fmod.hpp"
+#include "fmod.h"
 #include "fmod_errors.h"
 #define output &scratch_r[bod->getNumDofs()]
 #include <stddef.h>
 
 // Code class taken from a tutorial of this page:
 // https://cuboidzone.wordpress.com/2013/07/26/tutorial-implementing-fmod/
+// http://stackoverflow.com/questions/19105190/fmod-channel-free-undefined-different-version-of-fmod
+// http://stackoverflow.com/questions/35008426/link-3rd-party-library-in-visual-studio
 
 namespace octet {
 
@@ -38,11 +40,11 @@ namespace octet {
 
 		// Method that created the sound in the system
 		void createSound(SoundClass *pSound, const char* pFile) {
-			m_pSystem->createSound(pFile, FMOD_HARDWARE, 0, pSound);
+			m_pSystem->createSound(pFile, FMOD_CREATESAMPLE, 0, pSound);
 		}
 
 		// Method that play the sound when it´s called
-		void playSound(SoundClass pSound, bool bLoop = false) {
+		FMOD::Channel* playSound(SoundClass pSound, bool bLoop = false) {
 			if (!bLoop)
 				pSound->setMode(FMOD_LOOP_OFF);
 			else
@@ -51,7 +53,9 @@ namespace octet {
 				pSound->setLoopCount(-1);
 			}
 
-			m_pSystem->playSound(FMOD_CHANNEL_FREE, pSound, false, 0);
+			FMOD::Channel *channel = NULL;
+			FMOD_RESULT result = m_pSystem->playSound(pSound, NULL, false, &channel);
+			return channel;
 		}
 
 		// Method that released the sound

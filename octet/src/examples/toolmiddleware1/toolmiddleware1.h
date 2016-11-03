@@ -72,6 +72,7 @@ namespace octet {
 	// Sound variables
 	SoundSystemClass sound;
 	SoundClass soundSample;
+	//FMOD::Channel* bounceChannel;
 
   public:
     /// this is called when we construct the class before everything is initialised.
@@ -94,6 +95,7 @@ namespace octet {
 		// Initialize sound staff
 		sound = SoundSystemClass();
 		sound.createSound(&soundSample, "bloop_x.wav");
+		//bounceChannel = NULL;
 
 		// Sound taken from here
 		// http://www.wavsource.com/sfx/sfx.htm
