@@ -15,6 +15,10 @@
 //																			  //
 ////////////////////////////////////////////////////////////////////////////////
 
+// Libraries to read the file
+#include <iostream>
+#include <fstream>
+#include <sstream>
 
 namespace octet {
   /// Scene containing a box with octet.
@@ -192,6 +196,12 @@ namespace octet {
 		app_scene->add_shape(mat, new mesh_box(vec3(25, 2, 1)), green, false);
 		
 	}
+
+	// Method to read the XML file and create in the scene the diferent elements
+	void load_configuration_file() {
+
+	}
+
 
 	// Method to handle the collision in the bullet physics world
 	// Code taken from here: http://hamelot.io/programming/using-bullet-only-for-collision-detection/
