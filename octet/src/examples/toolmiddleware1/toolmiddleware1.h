@@ -216,14 +216,20 @@ namespace octet {
 			// We check the type of object it is to retrieve different parameters on it
 			if (objectType == "Sphere") {
 
-				//btVector3 objectPosition
+				// We obtain the position of the object read from the file
+				float posX = atof(elem->FirstChildElement("Position")->FirstChildElement("X")->GetText());
+				float posY = atof(elem->FirstChildElement("Position")->FirstChildElement("Y")->GetText());
+				float posZ = atof(elem->FirstChildElement("Position")->FirstChildElement("Z")->GetText());
+				// Create the vector position
+				btVector3 objectPosition = btVector3(posX, posY, posZ);
 
 
 			} else if (objectType == "Box") {
 
 			}
 			
-			
+			// Increase the counter to not overwrite the next element in the current one
+			counter++;
 		}
 
 	}
