@@ -27,6 +27,8 @@ namespace octet {
     ref<visual_scene> app_scene;
 	// We need a variable bullet physics world variable
 	btDiscreteDynamicsWorld* gameWorld;
+	// Matrix to position the elements in the scene
+	mat4t mat;
 
   public:
     /// this is called when we construct the class before everything is initialised.
@@ -54,8 +56,7 @@ namespace octet {
 		// Definiton of the objects in the scene
 		// TO DO: Read the objects from a CSV or XML file.
 
-		// Sphere 1
-		mat4t mat;
+		// Sphere 1	
 		mat.translate(-3, 0, 0);
 		// Location Sphere 1
 		btVector3 locationSphere1 = btVector3(-3, 0, 0);
@@ -197,6 +198,14 @@ namespace octet {
 		
 	}
 
+	// Method to create hinge constraint between sphere initally
+	// This mehtod will be triggered only if the count of spheres is greater than 2 as it´s needed two objects
+	void createHingeConstraint() {
+
+
+	}
+
+
 	// Method to read the XML file and create in the scene the diferent elements
 	void load_configuration_file() {
 
@@ -224,6 +233,14 @@ namespace octet {
 				float posZ = atof(elem->FirstChildElement("Position")->FirstChildElement("Z")->GetText());
 				// Create the vector position
 				btVector3 spherePosition = btVector3(posX, posY, posZ);
+				// We obtain the weight now
+				float sphereWeight = atof(elem->FirstChildElement("Weight")->GetText());
+				// We retrieve the colour now
+				string colour = elem->FirstChildElement("Colour")->GetText();
+
+				// We add the object to the scene now
+			
+
 
 				// We obtain now the velocity of the object from the XML file
 				float velX = atof(elem->FirstChildElement("Speed")->FirstChildElement("X")->GetText());
