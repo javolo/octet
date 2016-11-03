@@ -203,6 +203,8 @@ namespace octet {
 		// Counter of elements in the file
 		// We´ll use that counter to input the elements in the rigid body of the objects added to the scene
 		int counter = 5;
+		int sphereCounter = 0;
+		int boxCounter = 0;
 		// First of all, we generate the file name
 		std::string filename = "ConfigurationFile.xml";
 		TiXmlDocument file;
@@ -221,11 +223,22 @@ namespace octet {
 				float posY = atof(elem->FirstChildElement("Position")->FirstChildElement("Y")->GetText());
 				float posZ = atof(elem->FirstChildElement("Position")->FirstChildElement("Z")->GetText());
 				// Create the vector position
-				btVector3 objectPosition = btVector3(posX, posY, posZ);
+				btVector3 spherePosition = btVector3(posX, posY, posZ);
+
+				// We obtain now the velocity of the object from the XML file
+				float velX = atof(elem->FirstChildElement("Speed")->FirstChildElement("X")->GetText());
+				float velY = atof(elem->FirstChildElement("Speed")->FirstChildElement("Y")->GetText());
+				float velZ = atof(elem->FirstChildElement("Speed")->FirstChildElement("Z")->GetText());
+				// Create the vector velocity
+				btVector3 sphereVelocity = btVector3(velX, velY, velZ);
 
 
+				// Increase the sphere counter
+				sphereCounter++;
 			} else if (objectType == "Box") {
 
+				// Increase the box counter
+				boxCounter++;
 			}
 			
 			// Increase the counter to not overwrite the next element in the current one
