@@ -76,18 +76,6 @@ namespace octet {
 
 		// Call to the method to load the configuration file
 		load_configuration_file();
-
-		// We create the HINGE Constraint
-		// Definition taken from Bullet physics Wiki
-		// http://bulletphysics.org/Bullet/BulletFull/classbtHingeConstraint.html#a5ae4261a17e0f0f8947025eae818f0c8
-		// https://github.com/bulletphysics/bullet3/blob/master/examples/Constraints/TestHingeTorque.cpp
-		// btHingeConstraint::btHingeConstraint(btRigidBody & rbA, btRigidBody & rbB, const btVector3 & pivotInA, const btVector3 & pivotInB, const btVector3 & axisInA, const btVector3 & axisInB, bool useReferenceFrameA = false )
-		// We need:
-		// 1. Rigid body Sphere 1 (btRigidBody, scene_node has one)
-		// 2. Rigid body Sphere 2 (btRigidBody, scene_node has one)
-		// 3. Location Sphere 1 (btVector3, with coordinates of rigid body)
-		// 4. Location Sphere 2 (btVector3, with coordinates of rigid body)
-		// 5. Axis (btVector3, axis X, Y and Z, depending where we want the hinge axis)
 		
 		// Rigid Body Sphere 1
 		//scene_node* sphere1 = app_scene->get_mesh_instance(0)->get_node();
@@ -109,15 +97,6 @@ namespace octet {
 		//gameWorld->addConstraint(hinge, true);
 
 
-		// We create the SPRING Constraint
-		// Definition taken from Bullet physics Wiki
-		// http://bulletphysics.org/Bullet/BulletFull/classbtGeneric6DofConstraint.html
-		// Example used: http://gamedev.stackexchange.com/questions/54349/what-are-frame-a-and-frame-b-in-btgeneric6dofconstraints-constructor-for
-		// 1. Rigid body Box 1 (btRigidBody, scene_node has one)
-		// 2. Rigid body Box 2 (btRigidBody, scene_node has one)
-		// 3. Transform Box 1 (btTransform)
-		// 4. Transform Box 2 (btTransform)
-		// 5. Linear Reference Frame A (bool)
 
 		// Box 1
 		//mat.loadIdentity();
@@ -150,23 +129,7 @@ namespace octet {
 		//// Spring Constraint Definition with all the information created before
 		//btGeneric6DofSpringConstraint* springConstraint = new btGeneric6DofSpringConstraint(*rbBox1, *rbBox2, frameInA, frameInB, true);
 
-		// The Spring Constraint have a number of limits we need to define now
-		// 1. Linear Upper Limit
-		// 2. Linear Lower Limit
-		// 3. Angular Upper Limit
-		// 4. Angular Lower Limit
-		// There are other limits like the stiffness, damping, equilibrum point. We are not going to set anything yet. We´ll add something if needed
-		//springConstraint->setLinearUpperLimit(btVector3(7.0, 0.0, 0.0));
-		//springConstraint->setLinearLowerLimit(btVector3(-7.0, 0.0, 0.0));
-		//// lock all rorations
-		//springConstraint->setAngularLowerLimit(btVector3(0.0f, 0.0f, -1.5f));
-		//springConstraint->setAngularUpperLimit(btVector3(0.0f, 0.0f, 1.5f));
-		//// We add the constraint to the world
-		//// We set the second parameter to false to be able to do collisions
-		//gameWorld->addConstraint(springConstraint, false);
-		//// More limits added
-		//springConstraint->enableSpring(0, true);
-		//springConstraint->setStiffness(0, 39.478f);
+		
 
 		// Cylinder
 		/*mat.loadIdentity();
