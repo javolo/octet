@@ -278,22 +278,22 @@ namespace octet {
 			string objectColour = elem->FirstChildElement("Colour")->GetText();
 			// We obtain the material from the colour choice
 			material *objectMaterial = materialSelection(objectColour);
+			// Octet position vector definition
+			vec3 positionVector = vec3(posX, posY, posZ);
+			// We add the object to the scene now
+			mat.loadIdentity();
+			mat.translate(positionVector);
 
 			// We check the type of object it is to retrieve different parameters on it
 			if (objectType == "Sphere") {
-			
-				// Octet position vector definition
-				vec3 positionVector = vec3(posX, posY, posZ);
-				// We add the object to the scene now
-				mat.loadIdentity();
-				mat.translate(positionVector);
+		
 				// Add sphere to the scene
 				app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), objectMaterial, true, objectWeight);
 
 				// We add the velocity and location to the rigid body in order to perform the constraints
-				// Rigid Body Sphere 1
-				scene_node* sphere1 = app_scene->get_mesh_instance(counter)->get_node();
-				btRigidBody* rbSphere1 = sphere1->get_rigid_body();
+				// Rigid Body Sphere 
+				scene_node* sphere = app_scene->get_mesh_instance(counter)->get_node();
+				btRigidBody* rbSphere = sphere->get_rigid_body();
 				// We create a velocity vector to add some movements and see better the hinge constraint
 				// We obtain now the velocity of the object from the XML file
 				float velX = atof(elem->FirstChildElement("Speed")->FirstChildElement("X")->GetText());
@@ -302,13 +302,28 @@ namespace octet {
 				// Create the vector velocity
 				btVector3 sphereVelocity = btVector3(velX, velY, velZ);
 				// We set the linear velocity with the information retrieve from the XML file
-				rbSphere1->setLinearVelocity(sphereVelocity);
+				rbSphere->setLinearVelocity(sphereVelocity);
 				// We set the location as well
-				rbSphere1->setRigidBodyLocation(objectPosition);
+				rbSphere->setRigidBodyLocation(objectPosition);
 
 				// Increase the sphere counter
 				sphereCounter++;
 			} else if (objectType == "Box") {
+
+				// Add box to the scene
+				app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), objectMaterial, true);
+
+				// Rigid Body Box 
+				scene_node* box = app_scene->get_mesh_instance(counter)->get_node();
+				btRigidBody* rbBox = box->get_rigid_body();
+				// We obtain now the velocity of the object from the XML file
+				float origX = atof(elem->FirstChildElement("Origin")->FirstChildElement("X")->GetText());
+				float origY = atof(elem->FirstChildElement("Origin")->FirstChildElement("Y")->GetText());
+				float origZ = atof(elem->FirstChildElement("Origin")->FirstChildElement("Z")->GetText());
+				// Create the vector velocity
+				btVector3 boxOrigin = btVector3(origX, origY, origZ);
+				// We set the linear velocity with the information retrieve from the XML file
+				rbBox->setOrigin(boxOrigin);
 
 				// Increase the box counter
 				boxCounter++;
