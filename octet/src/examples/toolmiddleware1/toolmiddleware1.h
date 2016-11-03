@@ -219,6 +219,22 @@ namespace octet {
 
 	}
 
+	// Method to create spring constraint between boxes initally
+	// This mehtod will be triggered only if the count of boxes is greater than 2 as it´s needed two objects
+	void createSpringConstraint() {
+
+		// We create the SPRING Constraint
+		// Definition taken from Bullet physics Wiki
+		// http://bulletphysics.org/Bullet/BulletFull/classbtGeneric6DofConstraint.html
+		// Example used: http://gamedev.stackexchange.com/questions/54349/what-are-frame-a-and-frame-b-in-btgeneric6dofconstraints-constructor-for
+		// 1. Rigid body Box 1 (btRigidBody, scene_node has one)
+		// 2. Rigid body Box 2 (btRigidBody, scene_node has one)
+		// 3. Transform Box 1 (btTransform)
+		// 4. Transform Box 2 (btTransform)
+		// 5. Linear Reference Frame A (bool)
+	
+	}
+
 	// Method to select the material from the colour input in the file
 	material* materialSelection(string colour) {
 
