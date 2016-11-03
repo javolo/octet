@@ -49,9 +49,6 @@ namespace octet {
 		}
 	};
 
-
-
-
   /// Scene containing a box with octet.
   class toolmiddleware1 : public app {
     // scene for drawing box
@@ -316,6 +313,8 @@ namespace octet {
 				boxCounter++;
 			}
 			
+			// Add shape into the list of objects
+			sceneObject element = sceneObject(counter, objectType, false);
 			// Increase the counter to not overwrite the next element in the current one
 			counter++;
 		}
