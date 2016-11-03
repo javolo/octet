@@ -29,9 +29,24 @@ namespace octet {
 		// boolean variable to no add it twice into the scene
 		bool visited;
 
-
-
 	public:
+		// Cosntructor
+		sceneObject(int idObj, string typeObj, bool visitedObj) {
+			objectIndex = idObj;
+			objectType = typeObj;
+			visited = visitedObj;
+		}
+
+		// Getters
+		int getObjectID() {
+			return objectIndex;
+		}
+		string getObjectType() {
+			return objectType;
+		}
+		bool getObjectVisited() {
+			return visited;
+		}
 	};
 
 
@@ -224,6 +239,8 @@ namespace octet {
 		// Counter of elements in the file
 		// We´ll use that counter to input the elements in the rigid body of the objects added to the scene
 		int counter = 5;
+		// List of objects added in the scene
+		std::vector<sceneObject> listOfLinks = std::vector<sceneObject>();
 
 		// First of all, we generate the file name
 		std::string filename = "ConfigurationFile.xml";
