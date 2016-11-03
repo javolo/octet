@@ -200,6 +200,9 @@ namespace octet {
 	// Method to read the XML file and create in the scene the diferent elements
 	void load_configuration_file() {
 
+		// Counter of elements in the file
+		// We´ll use that counter to input the elements in the rigid body of the objects added to the scene
+		int counter = 5;
 		// First of all, we generate the file name
 		std::string filename = "ConfigurationFile.xml";
 		TiXmlDocument file;
@@ -207,7 +210,20 @@ namespace octet {
 
 		for (TiXmlElement *elem = file.FirstChildElement("TableroGame")->FirstChildElement("Elements")->FirstChildElement();
 		elem != NULL; elem = elem->NextSiblingElement()) {
-			L_System.set_rule(elem->ToElement()->GetText());
+
+			// First element to retrieve is the type of object it is
+			string objectType = elem->FirstChildElement("Type")->GetText();
+			// We check the type of object it is to retrieve different parameters on it
+			if (objectType == "Sphere") {
+
+				//btVector3 objectPosition
+
+
+			} else if (objectType == "Box") {
+
+			}
+			
+			
 		}
 
 	}
