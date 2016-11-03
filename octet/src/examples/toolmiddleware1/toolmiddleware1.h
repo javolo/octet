@@ -254,28 +254,29 @@ namespace octet {
 			// First element to retrieve is the type of object it is
 			string objectType = elem->FirstChildElement("Type")->GetText();
 			printf("TYPE OBJECT:  %s\n", objectType);
+			// We obtain the position of the object read from the file
+			float posX = atof(elem->FirstChildElement("Position")->FirstChildElement("X")->GetText());
+			float posY = atof(elem->FirstChildElement("Position")->FirstChildElement("Y")->GetText());
+			float posZ = atof(elem->FirstChildElement("Position")->FirstChildElement("Z")->GetText());
+			// Create the vector position
+			btVector3 objectPosition = btVector3(posX, posY, posZ);
+			// We obtain the weight now
+			float objectWeight = atof(elem->FirstChildElement("Weight")->GetText());
+			// We retrieve the colour now
+			string objectColour = elem->FirstChildElement("Colour")->GetText();
+			// We obtain the material from the colour choice
+			material *objectMaterial = materialSelection(objectColour);
+
 			// We check the type of object it is to retrieve different parameters on it
 			if (objectType == "Sphere") {
-
-				// We obtain the position of the object read from the file
-				float posX = atof(elem->FirstChildElement("Position")->FirstChildElement("X")->GetText());
-				float posY = atof(elem->FirstChildElement("Position")->FirstChildElement("Y")->GetText());
-				float posZ = atof(elem->FirstChildElement("Position")->FirstChildElement("Z")->GetText());
-				// Create the vector position
-				btVector3 spherePosition = btVector3(posX, posY, posZ);
+			
+				// Octet position vector definition
 				vec3 positionVector = vec3(posX, posY, posZ);
-				// We obtain the weight now
-				float sphereWeight = atof(elem->FirstChildElement("Weight")->GetText());
-				// We retrieve the colour now
-				string colour = elem->FirstChildElement("Colour")->GetText();
-				// We obtain the material from the colour choice
-				material *sphereMaterial = materialSelection(colour);
-
 				// We add the object to the scene now
 				mat.loadIdentity();
 				mat.translate(positionVector);
 				// Add sphere to the scene
-				app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), sphereMaterial, true, sphereWeight);
+				app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), objectMaterial, true, objectWeight);
 
 				// We add the velocity and location to the rigid body in order to perform the constraints
 				// Rigid Body Sphere 1
@@ -291,7 +292,7 @@ namespace octet {
 				// We set the linear velocity with the information retrieve from the XML file
 				rbSphere1->setLinearVelocity(sphereVelocity);
 				// We set the location as well
-				rbSphere1->setRigidBodyLocation(spherePosition);
+				rbSphere1->setRigidBodyLocation(objectPosition);
 
 				// Increase the sphere counter
 				sphereCounter++;
