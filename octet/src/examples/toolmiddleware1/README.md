@@ -62,7 +62,11 @@ will be only applied to spheres or spheres and cylinders. The spring constraint 
 
 # 5. Sound system
 
-One of the most complicated part of including some sound into the assignment was the installation of all the parts needed. 
+One of the most complicated part of including some sound into the assignment was the installation of all the parts needed. Following 
+the steps in this <a href="https://cuboidzone.wordpress.com/2013/07/26/tutorial-implementing-fmod/"> page</a> I´ve created the class 
+with all its elements.
+
+Next steps is to find a sound for the bouncing of elements and include it with all the assignment already implemented.
 
 # 6. Improvements
 

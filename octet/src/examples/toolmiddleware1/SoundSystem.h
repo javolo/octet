@@ -16,8 +16,7 @@ namespace octet {
 	public:
 
 		SoundSystemClass() {
-			if (FMOD::System_Create(&m_pSystem) != FMOD_OK)
-			{
+			if (FMOD::System_Create(&m_pSystem) != FMOD_OK) {
 				// Report Error
 				return;
 			}
@@ -25,8 +24,7 @@ namespace octet {
 			int driverCount = 0;
 			m_pSystem->getNumDrivers(&driverCount);
 
-			if (driverCount == 0)
-			{
+			if (driverCount == 0) {
 				// Report Error
 				return;
 			}
