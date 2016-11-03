@@ -200,6 +200,11 @@ namespace octet {
 	// Method to read the XML file and create in the scene the diferent elements
 	void load_configuration_file() {
 
+		// First of all, we generate the file name
+		std::string filename = "ConfigurationFile.xml";
+		TiXmlDocument file;
+		file.LoadFile(filename.c_str());
+
 	}
 
 
