@@ -108,40 +108,6 @@ namespace octet {
 		//gameWorld->addConstraint(hinge, true);
 
 
-
-		// Box 1
-		//mat.loadIdentity();
-		//mat.translate(0, 0, -5);
-		//app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), materialSelection("red"), true);
-
-		//// Rigid Body Box 1
-		//scene_node* box1 = app_scene->get_mesh_instance(2)->get_node();
-		//btRigidBody* rbBox1 = box1->get_rigid_body();
-
-		//// Transform Box 1
-		//btTransform frameInA;
-		//frameInA = btTransform::getIdentity();
-		//frameInA.setOrigin(btVector3(btScalar(0.0f), btScalar(0.0f), btScalar(0.0f)));
-
-		//// Box 2
-		//mat.loadIdentity();
-		//mat.translate(0, 0, -5);
-		//app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), materialSelection("blue"), true);
-
-		//// Transform Box 2
-		//btTransform frameInB;
-		//frameInB = btTransform::getIdentity();
-		//frameInB.setOrigin(btVector3(btScalar(-7.0f), btScalar(0.0f), btScalar(0.0f)));
-
-		//// Rigid Body Box 2
-		//scene_node* box2 = app_scene->get_mesh_instance(3)->get_node();
-		//btRigidBody* rbBox2 = box2->get_rigid_body();
-
-		//// Spring Constraint Definition with all the information created before
-		//btGeneric6DofSpringConstraint* springConstraint = new btGeneric6DofSpringConstraint(*rbBox1, *rbBox2, frameInA, frameInB, true);
-
-		
-
 		// Cylinder
 		/*mat.loadIdentity();
 		mat.translate(3, 6, 0);
