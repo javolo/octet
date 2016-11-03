@@ -8,6 +8,11 @@
         <Y>0</Y>
         <Z>0</Z>
       </Position>
+      <Origin>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Origin>
       <Speed>
         <X>0</X>
         <Y>0</Y>
@@ -23,6 +28,11 @@
         <Y>3</Y>
         <Z>0</Z>
       </Position>
+      <Origin>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Origin>
       <Speed>
         <X>100</X>
         <Y>0</Y>
@@ -43,6 +53,11 @@
         <Y>0</Y>
         <Z>0</Z>
       </Origin>
+      <Speed>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Speed>
       <Colour>blue</Colour>
       <Weight>10</Weight>
     </Object>
@@ -58,6 +73,11 @@
         <Y>0</Y>
         <Z>0</Z>
       </Origin>
+      <Speed>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Speed>
       <Colour>red</Colour>
       <Weight>1</Weight>
     </Object>

@@ -62,3 +62,10 @@ will be only applied to spheres or spheres and cylinders. The spring constraint 
 
 # 5. Sound system
 
+One of the most complicated part of including some sound into the assignment was the installation of all the parts needed. 
+
+# 6. Improvements
+
+No limitation of spheres for hinge constraints and boxes for spring constraints. At the moment all elements contain the same parameters
+in order to be used in any kind of constraints
+

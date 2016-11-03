@@ -66,6 +66,8 @@ namespace octet {
 	int boxCounter = 0;
 	// List of objects added in the scene
 	std::vector<sceneObject> elementList = std::vector<sceneObject>();
+	// Frame counter
+	int framecounter = 0;
 
   public:
     /// this is called when we construct the class before everything is initialised.
@@ -225,7 +227,8 @@ namespace octet {
 		gameWorld->addConstraint(springConstraint, false);
 		// More limits added
 		springConstraint->enableSpring(0, true);
-		springConstraint->setStiffness(0, 39.478f);
+		springConstraint->setStiffness(0, 60.0f);
+		springConstraint->setDamping(0, 400);
 	
 	}
 
@@ -277,31 +280,31 @@ namespace octet {
 			material *objectMaterial = materialSelection(objectColour);
 			// Octet position vector definition
 			vec3 positionVector = vec3(posX, posY, posZ);
+
+			// We create a velocity vector to add some movements and see better the hinge constraint
+			// We obtain now the velocity of the object from the XML file
+			float velX = atof(elem->FirstChildElement("Speed")->FirstChildElement("X")->GetText());
+			float velY = atof(elem->FirstChildElement("Speed")->FirstChildElement("Y")->GetText());
+			float velZ = atof(elem->FirstChildElement("Speed")->FirstChildElement("Z")->GetText());
+			// Create the vector velocity
+			btVector3 nodeVelocity = btVector3(velX, velY, velZ);
+
+			// We obtain now the velocity of the object from the XML file
+			float origX = atof(elem->FirstChildElement("Origin")->FirstChildElement("X")->GetText());
+			float origY = atof(elem->FirstChildElement("Origin")->FirstChildElement("Y")->GetText());
+			float origZ = atof(elem->FirstChildElement("Origin")->FirstChildElement("Z")->GetText());
+			// Create the vector velocity
+			btVector3 nodeOrigin = btVector3(origX, origY, origZ);
+
 			// We add the object to the scene now
 			mat.loadIdentity();
 			mat.translate(positionVector);
 
 			// We check the type of object it is to retrieve different parameters on it
-			if (objectType == "Sphere") {
+			if (objectType == "Sphere" ) {
 		
 				// Add sphere to the scene
 				app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), objectMaterial, true, objectWeight);
-
-				// We add the velocity and location to the rigid body in order to perform the constraints
-				// Rigid Body Sphere 
-				scene_node* sphere = app_scene->get_mesh_instance(counter)->get_node();
-				btRigidBody* rbSphere = sphere->get_rigid_body();
-				// We create a velocity vector to add some movements and see better the hinge constraint
-				// We obtain now the velocity of the object from the XML file
-				float velX = atof(elem->FirstChildElement("Speed")->FirstChildElement("X")->GetText());
-				float velY = atof(elem->FirstChildElement("Speed")->FirstChildElement("Y")->GetText());
-				float velZ = atof(elem->FirstChildElement("Speed")->FirstChildElement("Z")->GetText());
-				// Create the vector velocity
-				btVector3 sphereVelocity = btVector3(velX, velY, velZ);
-				// We set the linear velocity with the information retrieve from the XML file
-				rbSphere->setLinearVelocity(sphereVelocity);
-				// We set the location as well
-				rbSphere->setRigidBodyLocation(objectPosition);
 
 				// Increase the sphere counter
 				sphereCounter++;
@@ -310,22 +313,26 @@ namespace octet {
 				// Add box to the scene
 				app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), objectMaterial, true);
 
-				// Rigid Body Box 
-				scene_node* box = app_scene->get_mesh_instance(counter)->get_node();
-				btRigidBody* rbBox = box->get_rigid_body();
-				// We obtain now the velocity of the object from the XML file
-				float origX = atof(elem->FirstChildElement("Origin")->FirstChildElement("X")->GetText());
-				float origY = atof(elem->FirstChildElement("Origin")->FirstChildElement("Y")->GetText());
-				float origZ = atof(elem->FirstChildElement("Origin")->FirstChildElement("Z")->GetText());
-				// Create the vector velocity
-				btVector3 boxOrigin = btVector3(origX, origY, origZ);
-				// We set the linear velocity with the information retrieve from the XML file
-				rbBox->setOrigin(boxOrigin);
-
 				// Increase the box counter
 				boxCounter++;
+			} else if (objectType == "Cylinder") {
+
+				// Add box to the scene
+				app_scene->add_shape(mat, new mesh_cylinder(zcylinder(vec3(0, 0, 0), 2, 4)), objectMaterial, true);
+
 			}
 			
+			// Rigid Body Sphere 
+			scene_node* objectNode = app_scene->get_mesh_instance(counter)->get_node();
+			btRigidBody* rbNode = objectNode->get_rigid_body();
+
+			// We set the linear velocity with the information retrieve from the XML file
+			rbNode->setLinearVelocity(nodeVelocity);
+			// We set the location as well
+			rbNode->setRigidBodyLocation(objectPosition);
+			// We set the linear velocity with the information retrieve from the XML file
+			rbNode->setOrigin(nodeOrigin);
+
 			// Add shape into the list of objects
 			sceneObject element = sceneObject(counter, objectType, false);
 			elementList.push_back(element);
@@ -392,9 +399,6 @@ namespace octet {
 		}
 
 	}
-
-	// TO DO: Handle collisions with walls to not stop when hit them
-
 
 	/// this is called to draw the world
 	void draw_world(int x, int y, int w, int h) {
