@@ -1,9 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LSystem>
-  <Axiom>F</Axiom>
-  <Angle>25.7></Angle>
-  <Rules>
-    <Rule>F->F[+F]F[-F]F</Rule>
-  </Rules>
-  <Iterations>5</Iterations>
-</LSystem>
+<TableroGame>
+  <Elements>
+    <Object>
+      <Type>Sphere</Type>
+      <Position>
+        <X>-3</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Position>
+      <Speed>
+        <X>0</X>
+        <Y>0Y>
+        <Z>0</Z>
+      </Speed>
+      <Colour>5</Colour>
+      <Weight>5</Weight>
+    </Object>
+  </Elements>
+</TableroGame>

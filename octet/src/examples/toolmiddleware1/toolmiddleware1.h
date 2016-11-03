@@ -205,6 +205,11 @@ namespace octet {
 		TiXmlDocument file;
 		file.LoadFile(filename.c_str());
 
+		for (TiXmlElement *elem = file.FirstChildElement("TableroGame")->FirstChildElement("Elements")->FirstChildElement();
+		elem != NULL; elem = elem->NextSiblingElement()) {
+			L_System.set_rule(elem->ToElement()->GetText());
+		}
+
 	}
 
 
