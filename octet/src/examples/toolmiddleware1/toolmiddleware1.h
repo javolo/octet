@@ -111,7 +111,10 @@ namespace octet {
 	}
 
 	// Method to select the shape from the elements added to the scene
-	void createHingeConstraint() {
+	// In case of the sphere we are going to take first the heaviest available one and second
+	// the lighter one so we see the effect good
+	// For hinge constraint between cylinders and spheres or two spheres
+	void objectSelection() {
 	}
 
 	// Method to create hinge constraint between sphere initally
