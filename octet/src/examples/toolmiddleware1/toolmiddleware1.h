@@ -74,31 +74,8 @@ namespace octet {
 		mat.rotateY90();
 		app_scene->add_shape(mat, new mesh_box(vec3(25, 2, 1)), materialSelection("green"), false);
 
-
 		// Call to the method to load the configuration file
 		load_configuration_file();
-
-
-
-		// Definiton of the objects in the scene
-		// TO DO: Read the objects from a CSV or XML file.
-
-		// Sphere 1	
-		//mat.translate(-3, 0, 0);
-		//// Location Sphere 1
-		//btVector3 locationSphere1 = btVector3(-3, 0, 0);
-		//printf("Sphere 1 X(-3): %f \n", locationSphere1.getX());
-		//printf("Sphere 2 X(6): %f \n", locationSphere1.getY());
-		//printf("Sphere 3 X(0): %f \n", locationSphere1.getZ());
-		//// Add sphere to the scene
-		//app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), red, true, 10.0f);
-
-		//// Sphere 2
-		//mat.loadIdentity();
-		//mat.translate(0, 6, 0);
-		//// Location Sphere 2
-		//btVector3 locationSphere2 = btVector3(0, 3, 0);
-		//app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), blue, true, 1.0f);
 
 		// We create the HINGE Constraint
 		// Definition taken from Bullet physics Wiki
