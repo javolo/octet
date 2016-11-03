@@ -92,8 +92,8 @@ namespace octet {
 		app_scene->get_camera_instance(0)->get_node()->rotate(-20, vec3(1, 0, 0));
 
 		// Initialize sound staff
-		sound = SoundSystemClass();
-		sound.createSound(&soundSample, "bloop_x.wav");
+		//sound = SoundSystemClass();
+		//sound.createSound(&soundSample, "bloop_x.wav");
 
 		// Sound taken from here
 		// http://www.wavsource.com/sfx/sfx.htm
@@ -386,6 +386,7 @@ namespace octet {
 				std::string dist = "Collision between objects at position (" + std::to_string(currentObjA->get_position().x()) + "," + std::to_string(currentObjA->get_position().y()) + "," + std::to_string(currentObjA->get_position().z()) + ") and (" + std::to_string(currentObjB->get_position().x()) + ", " + std::to_string(currentObjB->get_position().y()) + ", " + std::to_string(currentObjB->get_position().z()) + ") " + "\n";
 				printf(dist.c_str());
 
+				sound.playSound(soundSample, true);
 			}
 		}
 	}

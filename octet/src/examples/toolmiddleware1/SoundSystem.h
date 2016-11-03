@@ -1,5 +1,8 @@
+#undef output 
 #include "fmod.hpp"
-#include "fmod_errors.h" // Only if you want error checking
+#include "fmod_errors.h"
+#define output &scratch_r[bod->getNumDofs()]
+#include <stddef.h>
 
 // Code class taken from a tutorial of this page:
 // https://cuboidzone.wordpress.com/2013/07/26/tutorial-implementing-fmod/
