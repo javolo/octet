@@ -1,7 +1,6 @@
 #include "fmod.hpp"
 #include "fmod_errors.h" // Only if you want error checking
 
-
 // Code class taken from a tutorial of this page:
 // https://cuboidzone.wordpress.com/2013/07/26/tutorial-implementing-fmod/
 

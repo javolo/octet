@@ -19,6 +19,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "SoundSystem.h"
 
 namespace octet {
 
@@ -68,6 +69,9 @@ namespace octet {
 	std::vector<sceneObject> elementList = std::vector<sceneObject>();
 	// Frame counter
 	int framecounter = 0;
+	// Sound variables
+	SoundSystemClass sound;
+	SoundClass soundSample;
 
   public:
     /// this is called when we construct the class before everything is initialised.
@@ -86,6 +90,13 @@ namespace octet {
 		app_scene->get_camera_instance(0)->get_node()->translate(vec3(0, 20, 18));
 		// Try to rotate the camera to have better view of elements in the scene
 		app_scene->get_camera_instance(0)->get_node()->rotate(-20, vec3(1, 0, 0));
+
+		// Initialize sound staff
+		sound = SoundSystemClass();
+		sound.createSound(&soundSample, "bloop_x.wav");
+
+		// Sound taken from here
+		// http://www.wavsource.com/sfx/sfx.htm
 
 		// Hard way to have the tablero of the game
 		// TO DO: Find the BT collider to make a composition of all the tablero parts
