@@ -51,5 +51,10 @@ namespace octet {
 
 			m_pSystem->playSound(FMOD_CHANNEL_FREE, pSound, false, 0);
 		}
+
+		// Method that released the sound
+		void releaseSound(SoundClass pSound) {
+			pSound->release();
+		}
 	}
 }
