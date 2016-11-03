@@ -47,6 +47,10 @@ namespace octet {
 		bool getObjectVisited() {
 			return visited;
 		}
+		// Setter
+		void setObjectVisited(bool visit) {
+			visited = visit;
+		}
 	};
 
   /// Scene containing a box with octet.
@@ -60,6 +64,8 @@ namespace octet {
 	// Counter of elements
 	int sphereCounter = 0;
 	int boxCounter = 0;
+	// List of objects added in the scene
+	std::vector<sceneObject> elementList = std::vector<sceneObject>();
 
   public:
     /// this is called when we construct the class before everything is initialised.
@@ -126,7 +132,16 @@ namespace octet {
 	// In case of the sphere we are going to take first the heaviest available one and second
 	// the lighter one so we see the effect good
 	// For hinge constraint between cylinders and spheres or two spheres
-	void objectSelection() {
+	int objectSelection(string type) {
+		// We return the id of the shape in the scene
+		int result = 0;
+
+		for (int i = 0; i < elementList.size(); i++) {
+			if (elementList[i].getObjectType() == type && !elementList[i].getObjectVisited()) {
+				elementList[i].setObjectVisited(true);
+				return elementList[i].getObjectID();
+			}
+		}
 	}
 
 	// Method to create hinge constraint between sphere initally
@@ -146,10 +161,10 @@ namespace octet {
 		// 5. Axis (btVector3, axis X, Y and Z, depending where we want the hinge axis)
 
 		// Rigid Body Sphere 1
-		scene_node* sphere1 = app_scene->get_mesh_instance(5)->get_node();
+		scene_node* sphere1 = app_scene->get_mesh_instance(objectSelection("Sphere"))->get_node();
 		btRigidBody* rbSphere1 = sphere1->get_rigid_body();
 		// Rigid Body Sphere 2
-		scene_node* sphere2 = app_scene->get_mesh_instance(6)->get_node();
+		scene_node* sphere2 = app_scene->get_mesh_instance(objectSelection("Sphere"))->get_node();
 		btRigidBody* rbSphere2 = sphere2->get_rigid_body();
 		// Axis (We´ll set the axis in the Y plane, but it can be changed easily)
 		btVector3 axisY = btVector3(1, 0, 0);
@@ -174,11 +189,11 @@ namespace octet {
 		// 5. Linear Reference Frame A (bool)
 
 		// Rigid Body Box 1
-		scene_node* box1 = app_scene->get_mesh_instance(7)->get_node();
+		scene_node* box1 = app_scene->get_mesh_instance(objectSelection("Box"))->get_node();
 		btRigidBody* rbBox1 = box1->get_rigid_body();
 
 		// Rigid Body Box 2
-		scene_node* box2 = app_scene->get_mesh_instance(8)->get_node();
+		scene_node* box2 = app_scene->get_mesh_instance(objectSelection("Box"))->get_node();
 		btRigidBody* rbBox2 = box2->get_rigid_body();
 
 		// Transform Box 1
@@ -236,8 +251,6 @@ namespace octet {
 		// Counter of elements in the file
 		// We´ll use that counter to input the elements in the rigid body of the objects added to the scene
 		int counter = 5;
-		// List of objects added in the scene
-		std::vector<sceneObject> listOfLinks = std::vector<sceneObject>();
 
 		// First of all, we generate the file name
 		std::string filename = "ConfigurationFile.xml";
@@ -315,6 +328,7 @@ namespace octet {
 			
 			// Add shape into the list of objects
 			sceneObject element = sceneObject(counter, objectType, false);
+			elementList.push_back(element);
 			// Increase the counter to not overwrite the next element in the current one
 			counter++;
 		}
