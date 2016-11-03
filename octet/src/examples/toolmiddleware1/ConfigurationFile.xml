@@ -10,11 +10,26 @@
       </Position>
       <Speed>
         <X>0</X>
-        <Y>0Y>
+        <Y>0</Y>
         <Z>0</Z>
       </Speed>
-      <Colour>5</Colour>
-      <Weight>5</Weight>
+      <Colour>red</Colour>
+      <Weight>1</Weight>
+    </Object>
+     <Object>
+      <Type>Sphere</Type>
+      <Position>
+        <X>0</X>
+        <Y>3</Y>
+        <Z>0</Z>
+      </Position>
+      <Speed>
+        <X>100</X>
+        <Y>0</Y>
+        <Z>100</Z>
+      </Speed>
+      <Colour>blue</Colour>
+      <Weight>10</Weight>
     </Object>
   </Elements>
 </TableroGame>
