@@ -29,6 +29,9 @@ namespace octet {
 	btDiscreteDynamicsWorld* gameWorld;
 	// Matrix to position the elements in the scene
 	mat4t mat;
+	// Counter of elements
+	int sphereCounter = 0;
+	int boxCounter = 0;
 
   public:
     /// this is called when we construct the class before everything is initialised.
@@ -76,6 +79,14 @@ namespace octet {
 
 		// Call to the method to load the configuration file
 		load_configuration_file();
+
+		// If we added two or more spheres or two or more boxes we create the relevant constraints
+		if (sphereCounter >= 2) {
+			createHingeConstraint();
+		}
+		if (boxCounter >= 2) {
+			createSpringConstraint();
+		}
 		
 		// Rigid Body Sphere 1
 		//scene_node* sphere1 = app_scene->get_mesh_instance(0)->get_node();
@@ -173,6 +184,26 @@ namespace octet {
 		// 4. Transform Box 2 (btTransform)
 		// 5. Linear Reference Frame A (bool)
 
+		// Rigid Body Box 1
+		scene_node* box1 = app_scene->get_mesh_instance(7)->get_node();
+		btRigidBody* rbBox1 = box1->get_rigid_body();
+
+		// Rigid Body Box 2
+		scene_node* box2 = app_scene->get_mesh_instance(8)->get_node();
+		btRigidBody* rbBox2 = box2->get_rigid_body();
+
+		// Transform Box 1
+		btTransform frameInA;
+		frameInA = btTransform::getIdentity();
+		frameInA.setOrigin(btVector3(rbBox1->getOrigin()));
+
+		// Transform Box 2
+		btTransform frameInB;
+		frameInB = btTransform::getIdentity();
+		frameInB.setOrigin(btVector3(rbBox2->getOrigin()));
+
+		// Spring Constraint Definition with all the information created before
+		btGeneric6DofSpringConstraint* springConstraint = new btGeneric6DofSpringConstraint(*rbBox1, *rbBox2, frameInA, frameInB, true);
 
 		// The Spring Constraint have a number of limits we need to define now
 		// 1. Linear Upper Limit
@@ -180,17 +211,17 @@ namespace octet {
 		// 3. Angular Upper Limit
 		// 4. Angular Lower Limit
 		// There are other limits like the stiffness, damping, equilibrum point. We are not going to set anything yet. We´ll add something if needed
-		//springConstraint->setLinearUpperLimit(btVector3(7.0, 0.0, 0.0));
-		//springConstraint->setLinearLowerLimit(btVector3(-7.0, 0.0, 0.0));
-		//// lock all rorations
-		//springConstraint->setAngularLowerLimit(btVector3(0.0f, 0.0f, -1.5f));
-		//springConstraint->setAngularUpperLimit(btVector3(0.0f, 0.0f, 1.5f));
-		//// We add the constraint to the world
-		//// We set the second parameter to false to be able to do collisions
-		//gameWorld->addConstraint(springConstraint, false);
-		//// More limits added
-		//springConstraint->enableSpring(0, true);
-		//springConstraint->setStiffness(0, 39.478f);
+		springConstraint->setLinearUpperLimit(btVector3(7.0, 0.0, 0.0));
+		springConstraint->setLinearLowerLimit(btVector3(-7.0, 0.0, 0.0));
+		// lock all rorations
+		springConstraint->setAngularLowerLimit(btVector3(0.0f, 0.0f, -1.5f));
+		springConstraint->setAngularUpperLimit(btVector3(0.0f, 0.0f, 1.5f));
+		// We add the constraint to the world
+		// We set the second parameter to false to be able to do collisions
+		gameWorld->addConstraint(springConstraint, false);
+		// More limits added
+		springConstraint->enableSpring(0, true);
+		springConstraint->setStiffness(0, 39.478f);
 	
 	}
 
@@ -216,8 +247,7 @@ namespace octet {
 		// Counter of elements in the file
 		// We´ll use that counter to input the elements in the rigid body of the objects added to the scene
 		int counter = 5;
-		int sphereCounter = 0;
-		int boxCounter = 0;
+
 		// First of all, we generate the file name
 		std::string filename = "ConfigurationFile.xml";
 		TiXmlDocument file;
