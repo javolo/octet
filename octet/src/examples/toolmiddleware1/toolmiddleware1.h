@@ -227,10 +227,10 @@ namespace octet {
 			return new material(vec4(1, 0, 0, 1));
 		}
 		else if (colour == "green") {
-			new material(vec4(0, 1, 0, 1));
+			return new material(vec4(0, 1, 0, 1));
 		}
 		else if (colour == "blue") {
-			new material(vec4(0, 0, 1, 1));
+			return new material(vec4(0, 0, 1, 1));
 		}
 	}
 
