@@ -205,6 +205,21 @@ namespace octet {
 
 	}
 
+	// Method to select the material from the colour input in the file
+	material* materialSelection(string colour) {
+
+		// Selection of material depending on the input
+		if (colour == "red") {
+			return new material(vec4(1, 0, 0, 1));
+		}
+		else if (colour == "green") {
+			new material(vec4(0, 1, 0, 1));
+		}
+		else if (colour == "blue") {
+			new material(vec4(0, 0, 1, 1));
+		}
+	}
+
 
 	// Method to read the XML file and create in the scene the diferent elements
 	void load_configuration_file() {
@@ -233,13 +248,18 @@ namespace octet {
 				float posZ = atof(elem->FirstChildElement("Position")->FirstChildElement("Z")->GetText());
 				// Create the vector position
 				btVector3 spherePosition = btVector3(posX, posY, posZ);
+				vec3 positionVector = vec3(posX, posY, posZ);
 				// We obtain the weight now
 				float sphereWeight = atof(elem->FirstChildElement("Weight")->GetText());
 				// We retrieve the colour now
 				string colour = elem->FirstChildElement("Colour")->GetText();
+				// We obtain the material from the colour choice
+				material *sphereMaterial = materialSelection(colour);
 
 				// We add the object to the scene now
-			
+				mat.translate(positionVector);
+				// Add sphere to the scene
+				app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), sphereMaterial, true, sphereWeight);
 
 
 				// We obtain now the velocity of the object from the XML file
