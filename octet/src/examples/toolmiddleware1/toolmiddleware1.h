@@ -87,35 +87,11 @@ namespace octet {
 		if (boxCounter >= 2) {
 			createSpringConstraint();
 		}
-		
-		// Rigid Body Sphere 1
-		//scene_node* sphere1 = app_scene->get_mesh_instance(0)->get_node();
-		//btRigidBody* rbSphere1 = sphere1->get_rigid_body();
-		//// We create a velocity vector to add some movements and see better the hinge constraint
-		//btVector3 velocitySphere1 = btVector3(0, 0, 0);
-		//rbSphere1->setLinearVelocity(velocitySphere1);
-		//// Rigid Body Sphere 2
-		//scene_node* sphere2 = app_scene->get_mesh_instance(1)->get_node();
-		//btRigidBody* rbSphere2 = sphere2->get_rigid_body();
-		//// Speed for sphere 2
-		//btVector3 velocitySphere2 = btVector3(100, 0, 100);
-		//rbSphere2->setLinearVelocity(velocitySphere2);
-		//// Axis (We´ll set the axis in the Y plane, but it can be changed easily)
-		//btVector3 axisY = btVector3(1, 0, 0);
-		// With all this information we can create the bullet physics hinge constraint and see how that constraint work in the world
-		//btHingeConstraint* hinge = new btHingeConstraint(*rbSphere1, *rbSphere2, locationSphere1, locationSphere2, axisY, axisY);
-		// Once we have created the constraint, we add it to the world
-		//gameWorld->addConstraint(hinge, true);
-
 
 		// Cylinder
 		/*mat.loadIdentity();
 		mat.translate(3, 6, 0);
 		app_scene->add_shape(mat, new mesh_cylinder(zcylinder(vec3(0, 0, 0), 2, 4)), blue, true);*/
-
-
-		
-		
 	}
 
 	// Method to create hinge constraint between sphere initally
