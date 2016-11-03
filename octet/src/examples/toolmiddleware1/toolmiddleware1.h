@@ -21,6 +21,22 @@
 #include <sstream>
 
 namespace octet {
+
+	/// Class to identify objects used
+	class sceneObject {
+		int objectIndex;
+		string objectType;
+		// boolean variable to no add it twice into the scene
+		bool visited;
+
+
+
+	public:
+	};
+
+
+
+
   /// Scene containing a box with octet.
   class toolmiddleware1 : public app {
     // scene for drawing box
@@ -92,6 +108,10 @@ namespace octet {
 		/*mat.loadIdentity();
 		mat.translate(3, 6, 0);
 		app_scene->add_shape(mat, new mesh_cylinder(zcylinder(vec3(0, 0, 0), 2, 4)), blue, true);*/
+	}
+
+	// Method to select the shape from the elements added to the scene
+	void createHingeConstraint() {
 	}
 
 	// Method to create hinge constraint between sphere initally
