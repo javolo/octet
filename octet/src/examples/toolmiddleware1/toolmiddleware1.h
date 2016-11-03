@@ -134,6 +134,18 @@ namespace octet {
 		// 4. Location Sphere 2 (btVector3, with coordinates of rigid body)
 		// 5. Axis (btVector3, axis X, Y and Z, depending where we want the hinge axis)
 
+		// Rigid Body Sphere 1
+		scene_node* sphere1 = app_scene->get_mesh_instance(5)->get_node();
+		btRigidBody* rbSphere1 = sphere1->get_rigid_body();
+		// Rigid Body Sphere 2
+		scene_node* sphere2 = app_scene->get_mesh_instance(6)->get_node();
+		btRigidBody* rbSphere2 = sphere2->get_rigid_body();
+		// Axis (We´ll set the axis in the Y plane, but it can be changed easily)
+		btVector3 axisY = btVector3(1, 0, 0);
+		// With all this information we can create the bullet physics hinge constraint and see how that constraint work in the world
+		btHingeConstraint* hinge = new btHingeConstraint(*rbSphere1, *rbSphere2, rbSphere1->getRigidBodyLocation(), rbSphere2->getRigidBodyLocation(), axisY, axisY);
+		// Once we have created the constraint, we add it to the world
+		gameWorld->addConstraint(hinge, true);
 	}
 
 	// Method to create spring constraint between boxes initally
