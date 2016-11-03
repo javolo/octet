@@ -209,6 +209,25 @@ namespace octet {
 		// 3. Transform Box 1 (btTransform)
 		// 4. Transform Box 2 (btTransform)
 		// 5. Linear Reference Frame A (bool)
+
+
+		// The Spring Constraint have a number of limits we need to define now
+		// 1. Linear Upper Limit
+		// 2. Linear Lower Limit
+		// 3. Angular Upper Limit
+		// 4. Angular Lower Limit
+		// There are other limits like the stiffness, damping, equilibrum point. We are not going to set anything yet. We´ll add something if needed
+		//springConstraint->setLinearUpperLimit(btVector3(7.0, 0.0, 0.0));
+		//springConstraint->setLinearLowerLimit(btVector3(-7.0, 0.0, 0.0));
+		//// lock all rorations
+		//springConstraint->setAngularLowerLimit(btVector3(0.0f, 0.0f, -1.5f));
+		//springConstraint->setAngularUpperLimit(btVector3(0.0f, 0.0f, 1.5f));
+		//// We add the constraint to the world
+		//// We set the second parameter to false to be able to do collisions
+		//gameWorld->addConstraint(springConstraint, false);
+		//// More limits added
+		//springConstraint->enableSpring(0, true);
+		//springConstraint->setStiffness(0, 39.478f);
 	
 	}
 

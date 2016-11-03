@@ -65,6 +65,7 @@ class btRigidBody  : public btCollisionObject
 	btScalar		m_inverseMass;
 	btVector3		m_linearFactor;
 	btVector3		m_location;
+	btVector3		m_origin;
 
 	btVector3		m_gravity;	
 	btVector3		m_gravity_acceleration;
@@ -363,6 +364,9 @@ public:
 	const btVector3&   getRigidBodyLocation() const {
 		return m_location;
 	}
+	const btVector3&   getOrigin() const {
+		return m_origin;
+	}
 
 	inline void setLinearVelocity(const btVector3& lin_vel)
 	{ 
@@ -380,6 +384,12 @@ public:
 	{
 		m_updateRevision++;
 		m_location = location;
+	}
+
+	inline void setOrigin(const btVector3& origin)
+	{
+		m_updateRevision++;
+		m_origin = origin;
 	}
 
 	btVector3 getVelocityInLocalPoint(const btVector3& rel_pos) const
