@@ -16,7 +16,7 @@
       <Colour>red</Colour>
       <Weight>1</Weight>
     </Object>
-     <Object>
+    <Object>
       <Type>Sphere</Type>
       <Position>
         <X>0</X>
@@ -31,5 +31,36 @@
       <Colour>blue</Colour>
       <Weight>10</Weight>
     </Object>
+    <Object>
+      <Type>Box</Type>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>-5</Z>
+      </Position>
+      <Origin>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Origin>
+      <Colour>blue</Colour>
+      <Weight>10</Weight>
+    </Object>
+    <Object>
+      <Type>Box</Type>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>-5</Z>
+      </Position>
+      <Origin>
+        <X>-7</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Origin>
+      <Colour>red</Colour>
+      <Weight>1</Weight>
+    </Object>
+    
   </Elements>
 </TableroGame>
