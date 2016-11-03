@@ -75,8 +75,8 @@ namespace octet {
 		app_scene->add_shape(mat, new mesh_box(vec3(25, 2, 1)), materialSelection("green"), false);
 
 
-
-		//load_configuration_file();
+		// Call to the method to load the configuration file
+		load_configuration_file();
 
 
 
@@ -272,6 +272,7 @@ namespace octet {
 				material *sphereMaterial = materialSelection(colour);
 
 				// We add the object to the scene now
+				mat.loadIdentity();
 				mat.translate(positionVector);
 				// Add sphere to the scene
 				app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), sphereMaterial, true, sphereWeight);
