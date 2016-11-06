@@ -77,5 +77,9 @@ files already implemented.
 # 6. Improvements
 
 No limitation of spheres for hinge constraints and boxes for spring constraints. At the moment all elements contain the same parameters
-in order to be used in any kind of constraints
+in order to be used in any kind of constraints.
+
+Use the input of the keys to move the ball across the pitch of the game. With this basics implemented and a little bit of work a game 
+where you have to move the ball avoiding obstacles (like the boxes with the spring constraint) to enter it in a whole situated randomly
+in the pitch can be done.
 
