@@ -8,7 +8,7 @@ Specifically we needed to implement the following concepts:
  3. Detect collisions
  4. Read from external file
  5. Sound
-
+ 6. Improvements
 
  [Assignment 1]()
 
@@ -42,11 +42,12 @@ the collisions properly, something added later on.
 # 3. Collision Detection
 
 For the collision detection I´ve used the example <a href="http://hamelot.io/programming/using-bullet-only-for-collision-detection/"> here</a> 
-The example is strainght forward and it fixed the overlapping problem had with the spring constraint example.
+The example is strainght forward and it fixed the overlapping problem had with the spring constraint in the step 2 of the assignment.
 
-One of the issues I faced with the collision detection is that having the objects in the ground they generated a collision as well. I didn´t want
+One of the issues I had with the collision detection is that having the objects in the ground they generated a collision as well. I didn´t want
 that collision to be detected so I had to create a new boolean variable in the scene node class to deal with this. When I add the objects to the 
-scene I populate that field depending if I want to detect the collision or not. The only element deactivated are the ground and its boundaries.
+scene I populate that field depending if I want to detect the ground collision or not. The only elements deactivated are the ground and its 
+boundaries.
 
 # 4. READ FROM CSV
 
@@ -54,20 +55,24 @@ One of the requirements was to read from a CSV, text file or similar to input th
 them for the assignment. I decided to use an XML file to put in the game pitch the elements that will be affected by the constraints. 
 In the first Intro to Programming homework I implemented a method to read from this type of file so I´ve re-used that code.
 
-I read the element list (boxes, spheres and cylinders) that contains the shape key values like the position, the speed and the weigth 
-needed in the different kind of constraints implemented in the assignment. I've used the "tinyxml2" library to help me and get all
-the elements in the file, looping through all the single shapes in the list.
+I read the element list (boxes, spheres and cylinders) that contains the key values like the position, the speed and the weigth 
+needed in the different kind of constraints implemented in the homework. In the routine I get all the elements in the file, 
+looping through all the single shapes in the list.
 
 With all the objects retrieved from the XML file I created a list that I used to identify the type of shape. The hinge constraint 
-will be only applied to spheres or spheres and cylinders. The spring constraint could be applied to any kind of object. 
+will be only applied to spheres or spheres and cylinders. The spring constraint could be applied to any kind of object.
 
 # 5. Sound system
 
 One of the most complicated part of including some sound into the assignment was the installation of all the parts needed. Following 
 the steps in this <a href="https://cuboidzone.wordpress.com/2013/07/26/tutorial-implementing-fmod/"> page</a> I´ve created the class 
-with all its elements.
+with all the methods needed.
 
-Next steps is to find a sound for the bouncing of elements and include it with all the assignment already implemented.
+The tutorial in the page was a little bit out of date and things has improved so looking for the specific problems along the way I 
+get to the point at which all the libraries and dll were configured fine but the sound didn´t play throwing an error.
+
+When I finished the whole implementation I found a sound for the collision of elements. I included it with all the assignment 
+files already implemented.
 
 # 6. Improvements
 
