@@ -72,7 +72,7 @@ namespace octet {
 	// Sound variables
 	SoundSystemClass sound;
 	SoundClass soundSample;
-	//FMOD::Channel* bounceChannel;
+	FMOD::Channel* collisionChannel;
 
   public:
     /// this is called when we construct the class before everything is initialised.
@@ -95,7 +95,7 @@ namespace octet {
 		// Initialize sound staff
 		sound = SoundSystemClass();
 		sound.createSound(&soundSample, "bloop_x.wav");
-		//bounceChannel = NULL;
+		collisionChannel = NULL;
 
 		// Sound taken from here
 		// http://www.wavsource.com/sfx/sfx.htm
@@ -388,7 +388,12 @@ namespace octet {
 				std::string dist = "Collision between objects at position (" + std::to_string(currentObjA->get_position().x()) + "," + std::to_string(currentObjA->get_position().y()) + "," + std::to_string(currentObjA->get_position().z()) + ") and (" + std::to_string(currentObjB->get_position().x()) + ", " + std::to_string(currentObjB->get_position().y()) + ", " + std::to_string(currentObjB->get_position().z()) + ") " + "\n";
 				printf(dist.c_str());
 
-				sound.playSound(soundSample, false);
+				if (!collisionChannel)
+					collisionChannel = sound.playSound(soundSample, false);
+				//bool isChannelPlaying = false;
+				//collisionChannel->isPlaying(&isChannelPlaying);
+				//if (!isChannelPlaying)
+					//collisionChannel = sound.playSound(soundSample, false);
 			}
 		}
 	}

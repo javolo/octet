@@ -1,5 +1,5 @@
 #undef output 
-#include "fmod.h"
+#include "fmod.hpp"
 #include "fmod_errors.h"
 #define output &scratch_r[bod->getNumDofs()]
 #include <stddef.h>
@@ -47,8 +47,7 @@ namespace octet {
 		FMOD::Channel* playSound(SoundClass pSound, bool bLoop = false) {
 			if (!bLoop)
 				pSound->setMode(FMOD_LOOP_OFF);
-			else
-			{
+			else {
 				pSound->setMode(FMOD_LOOP_NORMAL);
 				pSound->setLoopCount(-1);
 			}
@@ -62,5 +61,5 @@ namespace octet {
 		void releaseSound(SoundClass pSound) {
 			pSound->release();
 		}
-	}
+	};
 }

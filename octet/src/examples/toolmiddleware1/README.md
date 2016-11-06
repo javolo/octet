@@ -7,6 +7,7 @@ Specifically we needed to implement the following concepts:
  2. Spring constraint 
  3. Detect collisions
  4. Read from external file
+ 5. Sound
 
 
  [Assignment 1]()
@@ -18,14 +19,14 @@ physics I´ve followed its documentation <a href="http://bulletphysics.org/Bullet
 Following the official specification I created step by step all the elements involved in the hinge constraint and at the end I´ve joined
 all together. 
 
-Once I have the constraint fully done and I tried to run the program, nothing was happening. I looked on internet about that issue and I 
+Once I have the constraint fully done and I tried to run the program, but nothing was happening. I looked on internet about that issue and I 
 found out that I was missing the addition of the constraint to the bullet physics dynamic world. The scene node class has a variable defined 
 but it wasn´t accesible so I implemented the getter method. Once I did that, added the constraint to the bullet physics world and run the
-programme again the cosntraint was working.
+programme again the constraint was working as expected.
 
 Another problem I faced it´s I couldn´t see properly in the example how the hinge constraint worked. After a few try and error tests I 
-decided to put some weight into one of the objects involved in the constraint. With that fix, using spheres I could see how one of the 
-balls rotated around the other one taking like reference the axis in which the hinge constraint was defined. 
+decided to put some weight into one of the objects involved in the constraint. With that fix, the speed in the other element and using 
+spheres I could see how one of the balls rotated around the other one taking like reference the axis in which the hinge constraint was defined. 
 
 # 2. Spring Constraint
 
@@ -34,9 +35,9 @@ physics library, create a spring constraint was relatively easier job to do. I f
 <a href="http://gamedev.stackexchange.com/questions/54349/what-are-frame-a-and-frame-b-in-btgeneric6dofconstraints-constructor-for">page</a>.
 
 I follow the same steps, create all the elements needed in order to create the constraint looking in the example in case of doubt. I used cubes
-for this example and one of the problems raised was how to position them to clearly see the effect of the spring constraint. After figuring out
-that now the boxes did the spring effect but when collide they overlapped each other. That was consequence of not have implemented the collisions
-properly, something to add later on.
+for this example and one of the problems raised was how to position them to clearly see the effect of the spring constraint. After figuring that 
+out, the boxes showed the spring effect correctly but when collide they overlapped each other. That was consequence of not have implemented 
+the collisions properly, something added later on.
 
 # 3. Collision Detection
 
