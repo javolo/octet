@@ -388,12 +388,8 @@ namespace octet {
 				std::string dist = "Collision between objects at position (" + std::to_string(currentObjA->get_position().x()) + "," + std::to_string(currentObjA->get_position().y()) + "," + std::to_string(currentObjA->get_position().z()) + ") and (" + std::to_string(currentObjB->get_position().x()) + ", " + std::to_string(currentObjB->get_position().y()) + ", " + std::to_string(currentObjB->get_position().z()) + ") " + "\n";
 				printf(dist.c_str());
 
-				if (!collisionChannel)
-					collisionChannel = sound.playSound(soundSample, false);
-				//bool isChannelPlaying = false;
-				//collisionChannel->isPlaying(&isChannelPlaying);
-				//if (!isChannelPlaying)
-					//collisionChannel = sound.playSound(soundSample, false);
+				//if (!collisionChannel)
+					//collisionChannel = sound.playSound(soundSample, false);				
 			}
 		}
 	}
