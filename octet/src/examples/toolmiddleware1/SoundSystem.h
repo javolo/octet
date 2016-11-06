@@ -1,4 +1,5 @@
 #undef output 
+#include <windows.h>
 #include "fmod.hpp"
 #include "fmod_errors.h"
 #define output &scratch_r[bod->getNumDofs()]

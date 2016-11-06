@@ -106,25 +106,25 @@ namespace octet {
 		// Ground
 		mat.loadIdentity();
 		mat.translate(0, -1, 0);
-		app_scene->add_shape(mat, new mesh_box(vec3(25, 1, 25)), materialSelection("green"), false);
+		app_scene->add_shape(mat, new mesh_box(vec3(250, 1, 250)), materialSelection("green"), false);
 		// Border 1 (closest to the camera)
-		mat.loadIdentity();
-		mat.translate(0, 1, 25);
-		app_scene->add_shape(mat, new mesh_box(vec3(25, 2, 1)), materialSelection("green"), false);
-		// Border 2 (farest to the camera)
-		mat.loadIdentity();
-		mat.translate(0, 1, -25);
-		app_scene->add_shape(mat, new mesh_box(vec3(25, 2, 1)), materialSelection("green"), false);
-		// Border 3 (left hand side)
-		mat.loadIdentity();
-		mat.translate(-24, 1, 0);
-		mat.rotateY90();
-		app_scene->add_shape(mat, new mesh_box(vec3(25, 2, 1)), materialSelection("green"), false);
-		// Border 4 (right hand side)
-		mat.loadIdentity();
-		mat.translate(24, 1, 0);
-		mat.rotateY90();
-		app_scene->add_shape(mat, new mesh_box(vec3(25, 2, 1)), materialSelection("green"), false);
+		//mat.loadIdentity();
+		//mat.translate(0, 1, 25);
+		//app_scene->add_shape(mat, new mesh_box(vec3(25, 2, 1)), materialSelection("green"), false);
+		//// Border 2 (farest to the camera)
+		//mat.loadIdentity();
+		//mat.translate(0, 1, -25);
+		//app_scene->add_shape(mat, new mesh_box(vec3(25, 2, 1)), materialSelection("green"), false);
+		//// Border 3 (left hand side)
+		//mat.loadIdentity();
+		//mat.translate(-24, 1, 0);
+		//mat.rotateY90();
+		//app_scene->add_shape(mat, new mesh_box(vec3(25, 2, 1)), materialSelection("green"), false);
+		//// Border 4 (right hand side)
+		//mat.loadIdentity();
+		//mat.translate(24, 1, 0);
+		//mat.rotateY90();
+		//app_scene->add_shape(mat, new mesh_box(vec3(25, 2, 1)), materialSelection("green"), false);
 
 		// Call to the method to load the configuration file
 		load_configuration_file();
@@ -136,11 +136,6 @@ namespace octet {
 		if (boxCounter >= 2) {
 			createSpringConstraint();
 		}
-
-		// Cylinder
-		/*mat.loadIdentity();
-		mat.translate(3, 6, 0);
-		app_scene->add_shape(mat, new mesh_cylinder(zcylinder(vec3(0, 0, 0), 2, 4)), blue, true);*/
 	}
 
 	// Method to select the shape from the elements added to the scene
@@ -266,7 +261,7 @@ namespace octet {
 
 		// Counter of elements in the file
 		// We´ll use that counter to input the elements in the rigid body of the objects added to the scene
-		int counter = 5;
+		int counter = 1;
 
 		// First of all, we generate the file name
 		std::string filename = "ConfigurationFile.xml";
@@ -388,8 +383,12 @@ namespace octet {
 				std::string dist = "Collision between objects at position (" + std::to_string(currentObjA->get_position().x()) + "," + std::to_string(currentObjA->get_position().y()) + "," + std::to_string(currentObjA->get_position().z()) + ") and (" + std::to_string(currentObjB->get_position().x()) + ", " + std::to_string(currentObjB->get_position().y()) + ", " + std::to_string(currentObjB->get_position().z()) + ") " + "\n";
 				printf(dist.c_str());
 
-				//if (!collisionChannel)
-					//collisionChannel = sound.playSound(soundSample, false);				
+				if (!collisionChannel)
+					collisionChannel = sound.playSound(soundSample, false);		
+				bool isChannelPlaying = false;
+				collisionChannel->isPlaying(&isChannelPlaying);
+				if (!isChannelPlaying)
+					collisionChannel = sound.playSound(soundSample, false);
 			}
 		}
 	}
